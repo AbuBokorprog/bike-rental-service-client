@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 const FeaturesBikes = () => {
   return (
     <div>
-      <h3 className="text-xl lg:text-2xl font-semibold my-5 lg:my-10">
+      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10">
         Latest Bikes.
       </h3>
 
@@ -43,7 +43,7 @@ const FeaturesBikes = () => {
           >
             {[1, 2, 3, 4, 5, 6]?.map((b) => (
               <SwiperSlide key={b}>
-                <div className="p-3 border shadow rounded-md">
+                <div className="p-3 border shadow rounded-md bg-white">
                   <img
                     src="https://autobike-light.templaza.net/wp-content/uploads/2023/04/baptiste-david-XfbjTaxSnuw-unsplash.jpg"
                     alt=""

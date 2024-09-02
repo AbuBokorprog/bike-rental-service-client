@@ -3,12 +3,12 @@ import React from "react";
 const WhyChooseUs = () => {
   return (
     <div>
-      <h3 className="text-xl lg:text-2xl font-semibold my-5 lg:my-10">
+      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10">
         Why to rent our bike.
       </h3>
       <div className="grid grid-cols-1 lg:grid-cols-3 mx-auto items-center justify-between">
         <div>
-          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-1">
+          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-1 bg-white p-3 rounded-md shadow">
             <div>
               <img
                 src="https://cdn-icons-png.flaticon.com/128/16303/16303627.png"
@@ -24,7 +24,7 @@ const WhyChooseUs = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3">
+          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3 bg-white p-3 rounded-md shadow">
             <div>
               <img
                 src="/src/assets/images/star.png"
@@ -49,7 +49,7 @@ const WhyChooseUs = () => {
           />
         </div>
         <div>
-          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-1">
+          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-1 bg-white p-3 rounded-md shadow">
             <div>
               <img
                 src="/src/assets/images/clock.png"
@@ -65,7 +65,7 @@ const WhyChooseUs = () => {
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3">
+          <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3 bg-white p-3 rounded-md shadow">
             <div>
               <img
                 src="/src/assets/images/protection.png"

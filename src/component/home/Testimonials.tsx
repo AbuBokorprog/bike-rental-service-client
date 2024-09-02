@@ -7,7 +7,7 @@ import React from "react";
 const Testimonials = () => {
   return (
     <div>
-      <h3 className="text-xl lg:text-2xl font-semibold my-5 lg:my-10">
+      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10">
         What Clients Say about Us.
       </h3>
 
@@ -38,7 +38,7 @@ const Testimonials = () => {
         >
           {[1, 2, 3, 4, 5, 6]?.map((b) => (
             <SwiperSlide key={b}>
-              <div className="p-5 border shadow rounded-md">
+              <div className="p-5 border shadow-md rounded-md bg-white">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
                 quod illum laborum voluptatum ea dignissimos. Dolor illo
                 architecto optio est alias. Quaerat dolor distinctio deleniti!

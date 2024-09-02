@@ -5,7 +5,7 @@ import HowToRent from "../component/home/HowToRent";
 import WhyChooseUs from "../component/home/WhyChooseUs";
 import Testimonials from "../component/home/Testimonials";
 import CouponsDiscount from "../component/home/CouponsDiscount";
-import Contacts from "../component/home/Contacts";
+import ContactForm from "../component/home/ContactForm";
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
       <WhyChooseUs />
       <Testimonials />
       <CouponsDiscount />
-      <Contacts />
+      <ContactForm />
     </div>
   );
 };
