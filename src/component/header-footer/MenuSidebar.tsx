@@ -75,12 +75,6 @@ const MenuSidebar = ({
         ref={sidebarRef}
       >
         <div className="h-full px-3 py-4 overflow-y-auto bg-secondary-50 shadow-2xl">
-          <Link to={"/"} className="mx-auto">
-            <img
-              src="https://super-admin.tidybaskets.com/setting/1717849074.png"
-              alt=""
-            />
-          </Link>
           <div className="flex items-center justify-between my-2">
             <h3 className="text-xl font-medium my-4">Menu</h3>
             <Button variant="text" onClick={() => setIsOpen(false)}>

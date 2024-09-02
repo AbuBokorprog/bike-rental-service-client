@@ -7,7 +7,9 @@ const Main: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <Outlet />
+      <div className="container mx-auto px-2 lg:px-0">
+        <Outlet />
+      </div>
       <Footer />
     </div>
   );
