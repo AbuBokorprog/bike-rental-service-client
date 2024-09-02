@@ -47,11 +47,12 @@ const FeaturesBikes = () => {
                   <img
                     src="https://autobike-light.templaza.net/wp-content/uploads/2023/04/baptiste-david-XfbjTaxSnuw-unsplash.jpg"
                     alt=""
+                    className="rounded-md"
                   />
                   <div>
                     <h3 className="text-bold text-xl">Kawasaki KLR 650</h3>
                   </div>
-                  <div className="grid grid-cols-2 items-center justify-between my-4">
+                  <div className="grid grid-cols-2 items-center justify-center my-4">
                     <div className="flex items-center gap-2 mx-auto">
                       <TwoWheelerIcon color="primary" />
                       <div>
@@ -98,7 +99,9 @@ const FeaturesBikes = () => {
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="flex items-center gap-1">
-                        <p className="text-lg font-semibold">120 TK.</p>
+                        <p className="text-lg font-semibold text-primary-500">
+                          120 TK.
+                        </p>
                         <p className="text-sm">per Hour</p>
                       </span>
                     </div>

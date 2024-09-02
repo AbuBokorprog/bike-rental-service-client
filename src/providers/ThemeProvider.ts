@@ -3,18 +3,17 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      "50": "#fef2f4",
-      "100": "#fde6e9",
-      "200": "#fbd0d9",
-      "300": "#f7aab9",
-      "400": "#f27a93",
-      "500": "#e63f66",
-      "600": "#d42a5b",
-      "700": "#b21e4b",
-      "800": "#951c45",
-      "900": "#801b40",
-      // "950": "#470a1f",
-      main: "#e63f66", // main color for primary
+      "50": "#fff1f2",
+      "100": "#ffe4e6",
+      "200": "#fecdd3",
+      "300": "#fda4af",
+      "400": "#fb7185",
+      "500": "#f43f5e",
+      "600": "#e11d48",
+      "700": "#be123c",
+      "800": "#9f1239",
+      "900": "#881337",
+      main: "#f43f5e", // main color for primary
       contrastText: "#ffffff", // text color against primary color
     },
     secondary: {
