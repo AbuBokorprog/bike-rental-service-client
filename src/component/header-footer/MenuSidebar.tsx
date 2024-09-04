@@ -74,9 +74,9 @@ const MenuSidebar = ({
         className={`lg:hidden fixed top-0 left-0 w-64 h-screen z-50 `}
         ref={sidebarRef}
       >
-        <div className="h-full px-3 py-4 overflow-y-auto bg-secondary-50 shadow-2xl">
-          <div className="flex items-center justify-between my-2">
-            <h3 className="text-xl font-medium my-4">Menu</h3>
+        <div className="h-full px-3 pb-4 overflow-y-auto bg-secondary-50 shadow-2xl">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-semibold my-4">Menu</h3>
             <Button variant="text" onClick={() => setIsOpen(false)}>
               <CancelIcon />
             </Button>

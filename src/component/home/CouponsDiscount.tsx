@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "@mui/material";
-import Roulette from "../Roulette";
+// import Roulette from "../Roulette";
 
 const coupons = [
   {
@@ -18,7 +18,7 @@ const coupons = [
   // Add more coupons as needed
 ];
 
-const CouponsDiscounts = () => {
+const CouponsDiscounts: React.FC = () => {
   return (
     <section className=" py-10">
       <div className=" mx-auto">
@@ -51,7 +51,7 @@ const CouponsDiscounts = () => {
             Spin the Wheel
           </Button>
         </div> */}
-        <Roulette />
+        {/* <Roulette /> */}
       </div>
     </section>
   );
