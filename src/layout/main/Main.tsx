@@ -5,9 +5,9 @@ import Footer from "../../component/header-footer/Footer";
 
 const Main: React.FC = () => {
   return (
-    <div>
+    <div className="px-2 lg:px-10">
       <Navbar />
-      <div className="container mx-auto px-2 lg:px-0">
+      <div className="container mx-auto">
         <Outlet />
       </div>
       <Footer />
