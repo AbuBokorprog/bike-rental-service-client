@@ -18,7 +18,7 @@ const coupons = [
   // Add more coupons as needed
 ];
 
-const CouponsDiscounts = () => {
+const CouponsDiscounts: React.FC = () => {
   return (
     <section className=" py-10">
       <div className=" mx-auto">

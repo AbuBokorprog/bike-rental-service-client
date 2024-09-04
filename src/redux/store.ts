@@ -3,7 +3,7 @@ import authReducer from "./features/auth-slice/AuthSlice";
 import { baseApi } from "./features/api/BaseApi";
 export const store = configureStore({
   reducer: {
-    counter: authReducer,
+    auth: authReducer,
 
     [baseApi.reducerPath]: baseApi.reducer,
   },
