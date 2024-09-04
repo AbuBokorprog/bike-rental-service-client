@@ -3,7 +3,11 @@ import React from "react";
 const About = () => {
   return (
     <div>
-      <img src="/src/assets/images/banner.png" alt="" className="h-96 w-full" />
+      <img
+        src="/src/assets/images/banner-4.png"
+        alt=""
+        className="rounded-md"
+      />
     </div>
   );
 };

@@ -13,7 +13,7 @@ const theme = createTheme({
       "700": "#be123c",
       "800": "#9f1239",
       "900": "#881337",
-      main: "#f43f5e", // main color for primary
+      main: "#e11d48", // main color for primary
       contrastText: "#ffffff", // text color against primary color
     },
     secondary: {

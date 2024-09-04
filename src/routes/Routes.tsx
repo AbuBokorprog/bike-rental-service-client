@@ -6,6 +6,7 @@ import AllBikes from "../pages/bikes/AllBikes";
 import BikeDetails from "../pages/bikes/BikeDetails";
 import CategoriesBikes from "../pages/bikes/CategoriesBikes";
 import About from "../pages/About";
+import Playground from "../pages/Playground";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/playground",
+        element: <Playground />,
       },
     ],
   },

@@ -50,9 +50,11 @@ const FeaturesBikes = () => {
                     className="rounded-md"
                   />
                   <div>
-                    <h3 className="text-bold text-xl">Kawasaki KLR 650</h3>
+                    <h3 className="font-bold text-xl h-10 mt-2">
+                      Kawasaki KLR 650
+                    </h3>
                   </div>
-                  <div className="grid grid-cols-2 items-center justify-center my-4">
+                  <div className="grid grid-cols-2 items-center justify-start my-4">
                     <div className="flex items-center gap-2 mx-auto">
                       <TwoWheelerIcon color="primary" />
                       <div>
