@@ -27,7 +27,6 @@ const Navbar = () => {
     { name: "Home", href: "/", current: true },
     { name: "Bikes", href: "/bikes", current: false },
     { name: "About", href: "/about", current: false },
-    { name: "Contact", href: "#", current: false },
   ];
 
   const secondaryItems = [

@@ -3,6 +3,7 @@ import React from "react";
 import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
 import { Link } from "react-router-dom";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BikeComponent = ({ bikes }) => {
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 items-center gap-5 lg:gap-10">
