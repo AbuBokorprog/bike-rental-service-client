@@ -20,19 +20,20 @@ import ElectricBikeIcon from "@mui/icons-material/ElectricBike";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-// const userItems = [
-//   { text: "Home", icon: <HomeIcon />, path: "/" },
-//   { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
-//   {
-//     text: "User Management",
-//     icon: <PeopleIcon />,
-//     children: [
-//       { text: "All Users", icon: <PeopleIcon />, path: "/dashboard/users" },
-//       { text: "Roles", icon: <PeopleIcon />, path: "/dashboard/roles" },
-//     ],
-//   },
-//   { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
-// ];
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const userItems = [
+  { text: "Home", icon: <HomeIcon />, path: "/" },
+  { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
+  {
+    text: "User Management",
+    icon: <PeopleIcon />,
+    children: [
+      { text: "All Users", icon: <PeopleIcon />, path: "/dashboard/users" },
+      { text: "Roles", icon: <PeopleIcon />, path: "/dashboard/roles" },
+    ],
+  },
+  { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
+];
 
 const adminMenuItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/admin" },
@@ -54,12 +55,12 @@ const adminMenuItems = [
     children: [
       {
         text: "All Bikes",
-        icon: <PeopleIcon />,
+        icon: <ElectricBikeIcon />,
         path: "/dashboard/admin/bikes",
       },
       {
         text: "Add Bike",
-        icon: <PeopleIcon />,
+        icon: <ElectricBikeIcon />,
         path: "/dashboard/admin/add-user",
       },
     ],
@@ -69,14 +70,14 @@ const adminMenuItems = [
 
 export const Sidebar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const [parentItem, setParentItems] = useState();
+  const [parentItem, setParentItems] = useState<string>("");
 
   const toggleSidebar = () => {
     setOpen(!open);
   };
 
   const toggleSubMenu = (text: string) => {
-    setParentItems((prev) => ({ ...prev, [text]: !prev[text] }));
+    setParentItems(text);
   };
 
   return (
@@ -134,7 +135,7 @@ export const Sidebar: React.FC = () => {
                     </ListItem>
                   </div>
                   <Collapse
-                    in={parentItem && parentItem[item?.text]}
+                    in={item.text === parentItem}
                     timeout="auto"
                     unmountOnExit
                   >
@@ -195,7 +196,7 @@ export const Sidebar: React.FC = () => {
                     </ListItem>
                   </div>
                   <Collapse
-                    in={parentItem && parentItem[item?.text]}
+                    in={parentItem === item.text}
                     timeout="auto"
                     unmountOnExit
                   >
