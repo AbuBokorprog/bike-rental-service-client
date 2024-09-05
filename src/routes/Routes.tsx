@@ -9,6 +9,9 @@ import About from "../pages/About";
 import Playground from "../pages/Playground";
 import Dashboard from "../layout/dashboard/Dashboard";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import Login from "../pages/auth/Login";
+import Registration from "../pages/auth/Registration";
+import UserDashboard from "../pages/user/UserDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +40,14 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/registration",
+        element: <Registration />,
+      },
+      {
         path: "/playground",
         element: <Playground />,
       },
@@ -50,6 +61,17 @@ export const router = createBrowserRouter([
       {
         path: "admin",
         element: <AdminDashboard />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    errorElement: <Error />,
+    element: <Dashboard />,
+    children: [
+      {
+        path: "user",
+        element: <UserDashboard />,
       },
     ],
   },

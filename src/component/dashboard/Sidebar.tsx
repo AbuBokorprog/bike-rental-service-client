@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import {
+  Button,
   Collapse,
+  Divider,
   Drawer,
   IconButton,
   List,
@@ -9,6 +11,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
@@ -22,8 +26,7 @@ import { Link } from "react-router-dom";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const userItems = [
-  { text: "Home", icon: <HomeIcon />, path: "/" },
-  { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
+  { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/user" },
   {
     text: "User Management",
     icon: <PeopleIcon />,
@@ -32,7 +35,6 @@ const userItems = [
       { text: "Roles", icon: <PeopleIcon />, path: "/dashboard/roles" },
     ],
   },
-  { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
 ];
 
 const adminMenuItems = [
@@ -65,7 +67,6 @@ const adminMenuItems = [
       },
     ],
   },
-  { text: "Settings", icon: <SettingsIcon />, path: "/settings" },
 ];
 
 export const Sidebar: React.FC = () => {
@@ -160,6 +161,29 @@ export const Sidebar: React.FC = () => {
               )}
             </div>
           ))}
+          <Divider />
+          <Link to={"/"}>
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText>Home</ListItemText>
+            </ListItem>
+          </Link>
+          <Link to={"/login"}>
+            <ListItem button>
+              <ListItemIcon>
+                <LoginIcon />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItem>
+          </Link>
+          <ListItem button>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </ListItem>
         </List>
       </Drawer>
 
@@ -221,6 +245,29 @@ export const Sidebar: React.FC = () => {
               )}
             </div>
           ))}
+          <Divider />
+          <Link to={"/"}>
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText>Home</ListItemText>
+            </ListItem>
+          </Link>
+          <Link to={"/login"}>
+            <ListItem button>
+              <ListItemIcon>
+                <LoginIcon />
+              </ListItemIcon>
+              <ListItemText>Login</ListItemText>
+            </ListItem>
+          </Link>
+          <ListItem button>
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </ListItem>
         </List>
       </div>
     </>

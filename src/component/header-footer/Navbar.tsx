@@ -30,7 +30,12 @@ const Navbar = () => {
     { name: "Contact", href: "#", current: false },
   ];
 
-  const secondaryItems = [{ name: "Dashboard", href: "/dashboard/admin" }];
+  const secondaryItems = [
+    { name: "Dashboard", href: "/dashboard/admin" },
+    { name: "Login", href: "/login" },
+    { name: "Registration", href: "/registration" },
+    // { name: "Dashboard", href: "/dashboard/admin" },
+  ];
 
   return (
     <div>
