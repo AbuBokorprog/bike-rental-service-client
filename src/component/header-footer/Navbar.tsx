@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import MenuSidebar from "./MenuSidebar";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
@@ -29,12 +30,14 @@ const Navbar = () => {
     { name: "Contact", href: "#", current: false },
   ];
 
+  const secondaryItems = [{ name: "Dashboard", href: "/dashboard/admin" }];
+
   return (
     <div>
       <nav className="bg-white border-secondary-200 dark:bg-secondary-900 fixed top-0 right-0 left-0 z-50">
         <div className="container flex flex-wrap items-center justify-between mx-auto p-4">
-          <a
-            href="https://flowbite.com/"
+          <Link
+            to="https://flowbite.com/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
@@ -45,7 +48,7 @@ const Navbar = () => {
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               RentMyRide
             </span>
-          </a>
+          </Link>
 
           <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <div className="relative" ref={dropdownRef}>
@@ -75,18 +78,16 @@ const Navbar = () => {
                     </span>
                   </div>
                   <ul className="py-2" aria-labelledby="user-menu-button">
-                    {["Dashboard", "Settings", "Earnings", "Sign out"].map(
-                      (item) => (
-                        <li key={item}>
-                          <a
-                            href="#"
-                            className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:hover:bg-secondary-600 dark:text-secondary-200 dark:hover:text-white"
-                          >
-                            {item}
-                          </a>
-                        </li>
-                      )
-                    )}
+                    {secondaryItems.map((item, index) => (
+                      <li key={index}>
+                        <Link
+                          to={item.href}
+                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:hover:bg-secondary-600 dark:text-secondary-200 dark:hover:text-white"
+                        >
+                          {item.name}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               )}
@@ -121,8 +122,8 @@ const Navbar = () => {
             <ul className="flex flex-row font-medium p-0 space-x-8 rtl:space-x-reverse mt-0 border-0 bg-white dark:bg-secondary-900">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className={`block py-2 px-3 ${
                       item.current
                         ? "text-primary-700 dark:text-primary-500"
@@ -131,7 +132,7 @@ const Navbar = () => {
                     aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

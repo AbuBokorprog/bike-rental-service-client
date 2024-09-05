@@ -7,6 +7,8 @@ import BikeDetails from "../pages/bikes/BikeDetails";
 import CategoriesBikes from "../pages/bikes/CategoriesBikes";
 import About from "../pages/About";
 import Playground from "../pages/Playground";
+import Dashboard from "../layout/dashboard/Dashboard";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,17 @@ export const router = createBrowserRouter([
       {
         path: "/playground",
         element: <Playground />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    errorElement: <Error />,
+    element: <Dashboard />,
+    children: [
+      {
+        path: "admin",
+        element: <AdminDashboard />,
       },
     ],
   },
