@@ -75,7 +75,7 @@ const Login: React.FC = () => {
               to={"/registration"}
               className="text-primary-500 hover:underline"
             >
-              Sign up
+              Register
             </Link>
           </p>
         </div>
