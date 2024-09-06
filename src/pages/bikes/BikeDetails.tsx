@@ -1,17 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import BikeComponent from "../../component/bikes/BikeComponent";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import {
-  Accordion,
-  AccordionActions,
-  AccordionDetails,
-  AccordionSummary,
-  Button,
-} from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import BikeProcessModal from "../../component/BikeProcessModal";
 
 const BikeDetails = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const images = [
     {
       original: "https://picsum.photos/id/1018/1000/600/",
@@ -86,9 +85,7 @@ const BikeDetails = () => {
               </p>
             </div>
             <div className="mt-4">
-              <Button variant="contained" color="primary" className="w-full">
-                Add to Cart
-              </Button>
+              <BikeProcessModal id="1" />
             </div>
           </div>
           <div className="my-3 lg:my-6">

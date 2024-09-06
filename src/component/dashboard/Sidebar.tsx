@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import {
-  Button,
   Collapse,
   Divider,
   Drawer,
@@ -17,7 +16,7 @@ import {
   Menu as MenuIcon,
   Home as HomeIcon,
   Dashboard as DashboardIcon,
-  Settings as SettingsIcon,
+  // Settings as SettingsIcon,
   People as PeopleIcon,
 } from "@mui/icons-material";
 import ElectricBikeIcon from "@mui/icons-material/ElectricBike";
@@ -28,11 +27,14 @@ import { Link } from "react-router-dom";
 const userItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/user" },
   {
-    text: "User Management",
+    text: "Rental Management",
     icon: <PeopleIcon />,
     children: [
-      { text: "All Users", icon: <PeopleIcon />, path: "/dashboard/users" },
-      { text: "Roles", icon: <PeopleIcon />, path: "/dashboard/roles" },
+      {
+        text: "My Rentals",
+        icon: <PeopleIcon />,
+        path: "/dashboard/user/my-rentals",
+      },
     ],
   },
 ];
@@ -46,9 +48,8 @@ const adminMenuItems = [
       {
         text: "All Users",
         icon: <PeopleIcon />,
-        path: "/dashboard/admin/users",
+        path: "/dashboard/admin/all-users",
       },
-      { text: "Roles", icon: <PeopleIcon />, path: "/dashboard/admin/roles" },
     ],
   },
   {
@@ -58,12 +59,23 @@ const adminMenuItems = [
       {
         text: "All Bikes",
         icon: <ElectricBikeIcon />,
-        path: "/dashboard/admin/bikes",
+        path: "/dashboard/admin/all-bikes",
       },
       {
         text: "Add Bike",
         icon: <ElectricBikeIcon />,
-        path: "/dashboard/admin/add-user",
+        path: "/dashboard/admin/create-bike",
+      },
+    ],
+  },
+  {
+    text: "Rental Management",
+    icon: <ElectricBikeIcon />,
+    children: [
+      {
+        text: "Rental Bikes",
+        icon: <ElectricBikeIcon />,
+        path: "/dashboard/admin/rental-bikes",
       },
     ],
   },

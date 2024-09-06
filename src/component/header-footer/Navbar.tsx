@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import MenuSidebar from "./MenuSidebar";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
@@ -126,17 +126,17 @@ const Navbar = () => {
             <ul className="flex flex-row font-medium p-0 space-x-8 rtl:space-x-reverse mt-0 border-0 bg-white dark:bg-secondary-900">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link
+                  <NavLink
                     to={item.href}
-                    className={`block py-2 px-3 ${
-                      item.current
-                        ? "text-primary-700 dark:text-primary-500"
-                        : "text-secondary-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500"
-                    }`}
+                    className={({ isActive }) =>
+                      isActive
+                        ? "text-primary-700 dark:text-primary-500 block py-2 px-3"
+                        : "text-secondary-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500 block py-2 px-3"
+                    }
                     aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
-                  </Link>
+                  </NavLink>
                 </li>
               ))}
             </ul>
