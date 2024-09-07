@@ -1,8 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import MenuSidebar from "./MenuSidebar";
 import { Link, NavLink } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/features/auth/AuthSlice";
+import { toast } from "sonner";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -32,9 +37,15 @@ const Navbar = () => {
   const secondaryItems = [
     { name: "Dashboard", href: "/dashboard/admin" },
     { name: "Login", href: "/login" },
-    { name: "Registration", href: "/registration" },
     // { name: "Dashboard", href: "/dashboard/admin" },
   ];
+
+  // logout handler
+  const logoutHandler = () => {
+    console.log("logout");
+    toast.success("Logout successfully!");
+    dispatch(logout());
+  };
 
   return (
     <div>
@@ -93,6 +104,14 @@ const Navbar = () => {
                       </li>
                     ))}
                   </ul>
+                  <Button
+                    onClick={() => logoutHandler()}
+                    variant="outlined"
+                    color="inherit"
+                    className="w-full"
+                  >
+                    Logout
+                  </Button>
                 </div>
               )}
             </div>
