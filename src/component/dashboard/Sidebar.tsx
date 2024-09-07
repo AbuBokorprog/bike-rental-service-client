@@ -57,6 +57,22 @@ const adminMenuItems = [
     ],
   },
   {
+    text: "Types Management",
+    icon: <ElectricBikeIcon />,
+    children: [
+      {
+        text: "All Types",
+        icon: <ElectricBikeIcon />,
+        path: "/dashboard/admin/all-types",
+      },
+      {
+        text: "Add Types",
+        icon: <ElectricBikeIcon />,
+        path: "/dashboard/admin/create-type",
+      },
+    ],
+  },
+  {
     text: "Bike Management",
     icon: <ElectricBikeIcon />,
     children: [

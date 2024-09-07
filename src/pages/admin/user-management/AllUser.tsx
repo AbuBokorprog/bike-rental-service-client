@@ -37,7 +37,6 @@ const columns: readonly Column[] = [
     label: "Address",
     minWidth: 170,
     align: "left",
-    // format: (value: number) => value.toLocaleString("en-US"),
   },
   {
     id: "role",
@@ -59,6 +58,10 @@ const AllUser = () => {
   const { data } = useGetAllUsersQuery(undefined);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  let count = 0;
+  if (data?.data) {
+    count = Number(data?.data?.length?.toFixed());
+  }
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -82,6 +85,7 @@ const AllUser = () => {
       // API call or state update to change role
     }
   };
+
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
       <h1 className="text-2xl font-bold text-center">All users</h1>
@@ -151,7 +155,7 @@ const AllUser = () => {
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={Number(data?.data?.length)}
+          count={count}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

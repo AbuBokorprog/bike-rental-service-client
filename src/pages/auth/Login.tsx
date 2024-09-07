@@ -52,7 +52,7 @@ const Login: React.FC = () => {
         navigate("/");
       }
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       toast.error("Something went wrong!", { id: toastId, duration: 2000 });
     }
     reset();

@@ -18,6 +18,8 @@ import RentalBikes from "../pages/admin/rental-management/RentalBikes";
 import AllUser from "../pages/admin/user-management/AllUser";
 import MyRentals from "../pages/user/rental-management/MyRentals";
 import ProtectedRoute from "../providers/ProtectedRoute";
+import CreateTypes from "../pages/admin/types-management/CreateTypes";
+import AllTypes from "../pages/admin/types-management/AllTypes";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +77,14 @@ export const router = createBrowserRouter([
       {
         path: "admin/all-users",
         element: <AllUser />,
+      },
+      {
+        path: "admin/all-types",
+        element: <AllTypes />,
+      },
+      {
+        path: "admin/create-type",
+        element: <CreateTypes />,
       },
       {
         path: "admin/all-bikes",
