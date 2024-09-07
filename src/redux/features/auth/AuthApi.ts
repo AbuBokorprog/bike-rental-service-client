@@ -8,6 +8,7 @@ export const AuthApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["user"],
     }),
     authRegister: builder.mutation({
       query: ({ data }) => ({
@@ -15,6 +16,7 @@ export const AuthApi = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["user"],
     }),
   }),
 });

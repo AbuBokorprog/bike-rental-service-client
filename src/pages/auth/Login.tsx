@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Controller,
   FieldValues,
@@ -18,6 +18,10 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [userLogin] = useAuthLoginMutation();
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { handleSubmit, control, reset } = useForm();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -25,17 +29,17 @@ const Login: React.FC = () => {
 
     try {
       const res = await userLogin(data).unwrap();
-      console.log(res);
+
       if (res?.success) {
         const user = JWTDecode(res?.data?.token);
-        console.log(user);
+
         dispatch(login({ user: user, token: res?.data?.token }));
 
         toast.success(res.message, { id: toastId, duration: 2000 });
         navigate("/");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error("Something went wrong!", { id: toastId, duration: 2000 });
     }
     reset();

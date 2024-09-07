@@ -22,6 +22,10 @@ import {
 import ElectricBikeIcon from "@mui/icons-material/ElectricBike";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { currentToken } from "../../redux/store";
+import { JWTDecode } from "../../utils/JWTDecode";
+import { TUser } from "../../redux/features/auth/AuthSlice";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const userItems = [
@@ -82,8 +86,22 @@ const adminMenuItems = [
 ];
 
 export const Sidebar: React.FC = () => {
+  const token = useAppSelector(currentToken);
   const [open, setOpen] = useState<boolean>(false);
   const [parentItem, setParentItems] = useState<string>("");
+
+  let role;
+  let menuItems;
+  if (token) {
+    const user = JWTDecode(token);
+    role = (user as TUser)?.role;
+  }
+
+  if (role === "user") {
+    menuItems = userItems;
+  } else {
+    menuItems = adminMenuItems;
+  }
 
   const toggleSidebar = () => {
     setOpen(!open);
@@ -123,7 +141,7 @@ export const Sidebar: React.FC = () => {
           </IconButton>
         </div>
         <List className="mt-4">
-          {adminMenuItems.map((item, index) => (
+          {menuItems.map((item, index) => (
             <div key={item.text}>
               {!item.children ? (
                 <Link to={item.path}>
@@ -207,7 +225,7 @@ export const Sidebar: React.FC = () => {
           </h1>
         </div>
         <List className="mt-4">
-          {adminMenuItems.map((item, index) => (
+          {menuItems.map((item, index) => (
             <div key={item.text}>
               {!item.children ? (
                 <Link to={item.path}>

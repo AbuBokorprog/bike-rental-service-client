@@ -17,6 +17,7 @@ import CreateBike from "../pages/admin/bike-management/CreateBike";
 import RentalBikes from "../pages/admin/rental-management/RentalBikes";
 import AllUser from "../pages/admin/user-management/AllUser";
 import MyRentals from "../pages/user/rental-management/MyRentals";
+import ProtectedRoute from "../providers/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -61,7 +62,11 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     errorElement: <Error />,
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute role={["admin", "super-admin"]}>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "admin",
@@ -88,7 +93,11 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     errorElement: <Error />,
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute role={["user"]}>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "user",

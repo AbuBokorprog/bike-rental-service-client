@@ -3,15 +3,15 @@ import { JWTDecode } from "../utils/JWTDecode";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/hooks";
 import { currentToken } from "../redux/store";
 import { logout, TUser } from "../redux/features/auth/AuthSlice";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type TReactProps = {
   children: ReactNode;
-  role: undefined | string;
+  role: undefined | string[] | string;
 };
 
 const ProtectedRoute = ({ children, role }: TReactProps) => {
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
   const token = useAppSelector(currentToken);
 
   let user;
@@ -22,15 +22,20 @@ const ProtectedRoute = ({ children, role }: TReactProps) => {
 
   const dispatch = useAppDispatch();
 
-  if (role !== undefined && role !== (user as TUser)?.role) {
+  if (
+    role?.length &&
+    user &&
+    (user as TUser).role &&
+    !role.includes((user as TUser).role)
+  ) {
     dispatch(logout());
-    Navigate("/login");
+    return <Navigate to={"/"} replace />;
   }
   if (!token) {
-    Navigate("/login");
+    return <Navigate to={"/"} replace />;
   }
 
-  return { children };
+  return children;
 };
 
 export default ProtectedRoute;

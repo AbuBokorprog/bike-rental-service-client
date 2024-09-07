@@ -1,13 +1,27 @@
 import React, { useState, useRef, useEffect } from "react";
 import MenuSidebar from "./MenuSidebar";
 import { Link, NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Avatar, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux/features/auth/AuthSlice";
+import { logout, TUser } from "../../redux/features/auth/AuthSlice";
 import { toast } from "sonner";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { currentToken } from "../../redux/store";
+import { JWTDecode } from "../../utils/JWTDecode";
+import { useGetProfileInfoQuery } from "../../redux/features/user/User";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const token = useAppSelector(currentToken);
+  let role = "user";
+
+  if (token) {
+    const user = JWTDecode(token);
+    role = (user as TUser)?.role as string;
+  }
+
+  const { data } = useGetProfileInfoQuery({ undefined });
+
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -35,16 +49,17 @@ const Navbar = () => {
   ];
 
   const secondaryItems = [
-    { name: "Dashboard", href: "/dashboard/admin" },
+    { name: "Dashboard", href: `/dashboard/${role}` },
     { name: "Login", href: "/login" },
     // { name: "Dashboard", href: "/dashboard/admin" },
   ];
 
   // logout handler
   const logoutHandler = () => {
-    console.log("logout");
-    toast.success("Logout successfully!");
-    dispatch(logout());
+    if (token) {
+      dispatch(logout());
+      toast.success("Logout successfully!");
+    }
   };
 
   return (
@@ -75,29 +90,37 @@ const Navbar = () => {
                 aria-expanded={isOpenDashboard}
               >
                 <span className="sr-only">Open user menu</span>
-                <img
-                  className="w-8 h-8 rounded-full"
-                  src="/api/placeholder/32/32"
-                  alt="user photo"
-                />
+                {token ? (
+                  <Avatar
+                    // className="w-8 h-8 rounded-full"
+                    src={data?.data[0]?.image}
+                    alt="user photo"
+                  />
+                ) : (
+                  <Avatar alt="User" />
+                )}
               </button>
 
               {isOpenDashboard && (
                 <div className="absolute right-0 z-50 mt-2 w-48 text-base list-none bg-white divide-y divide-secondary-100 rounded-lg shadow dark:bg-secondary-700 dark:divide-secondary-600">
-                  <div className="px-4 py-3">
-                    <span className="block text-sm text-secondary-900 dark:text-white">
-                      Bonnie Green
-                    </span>
-                    <span className="block text-sm text-secondary-500 truncate dark:text-secondary-400">
-                      name@flowbite.com
-                    </span>
-                  </div>
+                  {token && (
+                    <div className="px-4 py-3">
+                      <span className="block text-sm text-secondary-900 dark:text-white">
+                        {data?.data[0]?.name}
+                      </span>
+                      <span className="block text-sm text-secondary-500 truncate dark:text-secondary-400">
+                        {data?.data[0]?.email}
+                      </span>
+                    </div>
+                  )}
                   <ul className="py-2" aria-labelledby="user-menu-button">
                     {secondaryItems.map((item, index) => (
                       <li key={index}>
                         <Link
                           to={item.href}
-                          className="block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:hover:bg-secondary-600 dark:text-secondary-200 dark:hover:text-white"
+                          className={`${
+                            !token && item.name === "Dashboard" && "hidden"
+                          } block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:hover:bg-secondary-600 dark:text-secondary-200 dark:hover:text-white`}
                         >
                           {item.name}
                         </Link>
@@ -164,7 +187,11 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Sidebar */}
-      <MenuSidebar isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
+      <MenuSidebar
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
+        logout={logoutHandler}
+      />
     </div>
   );
 };

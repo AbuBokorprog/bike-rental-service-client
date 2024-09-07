@@ -8,9 +8,11 @@ import { Button } from "@mui/material";
 const MenuSidebar = ({
   isOpen,
   setIsOpen,
+  logout,
 }: {
   isOpen: boolean;
   setIsOpen: boolean;
+  logout: () => void;
 }) => {
   const sidebarRef = useRef();
 
@@ -93,20 +95,37 @@ const MenuSidebar = ({
             </motion.li>
             <motion.li variants={item}>
               <Link
-                to="/shop"
+                to="/bikes"
                 className="block py-2 px-3 text-secondary-900 border rounded hover:bg-secondary-100 "
               >
-                Products
+                Bikes
               </Link>
             </motion.li>
 
             <motion.li variants={item}>
               <Link
                 to={"/about-us"}
-                className="block py-2 px-3 text-secondary-900 rounded hover:bg-secondary-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 "
+                className="block border py-2 px-3 text-secondary-900 rounded hover:bg-secondary-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 "
               >
                 About
               </Link>
+            </motion.li>
+            <motion.li>
+              <Link
+                to={"/login"}
+                className="block border py-2 px-3 text-secondary-900 rounded hover:bg-secondary-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 "
+              >
+                Login
+              </Link>
+            </motion.li>
+            <motion.li>
+              <Button
+                onClick={() => logout()}
+                variant="outlined"
+                className="w-full"
+              >
+                Logout
+              </Button>
             </motion.li>
           </motion.ul>
         </div>
