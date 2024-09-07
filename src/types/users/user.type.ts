@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type TUser = {
   _id: string;
   name: string;
@@ -10,4 +12,5 @@ export type TUser = {
   createdAt: string;
   updatedAt: string;
   __v: number;
+  action?: ReactNode;
 };
