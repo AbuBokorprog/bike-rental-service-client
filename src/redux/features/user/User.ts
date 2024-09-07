@@ -1,3 +1,5 @@
+import { TReduxResponse } from "../../../types/global.type";
+import { TUser } from "../../../types/users/user.type";
 import { baseApi } from "../../api/BaseApi";
 
 export const User = baseApi.injectEndpoints({
@@ -15,7 +17,22 @@ export const User = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    getAllUsers: builder.query({
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
+      transformResponse: (response: TReduxResponse<TUser[]>) => {
+        return {
+          data: response.data,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetProfileInfoQuery, useUpdateProfileInfoMutation } = User;
+export const {
+  useGetAllUsersQuery,
+  useGetProfileInfoQuery,
+  useUpdateProfileInfoMutation,
+} = User;
