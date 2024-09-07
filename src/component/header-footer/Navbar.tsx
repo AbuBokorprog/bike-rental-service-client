@@ -18,6 +18,9 @@ const Navbar = () => {
   if (token) {
     const user = JWTDecode(token);
     role = (user as TUser)?.role as string;
+    if (role === "super-admin") {
+      role = "admin";
+    }
   }
 
   const { data } = useGetProfileInfoQuery({ undefined });
