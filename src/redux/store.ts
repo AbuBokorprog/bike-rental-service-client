@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "./features/auth-slice/AuthSlice";
-import { baseApi } from "./features/api/BaseApi";
+import authReducer from "./features/auth/AuthSlice";
+import { baseApi } from "./api/BaseApi";
 import {
   persistStore,
   persistReducer,
@@ -39,3 +39,5 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
+export const currentToken = (state: RootState) => state.auth.token;
+export const currentUser = (state: RootState) => state.auth.user;

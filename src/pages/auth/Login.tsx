@@ -6,14 +6,38 @@ import {
   SubmitHandler,
   useForm,
 } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthLoginMutation } from "../../redux/features/auth/AuthApi";
+import { toast } from "sonner";
+import { useAppDispatch } from "../../redux/hooks/hooks";
+import { JWTDecode } from "../../utils/JWTDecode";
+import { login } from "../../redux/features/auth/AuthSlice";
 
 const Login: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [userLogin] = useAuthLoginMutation();
+
   const { handleSubmit, control, reset } = useForm();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    const toastId = toast.loading("Loading...");
 
+    try {
+      const res = await userLogin(data).unwrap();
+      console.log(res);
+      if (res?.success) {
+        const user = JWTDecode(res?.data?.token);
+        console.log(user);
+        dispatch(login({ user: user, token: res?.data?.token }));
+
+        toast.success(res.message, { id: toastId, duration: 2000 });
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+    }
     reset();
   };
 

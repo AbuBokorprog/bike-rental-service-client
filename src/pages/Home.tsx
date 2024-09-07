@@ -6,8 +6,12 @@ import WhyChooseUs from "../component/home/WhyChooseUs";
 import Testimonials from "../component/home/Testimonials";
 import CouponsDiscount from "../component/home/CouponsDiscount";
 import ContactForm from "../component/home/ContactForm";
+// import { useAppSelector } from "../redux/hooks/hooks";
+// import { currentToken, currentUser } from "../redux/store";
 
 const Home = () => {
+  // const user = useAppSelector(currentToken);
+  // console.log(user);
   return (
     <div>
       <Banner />
