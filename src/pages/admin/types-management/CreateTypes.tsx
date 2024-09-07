@@ -8,9 +8,14 @@ import {
   useForm,
 } from "react-hook-form";
 import { z } from "zod";
+import { useCreateTypesMutation } from "../../../redux/features/types/Types.api";
+import { toast } from "sonner";
 
 const CreateTypes: React.FC = () => {
-  const schema = z.object({});
+  const schema = z.object({
+    name: z.string(),
+    image: z.string(),
+  });
   const {
     handleSubmit,
     control,
@@ -18,9 +23,20 @@ const CreateTypes: React.FC = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  // { resolver: zodResolver() }
+  const [createTypes] = useCreateTypesMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const toastId = toast.loading("Loading...");
+    try {
+      const res = await createTypes(data).unwrap();
+
+      if (res?.success) {
+        toast.success(res.message, { id: toastId, duration: 2000 });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+    }
+
+    reset();
   };
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
