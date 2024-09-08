@@ -19,6 +19,7 @@ export const Types = baseApi.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["types"],
     }),
     updateTypes: builder.mutation({
       query: ({ id, data }) => ({
@@ -26,6 +27,7 @@ export const Types = baseApi.injectEndpoints({
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["types"],
     }),
   }),
 });

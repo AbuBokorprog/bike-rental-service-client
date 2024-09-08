@@ -1,5 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, MenuItem, TextField } from "@mui/material";
+import {
+  Button,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  TextField,
+} from "@mui/material";
 import React from "react";
 import {
   Controller,
@@ -8,75 +15,111 @@ import {
   useForm,
 } from "react-hook-form";
 import { z } from "zod";
+import { useCreateBikeMutation } from "../../../redux/features/bikes/bikes.api";
+import { useGetAllTypesQuery } from "../../../redux/features/types/Types.api";
+import { toast } from "sonner";
 
 const CreateBike: React.FC = () => {
-  const schema = z.object({
-    name: z.string({ required_error: "This is required field" }),
-    description: z.string({ required_error: "This is required field" }),
-    pricePerHour: z.number({ required_error: "This is required field" }),
-    isAvailable: z.boolean().default(true),
-    cc: z.number({ required_error: "This is required field" }),
-    brand: z.string({ required_error: "This is required field" }),
-    model: z.string({ required_error: "This is required field" }),
-    type: z.enum(["mountain", "road", "hybrid", "electric"]),
-    size: z.string({ required_error: "This is required field" }),
-    engine: z.string({ required_error: "This is required field" }),
-    carburetionType: z.string({ required_error: "This is required field" }),
-    engineType: z.string({ required_error: "This is required field" }),
-    emissionControl: z.string({ required_error: "This is required field" }),
-    boreStroke: z.string({ required_error: "This is required field" }),
-    compressionRatio: z.string({ required_error: "This is required field" }),
-    identification: z.string({ required_error: "This is required field" }),
-    warranty: z.string({ required_error: "This is required field" }),
-    introductionYear: z.string({ required_error: "This is required field" }),
-    registrationYear: z.string({ required_error: "This is required field" }),
-    maximumSpeed: z.string({ required_error: "This is required field" }),
-    suspensionFrontType: z.string({ required_error: "This is required field" }),
-    suspensionFrontSize: z.string({ required_error: "This is required field" }),
-    frontTravel: z.string({ required_error: "This is required field" }),
-    suspensionRearType: z.string({ required_error: "This is required field" }),
-    rearTravel: z.string({ required_error: "This is required field" }),
-    brakeFrontType: z.string({ required_error: "This is required field" }),
-    brakeFrontDiameter: z.string({ required_error: "This is required field" }),
-    brakeRearType: z.string({ required_error: "This is required field" }),
-    brakeRearDiameter: z.string({ required_error: "This is required field" }),
-    transmissionType: z.string({ required_error: "This is required field" }),
-    clutchType: z.string({ required_error: "This is required field" }),
-    numberOfSpeeds: z.number({ required_error: "This is required field" }),
-    primaryDrive: z.string({ required_error: "This is required field" }),
-    tractionControl: z.string({ required_error: "This is required field" }),
-    frame: z.string({ required_error: "This is required field" }),
-    length: z.string({ required_error: "This is required field" }),
-    width: z.string({ required_error: "This is required field" }),
-    wheelbase: z.string({ required_error: "This is required field" }),
-    dryWeight: z.string({ required_error: "This is required field" }),
-    wetWeight: z.string({ required_error: "This is required field" }),
-    packagingWeight: z.string({ required_error: "This is required field" }),
-    packagingDimensions: z.string({ required_error: "This is required field" }),
-    gearCount: z.number({ required_error: "This is required field" }),
-    brakeType: z.string({ required_error: "This is required field" }),
-    suspension: z.enum(["front", "rear", "full", "none"]),
-    weight: z.number({ required_error: "This is required field" }),
-    material: z.string({ required_error: "This is required field" }),
-    accessoriesIncluded: z.array(z.string()),
-    condition: z.string({ required_error: "This is required field" }),
-    maintenanceHistory: z.string({ required_error: "This is required field" }),
-    location: z.string({ required_error: "This is required field" }),
-    ageGroup: z.string({ required_error: "This is required field" }).array(),
-    color: z.string({ required_error: "This is required field" }),
-    images: z.string({ required_error: "This is required field" }).array(),
-  });
+  const [suspension, setSuspension] = React.useState("");
+
+  const handleSuspensionChange = (event: SelectChangeEvent) => {
+    setSuspension(event.target.value as string);
+  };
+
+  const [age, setAge] = React.useState("");
+
+  const handleAgeChange = (event: SelectChangeEvent) => {
+    setAge(event.target.value as string);
+  };
+  const [type, setType] = React.useState("");
+
+  const handleTypeChange = (event: SelectChangeEvent) => {
+    setType(event.target.value as string);
+  };
+
+  //get all bike types
+  const { data } = useGetAllTypesQuery(undefined);
+
+  // const schema = z.object({
+  //   name: z.string({ required_error: "This is required field" }),
+  //   description: z.string({ required_error: "This is required field" }),
+  //   pricePerHour: z.string({ required_error: "This is required field" }),
+  //   cc: z.number({ required_error: "This is required field" }),
+  //   brand: z.string({ required_error: "This is required field" }),
+  //   model: z.string({ required_error: "This is required field" }),
+  //   type: z.enum(["mountain", "road", "hybrid", "electric"]),
+  //   size: z.string({ required_error: "This is required field" }),
+  //   engine: z.string({ required_error: "This is required field" }),
+  //   carburetionType: z.string({ required_error: "This is required field" }),
+  //   engineType: z.string({ required_error: "This is required field" }),
+  //   emissionControl: z.string({ required_error: "This is required field" }),
+  //   boreStroke: z.string({ required_error: "This is required field" }),
+  //   compressionRatio: z.string({ required_error: "This is required field" }),
+  //   identification: z.string({ required_error: "This is required field" }),
+  //   introductionYear: z.string({ required_error: "This is required field" }),
+  //   registrationYear: z.string({ required_error: "This is required field" }),
+  //   maximumSpeed: z.string({ required_error: "This is required field" }),
+  //   suspensionFrontType: z.string({ required_error: "This is required field" }),
+  //   suspensionFrontSize: z.string({ required_error: "This is required field" }),
+  //   frontTravel: z.string({ required_error: "This is required field" }),
+  //   suspensionRearType: z.string({ required_error: "This is required field" }),
+  //   rearTravel: z.string({ required_error: "This is required field" }),
+  //   brakeFrontType: z.string({ required_error: "This is required field" }),
+  //   brakeFrontDiameter: z.string({ required_error: "This is required field" }),
+  //   brakeRearType: z.string({ required_error: "This is required field" }),
+  //   brakeRearDiameter: z.string({ required_error: "This is required field" }),
+  //   transmissionType: z.string({ required_error: "This is required field" }),
+  //   clutchType: z.string({ required_error: "This is required field" }),
+  //   numberOfSpeeds: z.number({ required_error: "This is required field" }),
+  //   primaryDrive: z.string({ required_error: "This is required field" }),
+  //   tractionControl: z.string({ required_error: "This is required field" }),
+  //   frame: z.string({ required_error: "This is required field" }),
+  //   length: z.string({ required_error: "This is required field" }),
+  //   width: z.string({ required_error: "This is required field" }),
+  //   wheelbase: z.string({ required_error: "This is required field" }),
+  //   dryWeight: z.string({ required_error: "This is required field" }),
+  //   wetWeight: z.string({ required_error: "This is required field" }),
+  //   packagingWeight: z.string({ required_error: "This is required field" }),
+  //   packagingDimensions: z.string({ required_error: "This is required field" }),
+  //   gearCount: z.number({ required_error: "This is required field" }),
+  //   brakeType: z.string({ required_error: "This is required field" }),
+  //   suspension: z.enum(["front", "rear", "full", "none"]),
+  //   weight: z.number({ required_error: "This is required field" }),
+  //   material: z.string({ required_error: "This is required field" }),
+  //   accessoriesIncluded: z.array(z.string()),
+  //   condition: z.string({ required_error: "This is required field" }),
+  //   ageGroup: z.string({ required_error: "This is required field" }).array(),
+  //   color: z.string({ required_error: "This is required field" }),
+  //   images: z.string({ required_error: "This is required field" }).array(),
+  // });
 
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm();
 
-  // { resolver: zodResolver() }
+  const [createBike] = useCreateBikeMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    const toastId = toast.loading("Loading...");
+    data.images = data.images.split(",");
+    data.type = type;
+    data.ageGroup = age;
+    data.suspension = suspension;
+    Number(data.cc);
+
+    try {
+      const res = await createBike(data).unwrap();
+      if (res?.success) {
+        toast?.success(res?.message, { id: toastId, duration: 2000 });
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+    }
+
+    reset();
   };
 
   return (
@@ -127,6 +170,35 @@ const CreateBike: React.FC = () => {
           </p>
         </div>
 
+        {/* types required */}
+        <div className="my-2">
+          <InputLabel id="type">Types</InputLabel>
+          <Controller
+            control={control}
+            name="type"
+            render={({ field }) => (
+              <Select
+                {...field}
+                label="Type"
+                labelId="typ"
+                value={type}
+                onChange={handleTypeChange}
+                variant="outlined"
+                className="block w-full"
+                error={!!errors.type}
+                // helperText={errors.ageGroup ? "Age Group is required" : ""}
+              >
+                <MenuItem defaultValue={""}>Select Age</MenuItem>
+                {data?.data?.map((t) => (
+                  <MenuItem key={t?._id} value={t?._id}>
+                    {t?.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            )}
+          />
+        </div>
+
         {/* Price Per Hour (Required) */}
         <div className="my-2">
           <Controller
@@ -153,7 +225,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="cc"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -206,7 +277,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="color"
             render={({ field }) => (
               <TextField
@@ -223,7 +293,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="size"
             render={({ field }) => (
               <TextField
@@ -241,7 +310,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="engine"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -257,7 +325,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="carburetionType"
             render={({ field }) => (
               <TextField
@@ -274,7 +341,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="engineType"
             render={({ field }) => (
               <TextField
@@ -292,7 +358,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="emissionControl"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -309,7 +374,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="boreStroke"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -326,7 +390,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="compressionRatio"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -342,7 +405,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="identification"
             render={({ field }) => (
               <TextField
@@ -355,29 +417,11 @@ const CreateBike: React.FC = () => {
           />
         </div>
 
-        {/* Warranty (Optional) */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            rules={{ required: "This is required" }}
-            name="warranty"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Warranty"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
         {/* Introduction Year (Optional) */}
         <div className="my-2">
           <Controller
             control={control}
             name="introductionYear"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -394,7 +438,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="maximumSpeed"
             render={({ field }) => (
               <TextField
@@ -411,7 +454,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="suspensionFrontType"
             render={({ field }) => (
               <TextField
@@ -428,7 +470,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="suspensionRearType"
             render={({ field }) => (
               <TextField
@@ -445,7 +486,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="brakesFront"
             render={({ field }) => (
               <TextField
@@ -462,7 +502,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="brakesRear"
             render={({ field }) => (
               <TextField
@@ -479,7 +518,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="suspensionFrontSize"
             render={({ field }) => (
               <TextField
@@ -496,7 +534,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="frontTravel"
             render={({ field }) => (
               <TextField
@@ -513,7 +550,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="rearTravel"
             render={({ field }) => (
               <TextField
@@ -530,7 +566,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="brakeFrontDiameter"
             render={({ field }) => (
               <TextField
@@ -547,7 +582,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="brakeRearDiameter"
             render={({ field }) => (
               <TextField
@@ -564,7 +598,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="transmissionType"
             render={({ field }) => (
               <TextField
@@ -581,7 +614,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="clutchType"
             render={({ field }) => (
               <TextField
@@ -598,7 +630,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="numberOfSpeeds"
             render={({ field }) => (
               <TextField
@@ -616,7 +647,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="primaryDrive"
             render={({ field }) => (
               <TextField
@@ -633,7 +663,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="tractionControl"
             render={({ field }) => (
               <TextField
@@ -650,7 +679,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="frame"
             render={({ field }) => (
               <TextField
@@ -668,7 +696,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="length"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -685,7 +712,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="width"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -701,7 +727,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="wheelbase"
             render={({ field }) => (
               <TextField
@@ -714,80 +739,11 @@ const CreateBike: React.FC = () => {
           />
         </div>
 
-        {/* Dry Weight */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            rules={{ required: "This is required" }}
-            name="dryWeight"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Dry Weight"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
-        {/* Wet Weight */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            rules={{ required: "This is required" }}
-            name="wetWeight"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Wet Weight"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
-        {/* Packaging Weight */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            name="packagingWeight"
-            rules={{ required: "This is required" }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Packaging Weight"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
-        {/* Packaging Dimensions */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            rules={{ required: "This is required" }}
-            name="packagingDimensions"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Packaging Dimensions"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
         {/* Gear Count */}
         <div className="my-2">
           <Controller
             control={control}
             name="gearCount"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -804,7 +760,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="brakeType"
             render={({ field }) => (
               <TextField
@@ -819,23 +774,26 @@ const CreateBike: React.FC = () => {
 
         {/* Suspension */}
         <div className="my-2">
+          <InputLabel id="suspension">Suspension</InputLabel>
+
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="suspension"
             render={({ field }) => (
-              <TextField
+              <Select
                 {...field}
+                labelId="suspension"
                 label="Suspension"
-                select
                 variant="outlined"
+                value={suspension}
                 className="block w-full"
+                onChange={handleSuspensionChange}
               >
                 <MenuItem value="front">Front</MenuItem>
                 <MenuItem value="rear">Rear</MenuItem>
                 <MenuItem value="full">Full</MenuItem>
                 <MenuItem value="none">None</MenuItem>
-              </TextField>
+              </Select>
             )}
           />
         </div>
@@ -844,7 +802,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="weight"
             render={({ field }) => (
               <TextField
@@ -861,7 +818,6 @@ const CreateBike: React.FC = () => {
         {/* Material */}
         <div className="my-2">
           <Controller
-            rules={{ required: "This is required" }}
             control={control}
             name="material"
             render={({ field }) => (
@@ -879,7 +835,6 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="accessoriesIncluded"
             render={({ field }) => (
               <TextField
@@ -897,7 +852,6 @@ const CreateBike: React.FC = () => {
           <Controller
             control={control}
             name="condition"
-            rules={{ required: "This is required" }}
             render={({ field }) => (
               <TextField
                 {...field}
@@ -909,42 +863,28 @@ const CreateBike: React.FC = () => {
           />
         </div>
 
-        {/* Maintenance History */}
-        <div className="my-2">
-          <Controller
-            control={control}
-            rules={{ required: "This is required" }}
-            name="maintenanceHistory"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Maintenance History"
-                variant="outlined"
-                className="block w-full"
-              />
-            )}
-          />
-        </div>
-
         {/* Age Group */}
         <div className="my-2">
+          <InputLabel id="ageGroup">Age</InputLabel>
           <Controller
             control={control}
-            rules={{ required: "This is required" }}
             name="ageGroup"
             render={({ field }) => (
-              <TextField
+              <Select
                 {...field}
                 label="Age Group"
-                select
+                labelId="ageGroup"
+                value={age}
+                onChange={handleAgeChange}
                 variant="outlined"
                 className="block w-full"
                 error={!!errors.ageGroup}
-                helperText={errors.ageGroup ? "Age Group is required" : ""}
+                // helperText={errors.ageGroup ? "Age Group is required" : ""}
               >
+                <MenuItem defaultValue={""}>Select Age</MenuItem>
                 <MenuItem value="Child">Child</MenuItem>
                 <MenuItem value="Adult">Adult</MenuItem>
-              </TextField>
+              </Select>
             )}
           />
         </div>
@@ -959,12 +899,12 @@ const CreateBike: React.FC = () => {
                 {...field}
                 label="Images (Comma-separated URLs)"
                 variant="outlined"
+                type="text"
                 className="block w-full"
-                error={!!errors.images}
-                helperText={errors.images ? "Images are required" : ""}
+                // error={!!errors.images}
+                // helperText={errors.images ? "Images are required" : ""}
               />
             )}
-            rules={{ required: "This is required" }}
           />
         </div>
 

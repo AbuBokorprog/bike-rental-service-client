@@ -19,11 +19,7 @@ const AllTypes: React.FC = () => {
       <div className="grid grid-cols-2 md:grid-cols-3 gap-5 items-center mx-auto my-5 lg:my-10">
         {data?.data.map((t) => (
           <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
-            <CardMedia
-              sx={{ height: 240 }}
-              image={t?.image}
-              title="green iguana"
-            />
+            <CardMedia sx={{ height: 240 }} image={t?.image} title={t?.name} />
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
                 {t?.name}
