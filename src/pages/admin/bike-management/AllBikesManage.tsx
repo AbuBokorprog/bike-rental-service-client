@@ -16,7 +16,7 @@ const AllBikesManage: React.FC = () => {
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
       <h1 className="text-2xl font-bold text-center">All Bikes</h1>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-5 items-center mx-auto my-5 lg:my-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 items-center mx-auto my-5 lg:my-10">
         {data?.data?.map((t) => (
           <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
             <CardMedia

@@ -21,7 +21,10 @@ const CreateTypes: React.FC = () => {
     control,
     reset,
     formState: { errors },
-  } = useForm({ resolver: zodResolver(schema) });
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: { name: "", image: "" },
+  });
 
   const [createTypes] = useCreateTypesMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {

@@ -13,6 +13,14 @@ export const Bikes = baseApi.injectEndpoints({
         };
       },
     }),
+    getSingleBike: builder.query({
+      query: (id) => `/bikes/${id}`,
+      transformResponse: (response: TReduxResponse<TBike>) => {
+        return {
+          data: response.data,
+        };
+      },
+    }),
     createBike: builder.mutation({
       query: (data) => ({
         url: "/bikes",
@@ -29,11 +37,20 @@ export const Bikes = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["bike"],
     }),
+    deleteBike: builder.mutation({
+      query: (id) => ({
+        url: `/bikes/${id}`,
+        method: "Delete",
+      }),
+      invalidatesTags: ["bike"],
+    }),
   }),
 });
 
 export const {
   useCreateBikeMutation,
   useGetAllBikesQuery,
+  useGetSingleBikeQuery,
   useUpdateBikeMutation,
+  useDeleteBikeMutation,
 } = Bikes;
