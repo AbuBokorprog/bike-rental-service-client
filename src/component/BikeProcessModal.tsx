@@ -24,7 +24,12 @@ const BikeProcessModal = ({ id }: { id: string }) => {
 
   const onSubmit = (data: FormData) => {
     const startTime = combineDateAndTime(data.date, data.time);
-    console.log(startTime);
+    const bikeId = id
+    const rentalData = {
+      startTime,
+      bikeId
+    }
+    console.log(rentalData)
   };
 
   const [open, setOpen] = React.useState(false);
@@ -118,8 +123,8 @@ const BikeProcessModal = ({ id }: { id: string }) => {
                 />
               </div>
 
-              <Button variant="contained" color="primary" className="w-full">
-                Pay
+              <Button type="submit" variant="contained" color="primary" className="w-full">
+                Pay Now
               </Button>
             </form>
           </Box>
