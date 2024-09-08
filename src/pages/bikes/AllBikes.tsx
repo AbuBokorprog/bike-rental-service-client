@@ -4,10 +4,11 @@ import BikesFilter from "../../component/bikes/BikesFilter";
 import { Link, Pagination, Typography } from "@mui/material";
 import CustomBreadcrumbs from "../../component/Breadcrumbs";
 import { useGetAllBikesQuery } from "../../redux/features/bikes/bikes.api";
+import { TBike } from "../../types/bikes/bike.type";
 
 const AllBikes = () => {
-  const { data } = useGetAllBikesQuery(undefined);
-  console.log(data);
+  const { data } = useGetAllBikesQuery([{name: "page", value: 1}, {name: 'limit', value: 10}]);
+  
   const breadcrumbs = [
     <Link underline="hover" key="1" color="primary" href="/">
       Home

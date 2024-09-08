@@ -17,7 +17,7 @@ const BikeDetails = () => {
   const { data } = useGetSingleBikeQuery(slug);
 
   const images =
-    data?.data?.images?.map((image) => ({
+    data?.data?.images?.map((image: string) => ({
       original: image,
       thumbnail: image,
     })) || [];
@@ -47,7 +47,7 @@ const BikeDetails = () => {
               </p>
             </div>
             <div className="mt-4">
-              <BikeProcessModal id="1" />
+              <BikeProcessModal id={data?.data?._id} />
             </div>
           </div>
           <div className="my-3 lg:my-6">

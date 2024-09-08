@@ -1,25 +1,35 @@
 import { TBike } from "../../../types/bikes/bike.type";
-import { TReduxResponse } from "../../../types/global.type";
+import { TQueryParams, TReduxResponse } from "../../../types/global.type";
 import { baseApi } from "../../api/BaseApi";
 
 export const Bikes = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllBikes: builder.query({
-      query: () => "/bikes",
+      query: (args) => {
+        const params = new URLSearchParams()
+
+        if(args){
+          args?.forEach((item: TQueryParams) => {
+            params.append(item.name, item.value as string)
+          });
+        }
+
+        return{
+          url: "/bikes",
+          method: "GET",
+          params: params
+        }
+      },
       providesTags: ["bike"],
       transformResponse: (response: TReduxResponse<TBike[]>) => {
         return {
-          data: response?.data,
+          data: response?.data?.data,
+          meta: response?.data?.meta
         };
       },
     }),
     getSingleBike: builder.query({
       query: (id) => `/bikes/${id}`,
-      transformResponse: (response: TReduxResponse<TBike>) => {
-        return {
-          data: response.data,
-        };
-      },
     }),
     createBike: builder.mutation({
       query: (data) => ({

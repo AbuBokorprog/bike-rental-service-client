@@ -7,7 +7,8 @@ import { FaBuffer } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const BikeComponent: React.FC<{ bikes: TBike[] | undefined }> = ({ bikes }) => {
+const BikeComponent: React.FC<{ bikes: TBike[] | undefined}> = ({ bikes }) => {
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 items-center gap-5 lg:gap-10">
       {bikes?.map((b) => (
