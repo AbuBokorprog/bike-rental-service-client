@@ -91,7 +91,7 @@ const AllUser = () => {
       <h1 className="text-2xl font-bold text-center">All users</h1>
       <Paper
         sx={{ width: "100%", height: "100%", overflow: "hidden" }}
-        className="my-5 lg:my-10"
+        className="my-5 lg:my-16"
       >
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

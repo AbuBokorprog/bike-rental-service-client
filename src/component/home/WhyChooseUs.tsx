@@ -1,9 +1,9 @@
 import React from "react";
 
-const WhyChooseUs = () => {
+const WhyChooseUs:React.FC = () => {
   return (
     <div>
-      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10">
+      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">
         Why to rent our bike.
       </h3>
       <div className="grid grid-cols-1 lg:grid-cols-3 mx-auto items-center justify-between">

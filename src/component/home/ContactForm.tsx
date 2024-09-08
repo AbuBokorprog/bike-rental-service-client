@@ -23,9 +23,9 @@ const ContactForm = () => {
   };
 
   return (
-    <div className=" mx-auto my-5 lg:my-10 bg-white rounded-md shadow-md p-4">
-      <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <div className="">
+      <h2 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">Contact Us.</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-3 bg-white lg:p-6 rounded-md shadow-md">
         {/* Name Field */}
         <div>
           <label

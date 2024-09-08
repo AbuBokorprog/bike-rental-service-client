@@ -24,13 +24,13 @@ const BikeDetails = () => {
 
   return (
     <div>
-      <div className="my-5 lg:my-10"></div>
+      <div className="my-5 lg:my-16"></div>
       <div className="lg:flex items-start justify-between lg:gap-10 mx-auto">
         {/* slider and description */}
         <div className="md:w-2/3 w-full">
           <ImageGallery items={images} />
 
-          <div className="my-5 lg:my-10">
+          <div className="my-5 lg:my-16">
             <p>{data?.data?.description}</p>
           </div>
         </div>
@@ -251,7 +251,7 @@ const BikeDetails = () => {
       </div>
       {/* Related bikes */}
       {/* <div>
-        <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10 uppercase">
+        <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 uppercase">
           Related Bikes.
         </h3>
         <BikeComponent bikes={undefined} />

@@ -47,7 +47,7 @@ const CreateTypes: React.FC = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-screen-2xl mx-auto my-5 lg:my-10 bg-secondary-50 p-5 rounded-md border shadow-lg"
+        className="max-w-screen-2xl mx-auto my-5 lg:my-16 bg-secondary-50 p-5 rounded-md border shadow-lg"
       >
         <div className="my-2">
           <Controller

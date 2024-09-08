@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Banner from "../component/home/Banner";
 import FeaturesBikes from "../component/home/FeaturesBikes";
 import HowToRent from "../component/home/HowToRent";
@@ -10,8 +10,9 @@ import ContactForm from "../component/home/ContactForm";
 // import { currentToken, currentUser } from "../redux/store";
 
 const Home = () => {
-  // const user = useAppSelector(currentToken);
-  // console.log(user);
+  useEffect(() => {
+    window.scrollTo(0,0)
+  }, [])
   return (
     <div>
       <Banner />

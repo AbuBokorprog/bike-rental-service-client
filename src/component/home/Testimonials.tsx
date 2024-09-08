@@ -7,7 +7,7 @@ import React from "react";
 const Testimonials = () => {
   return (
     <div>
-      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10">
+      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">
         What Clients Say about Us.
       </h3>
 

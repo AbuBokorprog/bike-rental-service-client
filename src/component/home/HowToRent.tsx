@@ -1,10 +1,10 @@
 import React from "react";
 
-const HowToRent = () => {
+const HowToRent:React.FC = () => {
   return (
     <div>
-      <div className=" my-5 lg:my-10">
-        <h3 className="text-xl lg:text-3xl font-semibold">
+      <div className=" my-5 lg:my-16 text-center">
+        <h3 className="text-xl lg:text-3xl font-semibold uppercase text-center">
           Make 4 Simple Steps to Rent a Bike!
         </h3>
         <p className="my-2">Your bike is already waiting for you!</p>

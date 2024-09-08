@@ -78,12 +78,12 @@ const Registration: React.FC = () => {
   };
 
   return (
-    <div className="my-5 lg:my-10">
+    <div className="my-5 lg:my-16">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-screen-md mx-auto bg-secondary-50 p-5 rounded-md border shadow-lg"
       >
-        <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10 text-center">
+        <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center">
           Registration to your account.
         </h3>
         <div className="my-2">
