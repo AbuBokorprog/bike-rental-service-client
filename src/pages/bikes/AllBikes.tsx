@@ -3,8 +3,11 @@ import BikeComponent from "../../component/bikes/BikeComponent";
 import BikesFilter from "../../component/bikes/BikesFilter";
 import { Link, Pagination, Typography } from "@mui/material";
 import CustomBreadcrumbs from "../../component/Breadcrumbs";
+import { useGetAllBikesQuery } from "../../redux/features/bikes/bikes.api";
 
 const AllBikes = () => {
+  const { data } = useGetAllBikesQuery(undefined);
+  console.log(data);
   const breadcrumbs = [
     <Link underline="hover" key="1" color="primary" href="/">
       Home
@@ -30,7 +33,7 @@ const AllBikes = () => {
       </div>
 
       <div className="my-8 lf:my-16">
-        <BikeComponent bikes={undefined} />
+        <BikeComponent bikes={data?.data} />
       </div>
 
       <div className="flex items-center justify-center">

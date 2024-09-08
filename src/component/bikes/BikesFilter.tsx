@@ -24,7 +24,7 @@ const BikesFilter = () => {
   const onSubmit: SubmitHandler<IFormInputs> = (data) => console.log(data);
 
   return (
-    <div className="bg-secondary-100 p-8 rounded-md">
+    <div className="bg-secondary-50 shadow-md p-8 rounded-md">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="lg:flex items-center gap-10 mx-auto space-y-4 lg:space-y-0 my-2">
           <Controller

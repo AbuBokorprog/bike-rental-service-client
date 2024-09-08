@@ -20,8 +20,6 @@ interface FormData {
 }
 
 const BikeProcessModal = ({ id }: { id: string }) => {
-  console.log(id);
-
   const { handleSubmit, control, watch } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {

@@ -5,26 +5,23 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import BikeProcessModal from "../../component/BikeProcessModal";
+import { useParams } from "react-router-dom";
+import { useGetSingleBikeQuery } from "../../redux/features/bikes/bikes.api";
 
 const BikeDetails = () => {
+  const { slug } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  const { data } = useGetSingleBikeQuery(slug);
+
+  const images =
+    data?.data?.images?.map((image) => ({
+      original: image,
+      thumbnail: image,
+    })) || [];
+
   return (
     <div>
       <div className="my-5 lg:my-10"></div>
@@ -34,44 +31,7 @@ const BikeDetails = () => {
           <ImageGallery items={images} />
 
           <div className="my-5 lg:my-10">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-              et. Enim ipsam voluptate pariatur molestiae id adipisci tempora
-              veritatis doloremque facere, error, delectus hic, praesentium
-              reiciendis? Dolores laborum dolorem dolore excepturi rem.
-              Reprehenderit saepe qui cupiditate? Est itaque reprehenderit natus
-              quidem, numquam repellendus. Voluptates nobis dolores dolore
-              consectetur, provident perspiciatis! Sed adipisci voluptatibus
-              eius magnam iusto nobis tempora, officia modi totam rem asperiores
-              quo blanditiis in exercitationem. Accusamus cum porro laudantium
-              repellendus sint magni quisquam rerum neque veniam, distinctio a
-              nulla ut pariatur saepe temporibus ullam odit! Molestiae quasi
-              corrupti illo recusandae odio vero reprehenderit quos labore
-              maiores ea esse hic sapiente molestias nam id, animi consequuntur
-              veritatis architecto vel numquam veniam. Tempora rem non tenetur
-              corporis suscipit culpa sapiente dolores optio, officiis harum
-              iure architecto, eveniet praesentium minus repellat ab dignissimos
-              quae eius cupiditate odit facere? Excepturi voluptates rem
-              consectetur. Vero esse sit placeat veniam cum est temporibus!
-              Nostrum voluptatibus commodi ipsa, hic inventore atque. Inventore,
-              quae. Est, eum velit officiis quis dolore tenetur sint! Repellat,
-              iure laborum. Ea, corporis tempore ipsa eaque modi, odit
-              cupiditate, natus delectus omnis blanditiis nobis! Voluptas
-              eveniet quia qui debitis, deleniti voluptatum consectetur minima
-              voluptates nostrum! Temporibus doloremque possimus debitis, illum
-              omnis fugiat, sequi molestias nesciunt dolorum deleniti in dolorem
-              cumque saepe. Dolore perferendis dignissimos delectus pariatur
-              minus! Quasi, quidem! Possimus omnis perferendis saepe magni sunt,
-              non iusto officiis minus quasi sapiente fugiat necessitatibus
-              corporis placeat est quidem atque modi natus, delectus et? Quas
-              reiciendis facere inventore. Minima possimus inventore magnam.
-              Facilis voluptates et tempore quae sit deleniti nam in minus,
-              saepe asperiores excepturi, nobis id dolor at consectetur aliquam
-              adipisci vitae libero esse quia? Consequatur, quaerat enim ratione
-              molestiae, esse omnis unde officiis nam eaque doloremque dolorem
-              alias quas provident, aut dicta asperiores hic error aliquam
-              cumque aspernatur sint. Cupiditate, temporibus officiis!
-            </p>
+            <p>{data?.data?.description}</p>
           </div>
         </div>
         {/* price and information. */}
@@ -80,7 +40,9 @@ const BikeDetails = () => {
             <div className="flex items-center justify-between mx-auto">
               <p className="text-xl font-semibold">Price</p>
               <p>
-                <span className="text-2xl font-bold">120 TK</span>{" "}
+                <span className="text-2xl font-bold">
+                  {data?.data?.pricePerHour} TK
+                </span>{" "}
                 <span>/Hour</span>
               </p>
             </div>
@@ -97,72 +59,190 @@ const BikeDetails = () => {
                   id="panel1-header"
                   className="uppercase font-semibold"
                 >
-                  Engine
+                  Engine and Performance
                 </AccordionSummary>
                 <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">CC</p>
+                    <p className="font-semibold">{data?.data?.cc}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Engine</p>
+                    <p className="font-semibold">{data?.data?.engine}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Carburetion Type</p>
+                    <p className="font-semibold">
+                      {data?.data?.carburetionType}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Engine Type</p>
+                    <p className="font-semibold">{data?.data?.engineType}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Emission Control</p>
+                    <p className="font-semibold">
+                      {data?.data?.emissionControl}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Bore Stroke</p>
+                    <p className="font-semibold">{data?.data?.boreStroke}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Compression Ratio</p>
+                    <p className="font-semibold">
+                      {data?.data?.compressionRatio}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Maximum Speed</p>
+                    <p className="font-semibold">{data?.data?.maximumSpeed}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Traction Control</p>
+                    <p className="font-semibold">
+                      {data?.data?.tractionControl}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Transmission Type</p>
+                    <p className="font-semibold">
+                      {data?.data?.transmissionType}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Clutch Type</p>
+                    <p className="font-semibold">{data?.data?.clutchType}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Number Of Speeds</p>
+                    <p className="font-semibold">
+                      {data?.data?.numberOfSpeeds}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Primary Drive</p>
+                    <p className="font-semibold">{data?.data?.primaryDrive}</p>
+                  </div>
                 </AccordionDetails>
               </Accordion>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
+                  aria-controls="panel1-content"
+                  id="panel1-header"
                   className="uppercase font-semibold"
                 >
-                  Identification
+                  Chassis and Suspension
                 </AccordionSummary>
                 <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Frame</p>
+                    <p className="font-semibold">{data?.data?.frame}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Suspension Front Type</p>
+                    <p className="font-semibold">
+                      {data?.data?.suspensionFrontType}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Suspension Rear Type</p>
+                    <p className="font-semibold">
+                      {data?.data?.suspensionRearType}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Suspension Front Size</p>
+                    <p className="font-semibold">
+                      {data?.data?.suspensionFrontSize}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">frontTravel</p>
+                    <p className="font-semibold">{data?.data?.frontTravel}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Rear Travel</p>
+                    <p className="font-semibold">{data?.data?.rearTravel}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Brake Type</p>
+                    <p className="font-semibold">{data?.data?.brakeType}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Brake Front Diameter</p>
+                    <p className="font-semibold">
+                      {data?.data?.brakeFrontDiameter}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500"> Brake Rear Diameter</p>
+                    <p className="font-semibold">
+                      {data?.data?.brakeRearDiameter}
+                    </p>
+                  </div>
                 </AccordionDetails>
               </Accordion>
               <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
+                  aria-controls="panel1-content"
+                  id="panel1-header"
                   className="uppercase font-semibold"
                 >
-                  Suspension/Brakes
+                  Dimensions and Weight
                 </AccordionSummary>
                 <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Length</p>
+                    <p className="font-semibold">{data?.data?.length}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Width</p>
+                    <p className="font-semibold">{data?.data?.width}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Wheelbase</p>
+                    <p className="font-semibold">{data?.data?.wheelbase}</p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Weight</p>
+                    <p className="font-semibold">{data?.data?.weight}</p>
+                  </div>
                 </AccordionDetails>
               </Accordion>
+
               <Accordion defaultExpanded>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
+                  aria-controls="panel1-content"
+                  id="panel1-header"
                   className="uppercase font-semibold"
                 >
-                  Power transmition
+                  Other Details
                 </AccordionSummary>
                 <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
-                </AccordionDetails>
-              </Accordion>
-              <Accordion defaultExpanded>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel2-content"
-                  id="panel2-header"
-                  className="uppercase font-semibold"
-                >
-                  Dimention/weights
-                </AccordionSummary>
-                <AccordionDetails>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-                  eget.
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Identification</p>
+                    <p className="font-semibold">
+                      {data?.data?.identification}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">IntroductionYear</p>
+                    <p className="font-semibold">
+                      {data?.data?.introductionYear}
+                    </p>
+                  </div>
+                  <div className="flex items-center justify-between gap-2 mx-auto my-1">
+                    <p className=" text-secondary-500">Accessories Included</p>
+                    <p className="font-semibold">
+                      {data?.data?.accessoriesIncluded}
+                    </p>
+                  </div>
                 </AccordionDetails>
               </Accordion>
             </div>
@@ -170,12 +250,12 @@ const BikeDetails = () => {
         </div>
       </div>
       {/* Related bikes */}
-      <div>
+      {/* <div>
         <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-10 uppercase">
           Related Bikes.
         </h3>
         <BikeComponent bikes={undefined} />
-      </div>
+      </div> */}
     </div>
   );
 };
