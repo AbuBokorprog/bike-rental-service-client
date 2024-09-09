@@ -18,6 +18,7 @@ import { z } from "zod";
 import { useCreateBikeMutation } from "../../../redux/features/bikes/bikes.api";
 import { useGetAllTypesQuery } from "../../../redux/features/types/Types.api";
 import { toast } from "sonner";
+import { TType } from "../../../types/types/types.type";
 
 const CreateBike: React.FC = () => {
   const [suspension, setSuspension] = React.useState("");
@@ -124,7 +125,7 @@ const CreateBike: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
-      <h1 className="text-2xl font-bold text-center">Create Bike</h1>
+      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">Create Bike</h1>
 
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -189,7 +190,7 @@ const CreateBike: React.FC = () => {
                 // helperText={errors.ageGroup ? "Age Group is required" : ""}
               >
                 <MenuItem defaultValue={""}>Select Age</MenuItem>
-                {data?.data?.map((t) => (
+                {data?.data?.map((t:TType) => (
                   <MenuItem key={t?._id} value={t?._id}>
                     {t?.name}
                   </MenuItem>

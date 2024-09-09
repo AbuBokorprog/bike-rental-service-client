@@ -193,7 +193,7 @@ const Navbar = () => {
       <MenuSidebar
         isOpen={isMobileMenuOpen}
         setIsOpen={setIsMobileMenuOpen}
-        logout={logoutHandler}
+        onClick={() => logoutHandler()}
       />
     </div>
   );

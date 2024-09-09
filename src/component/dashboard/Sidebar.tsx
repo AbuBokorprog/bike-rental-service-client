@@ -22,21 +22,23 @@ import {
 import ElectricBikeIcon from "@mui/icons-material/ElectricBike";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import { useAppSelector } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { currentToken } from "../../redux/store";
 import { JWTDecode } from "../../utils/JWTDecode";
-import { TUser } from "../../redux/features/auth/AuthSlice";
-
+import { logout, TUser } from "../../redux/features/auth/AuthSlice";
+import { BiSolidCategory } from "react-icons/bi";
+import { BiKey } from "react-icons/bi";
+import { toast } from "sonner";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const userItems = [
   { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/user" },
   {
     text: "Rental Management",
-    icon: <PeopleIcon />,
+    icon: <BiKey />,
     children: [
       {
         text: "My Rentals",
-        icon: <PeopleIcon />,
+        icon: <BiKey />,
         path: "/dashboard/user/my-rentals",
       },
     ],
@@ -58,16 +60,16 @@ const adminMenuItems = [
   },
   {
     text: "Types Management",
-    icon: <ElectricBikeIcon />,
+    icon: <BiSolidCategory />,
     children: [
       {
         text: "All Types",
-        icon: <ElectricBikeIcon />,
+        icon: <BiSolidCategory />,
         path: "/dashboard/admin/all-types",
       },
       {
         text: "Add Types",
-        icon: <ElectricBikeIcon />,
+        icon: <BiSolidCategory />,
         path: "/dashboard/admin/create-type",
       },
     ],
@@ -90,11 +92,11 @@ const adminMenuItems = [
   },
   {
     text: "Rental Management",
-    icon: <ElectricBikeIcon />,
+    icon: <BiKey />,
     children: [
       {
         text: "Rental Bikes",
-        icon: <ElectricBikeIcon />,
+        icon: <BiKey />,
         path: "/dashboard/admin/rental-bikes",
       },
     ],
@@ -105,7 +107,7 @@ export const Sidebar: React.FC = () => {
   const token = useAppSelector(currentToken);
   const [open, setOpen] = useState<boolean>(false);
   const [parentItem, setParentItems] = useState<string>("");
-
+const dispatch =useAppDispatch()
   let role;
   let menuItems;
   if (token) {
@@ -126,6 +128,14 @@ export const Sidebar: React.FC = () => {
   const toggleSubMenu = (text: string) => {
     setParentItems(text);
   };
+
+    // logout handler
+    const logoutHandler = () => {
+      if (token) {
+        dispatch(logout());
+        toast.success("Logout successfully!");
+      }
+    };
 
   return (
     <>
@@ -224,7 +234,7 @@ export const Sidebar: React.FC = () => {
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
-          <ListItem button>
+          <ListItem button  onClick={() => logoutHandler()}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
@@ -308,7 +318,7 @@ export const Sidebar: React.FC = () => {
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
-          <ListItem button>
+          <ListItem button  onClick={() => logoutHandler()}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>

@@ -30,15 +30,15 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+    <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
+      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">Dashboard</h1>
       <p className="mt-4">Welcome, {user.name}!</p>
 
-      <div className="mt-8 space-y-4">
+      <div className="mt-8 space-y-4 mx-auto">
         <img
           src={user.image}
           alt="User profile"
-          className="w-24 h-24 rounded-full object-cover"
+          className="w-24 h-24 rounded-full object-cover mx-auto"
         />
         <div className="text-lg">
           <p>
