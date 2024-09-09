@@ -11,7 +11,7 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
 type TBrands = {
   brand: string;
-  id: string;
+  id: number;
 };
 
 type TModels = {
@@ -25,41 +25,34 @@ type TFilters = {
 };
 
 type TProps = {
-  brands: TBrands[] | [];
+  brands: TBrands[];
   models: TModels[] | [];
-  filters: TFilters[]; // filters is an array of TFilters
-  setFilters: React.Dispatch<React.SetStateAction<TFilters[]>>;
+  brand: string | undefined;
+  model: string | undefined;
+  age: string | undefined;
+  available: string | undefined;
+  setBrand: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setAge: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setModel: React.Dispatch<React.SetStateAction<string | undefined>>;
+  setAvailable: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
 
 const BikesFilter: React.FC<TProps> = ({
   brands,
   models,
-  filters,
-  setFilters,
+  brand,
+  model,
+  age,
+  available,
+  setBrand,
+  setAge,
+  setModel,
+  setAvailable,
 }) => {
   const { control } = useForm();
-  const [brand, setBrand] = useState<string | undefined>(undefined);
-  const [model, setModel] = useState<string | undefined>(undefined);
-  const [age, setAge] = useState<string | undefined>(undefined);
-  const [available, setAvailable] = useState<string | undefined>(undefined);
 
   const brandHandleChange = (event: SelectChangeEvent) => {
     setBrand(event.target.value as string);
-    setFilters((prevFilters) => {
-      // Check if 'brand' filter already exists
-      const existingBrandFilterIndex = prevFilters.findIndex(
-        (filter) => filter.name === "brand",
-      );
-
-      // If 'brand' filter exists, replace it, otherwise add it
-      const newFilters = [...prevFilters];
-      if (existingBrandFilterIndex > -1) {
-        newFilters[existingBrandFilterIndex].value = brand;
-      } else {
-        newFilters.push({ name: "brand", value: brand });
-      }
-      return newFilters;
-    });
   };
 
   const ageHandleChange = (event: SelectChangeEvent) => {
@@ -152,8 +145,8 @@ const BikesFilter: React.FC<TProps> = ({
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={"adult"}>Adult</MenuItem>
-                  <MenuItem value={"child"}>Child</MenuItem>
+                  <MenuItem value={"Adult"}>Adult</MenuItem>
+                  <MenuItem value={"Child"}>Child</MenuItem>
                 </Select>
               </FormControl>
             )}

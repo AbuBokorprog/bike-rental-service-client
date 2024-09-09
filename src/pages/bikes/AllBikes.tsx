@@ -7,24 +7,44 @@ import { useGetAllBikesQuery } from "../../redux/features/bikes/bikes.api";
 
 const AllBikes: React.FC = () => {
   const [page, setPage] = useState<number>(1);
+  const [brand, setBrand] = useState<string | undefined>(undefined);
+  const [model, setModel] = useState<string | undefined>(undefined);
+  const [age, setAge] = useState<string | undefined>(undefined);
+  const [available, setAvailable] = useState<string | undefined>(undefined);
 
-  // Create filter state
-  const [filters, setFilters] = useState<
-    { name: string; value: string | number | undefined }[]
-  >([
-    { name: "page", value: 1 },
-    { name: "limit", value: 10 },
+  const { data } = useGetAllBikesQuery([
+    brand
+      ? { name: "brand", value: brand }
+      : model
+        ? { name: "model", value: model }
+        : age
+          ? { name: "ageGroup", value: age }
+          : available
+            ? { name: "isAvailable", value: available }
+            : { name: "page", value: page },
   ]);
-
-  const { data } = useGetAllBikesQuery(filters);
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const brands =
-    data?.data?.map((b) => ({
-      brand: b?.brand,
-      id: b?._id,
-    })) || [];
+
+  const brands =[
+    { id: 1, brand: "Honda" },
+    { id: 2, brand: "Yamaha" },
+    { id: 3, brand: "Suzuki" },
+    { id: 4, brand: "Kawasaki" },
+    { id: 5, brand: "Ducati" },
+    { id: 6, brand: "Harley-Davidson" },
+    { id: 7, brand: "BMW" },
+    { id: 8, brand: "Triumph" },
+    { id: 9, brand: "KTM" },
+    { id: 10, brand: "Royal Enfield" },
+    { id: 11, brand: "Aprilia" },
+    { id: 12, brand: "Bajaj" },
+    { id: 13, brand: "Hero" },
+    { id: 14, brand: "TVS" },
+    { id: 15, brand: "MV Agusta" }
+  ];
+
   const models =
     data?.data?.map((b) => ({
       model: b?.model,
@@ -55,8 +75,14 @@ const AllBikes: React.FC = () => {
         <BikesFilter
           brands={brands}
           models={models}
-          filters={filters}
-          setFilters={setFilters}
+          age={age}
+          available={available}
+          brand={brand}
+          model={model}
+          setAge={setAge}
+          setAvailable={setAvailable}
+          setBrand={setBrand}
+          setModel={setModel}
         />
       </div>
 
