@@ -46,8 +46,8 @@ export const router = createBrowserRouter([
         element: <CategoriesBikes />,
       },
       {
-        path: '/bikes/search-bikes/:slug',
-        element: <SearchByBikes/>
+        path: "/bikes/search-bikes/:slug",
+        element: <SearchByBikes />,
       },
       {
         path: "/payment/:id",

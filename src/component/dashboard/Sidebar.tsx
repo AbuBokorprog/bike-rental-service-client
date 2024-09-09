@@ -107,7 +107,7 @@ export const Sidebar: React.FC = () => {
   const token = useAppSelector(currentToken);
   const [open, setOpen] = useState<boolean>(false);
   const [parentItem, setParentItems] = useState<string>("");
-const dispatch =useAppDispatch()
+  const dispatch = useAppDispatch();
   let role;
   let menuItems;
   if (token) {
@@ -129,13 +129,13 @@ const dispatch =useAppDispatch()
     setParentItems(text);
   };
 
-    // logout handler
-    const logoutHandler = () => {
-      if (token) {
-        dispatch(logout());
-        toast.success("Logout successfully!");
-      }
-    };
+  // logout handler
+  const logoutHandler = () => {
+    if (token) {
+      dispatch(logout());
+      toast.success("Logout successfully!");
+    }
+  };
 
   return (
     <>
@@ -234,7 +234,7 @@ const dispatch =useAppDispatch()
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
-          <ListItem button  onClick={() => logoutHandler()}>
+          <ListItem button onClick={() => logoutHandler()}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
@@ -318,7 +318,7 @@ const dispatch =useAppDispatch()
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
-          <ListItem button  onClick={() => logoutHandler()}>
+          <ListItem button onClick={() => logoutHandler()}>
             <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>

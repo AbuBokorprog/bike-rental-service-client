@@ -88,7 +88,9 @@ const AllUser = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
-      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">All users</h1>
+      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
+        All users
+      </h1>
       <Paper
         sx={{ width: "100%", height: "100%", overflow: "hidden" }}
         className="my-5 lg:my-16"
@@ -109,7 +111,8 @@ const AllUser = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data?.data?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              {data?.data
+                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row: TUser) => {
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>

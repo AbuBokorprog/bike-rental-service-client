@@ -1,32 +1,40 @@
 import React from "react";
-import { useGetAllRentalsQuery, useReturnBikeMutation } from "../../../redux/features/rentals/rentals.api";
+import {
+  useGetAllRentalsQuery,
+  useReturnBikeMutation,
+} from "../../../redux/features/rentals/rentals.api";
 import { TMeta } from "../../../types/global.type";
 import { TRental } from "../../../types/rentals/rentals.type";
 import { Button } from "@mui/material";
 import { toast } from "sonner";
 
-const RentalBikes:React.FC = () => {
+const RentalBikes: React.FC = () => {
   const { data } = useGetAllRentalsQuery(undefined);
 
   const meta = data?.meta as TMeta;
   const rentals = data?.data?.result as TRental[];
 
-const [returnBike] = useReturnBikeMutation()
-  const calculateHandler = async(id: string) => {
-    const toastId = toast.loading("Loading...")
+  const [returnBike] = useReturnBikeMutation();
+  const calculateHandler = async (id: string) => {
+    const toastId = toast.loading("Loading...");
     try {
-      const res = await returnBike(id).unwrap()
-      if(res?.success){
-        toast.success("Bike returned successfully!", {id:toastId, duration:2000})
+      const res = await returnBike(id).unwrap();
+      if (res?.success) {
+        toast.success("Bike returned successfully!", {
+          id: toastId,
+          duration: 2000,
+        });
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
-      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">Rental Bikes.</h1>
+      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
+        Rental Bikes.
+      </h1>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center mx-auto">
         {rentals?.map((rental: TRental, index: number) => (
@@ -65,8 +73,13 @@ const [returnBike] = useReturnBikeMutation()
                 </p>
               )}
               {/* Pay Button if Unpaid */}
-              {!rental?.isReturned && rental?.totalCost === 0 &&(
-                <Button onClick={() => calculateHandler(rental?._id)} variant="contained">Calculate</Button>
+              {!rental?.isReturned && rental?.totalCost === 0 && (
+                <Button
+                  onClick={() => calculateHandler(rental?._id)}
+                  variant="contained"
+                >
+                  Calculate
+                </Button>
               )}
             </div>
             {/* payment status badge */}

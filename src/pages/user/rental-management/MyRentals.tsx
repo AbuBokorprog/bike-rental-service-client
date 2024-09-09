@@ -52,7 +52,9 @@ const MyRentals: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
-      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">My Rental Bikes.</h1>
+      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
+        My Rental Bikes.
+      </h1>
 
       <Box sx={{ width: "100%" }}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
