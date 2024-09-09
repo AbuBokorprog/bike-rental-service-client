@@ -1,3 +1,5 @@
+import { TReduxResponse } from "../../../types/global.type";
+import { TRental } from "../../../types/rentals/rentals.type";
 import { baseApi } from "../../api/BaseApi";
 
 export const Rentals = baseApi.injectEndpoints({
@@ -20,6 +22,13 @@ export const Rentals = baseApi.injectEndpoints({
                 method: "GET"
             }),
             providesTags: ["rental"]
+        }),
+        getUserRentals: builder.query({
+            query: () => ({
+                url: `/rentals/user/my`,
+                method: "GET"
+            }),
+            providesTags: ["rental"],
         }),
         createRental: builder.mutation({
             query: (data) => ({
@@ -55,4 +64,4 @@ export const Rentals = baseApi.injectEndpoints({
     })
 })
 
-export const {useAdvancePaymentMutation,useGetSingleRentalQuery, useCreateRentalMutation, useGetAllRentalsQuery, useReturnBikeMutation,useRentalPaymentMutation } = Rentals
+export const {useAdvancePaymentMutation,useGetSingleRentalQuery,useGetUserRentalsQuery, useCreateRentalMutation, useGetAllRentalsQuery, useReturnBikeMutation,useRentalPaymentMutation } = Rentals
