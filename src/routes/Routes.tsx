@@ -21,6 +21,7 @@ import ProtectedRoute from "../providers/ProtectedRoute";
 import CreateTypes from "../pages/admin/types-management/CreateTypes";
 import AllTypes from "../pages/admin/types-management/AllTypes";
 import Payment from "../pages/Payment";
+import SearchByBikes from "../pages/bikes/SearchByBikes";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/bikes/category/:slug",
         element: <CategoriesBikes />,
+      },
+      {
+        path: '/bikes/search-bikes/:slug',
+        element: <SearchByBikes/>
       },
       {
         path: "/payment/:id",
