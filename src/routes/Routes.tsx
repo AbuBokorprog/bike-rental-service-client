@@ -46,9 +46,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/payment/:id",
-        element: <ProtectedRoute role={["user", "admin", "super-admin"]}>
-          <Payment/>
-        </ProtectedRoute>
+        element: (
+          <ProtectedRoute role={["user", "admin", "super-admin"]}>
+            <Payment />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/about",

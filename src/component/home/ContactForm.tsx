@@ -8,7 +8,7 @@ type FormData = {
   message: string;
 };
 
-const ContactForm:React.FC = () => {
+const ContactForm: React.FC = () => {
   const {
     register,
     handleSubmit,
@@ -24,8 +24,13 @@ const ContactForm:React.FC = () => {
 
   return (
     <div className="">
-      <h2 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">Contact Us.</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-3 bg-white lg:p-6 rounded-md shadow-md">
+      <h2 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">
+        Contact Us.
+      </h2>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="space-y-4 p-3 bg-white lg:p-6 rounded-md shadow-md"
+      >
         {/* Name Field */}
         <div>
           <label

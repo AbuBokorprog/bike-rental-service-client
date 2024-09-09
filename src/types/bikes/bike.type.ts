@@ -47,4 +47,3 @@ export interface TBike {
   createdAt: string;
   updatedAt: string;
 }
-

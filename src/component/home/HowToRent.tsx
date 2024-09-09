@@ -1,6 +1,6 @@
 import React from "react";
 
-const HowToRent:React.FC = () => {
+const HowToRent: React.FC = () => {
   return (
     <div>
       <div className=" my-5 lg:my-16 text-center">

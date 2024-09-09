@@ -50,12 +50,11 @@ const Login: React.FC = () => {
         dispatch(login({ user: user, token: res?.data?.token }));
 
         toast.success(res.message, { id: toastId, duration: 2000 });
-        if(user?.role === 'super-admin'){
+        if (user?.role === "super-admin") {
           navigate(`/dashboard/admin`);
-        }else{
-          navigate(`/dashboard/${user?.role}`)
+        } else {
+          navigate(`/dashboard/${user?.role}`);
         }
-       
       }
     } catch (error) {
       console.log(error);

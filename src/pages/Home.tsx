@@ -9,10 +9,10 @@ import ContactForm from "../component/home/ContactForm";
 // import { useAppSelector } from "../redux/hooks/hooks";
 // import { currentToken, currentUser } from "../redux/store";
 
-const Home:React.FC = () => {
+const Home: React.FC = () => {
   useEffect(() => {
-    window.scrollTo(0,0)
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <Banner />

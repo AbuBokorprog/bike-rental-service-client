@@ -5,26 +5,31 @@ import { Link, Pagination, Typography } from "@mui/material";
 import CustomBreadcrumbs from "../../component/Breadcrumbs";
 import { useGetAllBikesQuery } from "../../redux/features/bikes/bikes.api";
 
-const AllBikes:React.FC = () => {
-  const [page, setPage] = useState<number>(1)
-  
- // Create filter state
-const [filters, setFilters] = useState<{ name: string, value: string | number | undefined }[]>([
-  { name: "page", value: 1 },
-  { name: "limit", value: 10 }
-]);
+const AllBikes: React.FC = () => {
+  const [page, setPage] = useState<number>(1);
+
+  // Create filter state
+  const [filters, setFilters] = useState<
+    { name: string; value: string | number | undefined }[]
+  >([
+    { name: "page", value: 1 },
+    { name: "limit", value: 10 },
+  ]);
 
   const { data } = useGetAllBikesQuery(filters);
   const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
   };
-  const brands = data?.data?.map((b) => ({
-    brand: b?.brand, id: b?._id
-  })) || []
-  const models = data?.data?.map((b) => ({
-    model: b?.model, id: b?._id
-  })) || []
-  
+  const brands =
+    data?.data?.map((b) => ({
+      brand: b?.brand,
+      id: b?._id,
+    })) || [];
+  const models =
+    data?.data?.map((b) => ({
+      model: b?.model,
+      id: b?._id,
+    })) || [];
 
   const breadcrumbs = [
     <Link underline="hover" key="1" color="primary" href="/">
@@ -47,7 +52,12 @@ const [filters, setFilters] = useState<{ name: string, value: string | number | 
         <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       </div>
       <div className="my-5">
-        <BikesFilter brands={brands} models={models} filters={filters} setFilters={setFilters}/>
+        <BikesFilter
+          brands={brands}
+          models={models}
+          filters={filters}
+          setFilters={setFilters}
+        />
       </div>
 
       <div className="my-8 lf:my-16">
@@ -55,7 +65,13 @@ const [filters, setFilters] = useState<{ name: string, value: string | number | 
       </div>
 
       <div className="flex items-center justify-center">
-        <Pagination page={page} count={data?.meta?.totalPage} color="primary" shape="rounded" onChange={handleChange}/>
+        <Pagination
+          page={page}
+          count={data?.meta?.totalPage}
+          color="primary"
+          shape="rounded"
+          onChange={handleChange}
+        />
       </div>
     </div>
   );

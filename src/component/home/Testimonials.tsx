@@ -4,7 +4,7 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import React from "react";
 
-const Testimonials:React.FC = () => {
+const Testimonials: React.FC = () => {
   return (
     <div>
       <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">

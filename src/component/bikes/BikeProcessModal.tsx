@@ -25,28 +25,27 @@ interface FormData {
 }
 
 const BikeProcessModal = ({ id }: { id: string }) => {
-  const token = useAppSelector(currentToken)
-  const navigate = useNavigate()
-  const [createRental] = useCreateRentalMutation()
+  const token = useAppSelector(currentToken);
+  const navigate = useNavigate();
+  const [createRental] = useCreateRentalMutation();
   const { handleSubmit, control, watch } = useForm<FormData>();
 
-  const onSubmit = async(data: FormData) => {
- 
+  const onSubmit = async (data: FormData) => {
     const startTime = combineDateAndTime(data.date, data.time);
-    const bikeId = id
+    const bikeId = id;
     const rentalData = {
       startTime,
-      bikeId
-    }
+      bikeId,
+    };
     try {
-      const res = await createRental(rentalData).unwrap()
-      console.log(res)
-      if(res?.success){
-        navigate(`/payment/${res?.data[0]?._id}`)
+      const res = await createRental(rentalData).unwrap();
+      console.log(res);
+      if (res?.success) {
+        navigate(`/payment/${res?.data[0]?._id}`);
       }
     } catch (error) {
-      console.log(error)
-      toast.error("Something went wrong!", { duration:2000})
+      console.log(error);
+      toast.error("Something went wrong!", { duration: 2000 });
     }
   };
 
@@ -140,12 +139,31 @@ const BikeProcessModal = ({ id }: { id: string }) => {
                   )}
                 />
               </div>
-                  <p><small className="text-red-500">Before confirmation you have to pay advance 100 TK. So please Pay Now button.</small></p>
-              {token ? <Button type="submit" variant="contained" color="primary" className="w-full">
-                Pay Now
-              </Button> : <Button type="submit" variant="contained" disabled className="w-full">
-                Pay Now
-              </Button>}
+              <p>
+                <small className="text-red-500">
+                  Before confirmation you have to pay advance 100 TK. So please
+                  Pay Now button.
+                </small>
+              </p>
+              {token ? (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  className="w-full"
+                >
+                  Pay Now
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled
+                  className="w-full"
+                >
+                  Pay Now
+                </Button>
+              )}
             </form>
           </Box>
         </Modal>

@@ -6,25 +6,25 @@ export const Bikes = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllBikes: builder.query({
       query: (args) => {
-        const params = new URLSearchParams()
+        const params = new URLSearchParams();
 
-        if(args){
+        if (args) {
           args?.forEach((item: TQueryParams) => {
-            params.append(item.name, item.value as string)
+            params.append(item.name, item.value as string);
           });
         }
 
         return {
           url: "/bikes",
           method: "GET",
-          params: params,  // Use params.toString() for proper URL formatting
+          params: params, // Use params.toString() for proper URL formatting
         };
       },
       providesTags: ["bike"],
       transformResponse: (response: TReduxResponse<TBike[]>) => {
         return {
           data: response?.data?.data,
-          meta: response?.data?.meta
+          meta: response?.data?.meta,
         };
       },
     }),

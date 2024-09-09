@@ -12,13 +12,13 @@ type TMeta = {
   limit: number;
   total: number;
   totalPage: number;
-}
+};
 
 export type TReduxResponse<T> = {
   data?: {
-    data?: T,
-    meta?: TMeta
-  }
+    data?: T;
+    meta?: TMeta;
+  };
   error?: TError;
   success: boolean;
   message: string;

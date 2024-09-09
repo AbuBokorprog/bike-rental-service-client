@@ -2,10 +2,10 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useGetSingleRentalQuery } from "../redux/features/rentals/rentals.api";
 
-const Payment:React.FC = () => {
-  const {id} = useParams()
- 
-  const {data} = useGetSingleRentalQuery(id)
+const Payment: React.FC = () => {
+  const { id } = useParams();
+
+  const { data } = useGetSingleRentalQuery(id);
 
   return (
     <div>
