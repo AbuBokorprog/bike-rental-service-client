@@ -20,6 +20,7 @@ import MyRentals from "../pages/user/rental-management/MyRentals";
 import ProtectedRoute from "../providers/ProtectedRoute";
 import CreateTypes from "../pages/admin/types-management/CreateTypes";
 import AllTypes from "../pages/admin/types-management/AllTypes";
+import Payment from "../pages/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -42,6 +43,12 @@ export const router = createBrowserRouter([
       {
         path: "/bikes/category/:slug",
         element: <CategoriesBikes />,
+      },
+      {
+        path: "/payment/:id",
+        element: <ProtectedRoute role={["user", "admin", "super-admin"]}>
+          <Payment/>
+        </ProtectedRoute>
       },
       {
         path: "/about",

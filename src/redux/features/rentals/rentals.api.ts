@@ -14,6 +14,21 @@ export const Rentals = baseApi.injectEndpoints({
             },
             providesTags: ['rental']
         }),
+        getSingleRental: builder.query({
+            query: (id) => ({
+                url: `/rentals/${id}`,
+                method: "GET"
+            }),
+            providesTags: ["rental"]
+        }),
+        createRental: builder.mutation({
+            query: (data) => ({
+                url: '/rentals',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['rental']
+        }),
         advancePayment: builder.mutation({
             query: ({data, id}) => ({
                 url: `/rentals/${id}`,
@@ -40,4 +55,4 @@ export const Rentals = baseApi.injectEndpoints({
     })
 })
 
-export const {useAdvancePaymentMutation, useGetAllRentalsQuery, useReturnBikeMutation,useRentalPaymentMutation } = Rentals
+export const {useAdvancePaymentMutation,useGetSingleRentalQuery, useCreateRentalMutation, useGetAllRentalsQuery, useReturnBikeMutation,useRentalPaymentMutation } = Rentals

@@ -8,7 +8,7 @@ type FormData = {
   message: string;
 };
 
-const ContactForm = () => {
+const ContactForm:React.FC = () => {
   const {
     register,
     handleSubmit,

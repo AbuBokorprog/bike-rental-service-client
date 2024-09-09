@@ -14,11 +14,11 @@ export const Bikes = baseApi.injectEndpoints({
           });
         }
 
-        return{
+        return {
           url: "/bikes",
           method: "GET",
-          params: params
-        }
+          params: params,  // Use params.toString() for proper URL formatting
+        };
       },
       providesTags: ["bike"],
       transformResponse: (response: TReduxResponse<TBike[]>) => {

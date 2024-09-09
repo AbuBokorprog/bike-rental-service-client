@@ -2,13 +2,16 @@ import React, { useEffect } from "react";
 import BikeComponent from "../../component/bikes/BikeComponent";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
-import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary, Button } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import BikeProcessModal from "../../component/BikeProcessModal";
-import { useParams } from "react-router-dom";
+import BikeProcessModal from "../../component/bikes/BikeProcessModal";
+import { Link, useParams } from "react-router-dom";
 import { useGetSingleBikeQuery } from "../../redux/features/bikes/bikes.api";
+import { useAppSelector } from "../../redux/hooks/hooks";
+import { currentToken } from "../../redux/store";
 
 const BikeDetails = () => {
+  const token = useAppSelector(currentToken)
   const { slug } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +50,7 @@ const BikeDetails = () => {
               </p>
             </div>
             <div className="mt-4">
-              <BikeProcessModal id={data?.data?._id} />
+              {token ? <BikeProcessModal id={data?.data?._id} /> : <Link to={"/login"}><Button variant="contained" className="w-full">Book Now</Button></Link>}
             </div>
           </div>
           <div className="my-3 lg:my-6">

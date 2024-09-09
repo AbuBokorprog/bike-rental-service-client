@@ -14,6 +14,7 @@ import { JWTDecode } from "../../utils/JWTDecode";
 import { login } from "../../redux/features/auth/AuthSlice";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { JwtPayload } from "jwt-decode";
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -44,12 +45,17 @@ const Login: React.FC = () => {
       const res = await userLogin(data).unwrap();
 
       if (res?.success) {
-        const user = JWTDecode(res?.data?.token);
+        const user = JWTDecode(res?.data?.token) as JwtPayload;
 
         dispatch(login({ user: user, token: res?.data?.token }));
 
         toast.success(res.message, { id: toastId, duration: 2000 });
-        navigate("/");
+        if(user?.role === 'super-admin'){
+          navigate(`/dashboard/admin`);
+        }else{
+          navigate(`/dashboard/${user?.role}`)
+        }
+       
       }
     } catch (error) {
       console.log(error);

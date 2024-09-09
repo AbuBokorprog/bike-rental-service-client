@@ -9,8 +9,8 @@ type TBreadcrumbs = {
 const CustomBreadcrumbs: React.FC<TBreadcrumbs> = ({ breadcrumbs }) => {
   return (
     <Stack spacing={2}>
-      <Breadcrumbs
-        separator={<NavigateNextIcon fontSize="small" />}
+      <Breadcrumbs 
+        separator={<NavigateNextIcon fontSize="large"/>}
         aria-label="breadcrumb"
       >
         {breadcrumbs}
