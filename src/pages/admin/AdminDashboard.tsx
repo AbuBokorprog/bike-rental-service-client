@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UpdateProfileModal from "../../component/dashboard/UpdateProfileModal";
+import { useGetProfileInfoQuery } from "../../redux/features/user/User";
 
 interface User {
   name: string;
@@ -10,13 +11,9 @@ interface User {
 }
 
 const AdminDashboard = () => {
-  const [user, setUser] = useState<User>({
-    name: "John Doe",
-    email: "johndoe@example.com",
-    phone: "+1234567890",
-    address: "1234 Main St, Cityville, USA",
-    image: "https://via.placeholder.com/150",
-  });
+
+  const {data} = useGetProfileInfoQuery(undefined)
+  const user = (data?.data[0])
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -26,7 +23,7 @@ const AdminDashboard = () => {
 
   // Handle user profile update
   const handleUpdateProfile = (updatedUser: User) => {
-    setUser(updatedUser);
+    
   };
 
   return (
@@ -34,26 +31,26 @@ const AdminDashboard = () => {
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         Dashboard
       </h1>
-      <p className="mt-4">Welcome, {user.name}!</p>
+      <p className="mt-4">Welcome, {user?.name}!</p>
 
       <div className="mt-8 space-y-4 mx-auto">
         <img
-          src={user.image}
+          src={user?.image}
           alt="User profile"
           className="w-24 h-24 rounded-full object-cover mx-auto"
         />
         <div className="text-lg">
           <p>
-            <strong>Name:</strong> {user.name}
+            <strong>Name:</strong> {user?.name}
           </p>
           <p>
-            <strong>Email:</strong> {user.email}
+            <strong>Email:</strong> {user?.email}
           </p>
           <p>
-            <strong>Phone:</strong> {user.phone}
+            <strong>Phone:</strong> {user?.phone}
           </p>
           <p>
-            <strong>Address:</strong> {user.address}
+            <strong>Address:</strong> {user?.address}
           </p>
         </div>
 
@@ -70,7 +67,7 @@ const AdminDashboard = () => {
         open={openModal}
         handleClose={handleCloseModal}
         user={user}
-        handleUpdate={handleUpdateProfile}
+        
       />
     </div>
   );

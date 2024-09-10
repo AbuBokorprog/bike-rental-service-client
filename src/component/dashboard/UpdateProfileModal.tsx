@@ -7,94 +7,140 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { useUpdateProfileInfoMutation } from "../../redux/features/user/User";
+import { toast } from "sonner";
+import { Controller, FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 interface User {
   name: string;
   email: string;
   phone: string;
   address: string;
+  image: string
 }
 
 interface UpdateProfileModalProps {
   open: boolean;
   handleClose: () => void;
   user: User;
-  handleUpdate: (updatedUser: User) => void;
 }
 
 const UpdateProfileModal: React.FC<UpdateProfileModalProps> = ({
   open,
   handleClose,
   user,
-  handleUpdate,
 }) => {
-  const [updatedUser, setUpdatedUser] = useState<User>(user);
 
-  // Handler for input change
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setUpdatedUser({ ...updatedUser, [name]: value });
-  };
-
+const {handleSubmit, control} = useForm()
+  
+  const [updateInfo] = useUpdateProfileInfoMutation()
   // Update profile on form submission
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleUpdate(updatedUser);
+  const handleFormSubmit:SubmitHandler<FieldValues> = async(data) => {
+    const toastId = toast.loading('Loading...')
+
+   try {
+    const res = await updateInfo(data).unwrap()
+    if(res?.success){
+      toast.success(res?.message, {id:toastId, duration:2000})
+    }
+   } catch (error) {
+    console.log(error as unknown)
+    toast.error((error?.message as string), {id: toastId, duration:2000})
+   }
+
     handleClose();
   };
 
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Update Profile</DialogTitle>
-      <form onSubmit={handleFormSubmit}>
-        <DialogContent>
-          <TextField
-            fullWidth
-            margin="dense"
-            label="Name"
-            name="name"
-            value={updatedUser.name}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            margin="dense"
-            label="Email"
-            name="email"
-            value={updatedUser.email}
-            onChange={handleChange}
-            variant="outlined"
-            type="email"
-          />
-          <TextField
-            fullWidth
-            margin="dense"
-            label="Phone"
-            name="phone"
-            value={updatedUser.phone}
-            onChange={handleChange}
-            variant="outlined"
-          />
-          <TextField
-            fullWidth
-            margin="dense"
-            label="Address"
-            name="address"
-            value={updatedUser.address}
-            onChange={handleChange}
-            variant="outlined"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button type="submit" color="primary" variant="contained">
-            Save
-          </Button>
-        </DialogActions>
-      </form>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
+  <DialogContent>
+    <Controller
+      control={control}
+      name="name"
+      defaultValue={user?.name} // Initial value for react-hook-form
+      render={({ field }) => (
+        <TextField
+          fullWidth
+          {...field}
+          margin="dense"
+          label="Name"
+          variant="outlined"
+        />
+      )}
+    />
+
+    <Controller
+      control={control}
+      name="email"
+      defaultValue={user?.email}
+      render={({ field }) => (
+        <TextField
+          fullWidth
+          {...field}
+          margin="dense"
+          label="Email"
+          variant="outlined"
+        />
+      )}
+    />
+
+    <Controller
+      control={control}
+      name="phone"
+      defaultValue={user?.phone}
+      render={({ field }) => (
+        <TextField
+          fullWidth
+          {...field}
+          margin="dense"
+          label="Phone"
+          variant="outlined"
+        />
+      )}
+    />
+
+    <Controller
+      control={control}
+      name="address"
+      defaultValue={user?.address}
+      render={({ field }) => (
+        <TextField
+          fullWidth
+          {...field}
+          margin="dense"
+          label="Address"
+          variant="outlined"
+        />
+      )}
+    />
+
+    <Controller
+      control={control}
+      name="image"
+      defaultValue={user?.image}
+      render={({ field }) => (
+        <TextField
+          fullWidth
+          {...field}
+          margin="dense"
+          label="Image"
+          variant="outlined"
+        />
+      )}
+    />
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClose} color="secondary">
+      Cancel
+    </Button>
+    <Button type="submit" color="primary" variant="contained">
+      Save
+    </Button>
+  </DialogActions>
+</form>
+
     </Dialog>
   );
 };
