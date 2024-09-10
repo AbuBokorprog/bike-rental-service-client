@@ -10,12 +10,14 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import LoginIcon from "@mui/icons-material/Login";
-import LogoutIcon from "@mui/icons-material/Logout";
+// import LoginIcon from "@mui/icons-material/Login";
+// import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
   Dashboard as DashboardIcon,
+  Logout as LogoutIcon,
+  Login as LoginIcon,
   // Settings as SettingsIcon,
   People as PeopleIcon,
 } from "@mui/icons-material";
@@ -31,14 +33,18 @@ import { BiKey } from "react-icons/bi";
 import { toast } from "sonner";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const userItems = [
-  { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/user" },
+  {
+    text: "Dashboard",
+    icon: <DashboardIcon className="dark:text-white" />,
+    path: "/dashboard/user",
+  },
   {
     text: "Rental Management",
-    icon: <BiKey />,
+    icon: <BiKey className="dark:text-white" />,
     children: [
       {
         text: "My Rentals",
-        icon: <BiKey />,
+        icon: <BiKey className="dark:text-white" />,
         path: "/dashboard/user/my-rentals",
       },
     ],
@@ -46,57 +52,61 @@ const userItems = [
 ];
 
 const adminMenuItems = [
-  { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard/admin" },
+  {
+    text: "Dashboard",
+    icon: <DashboardIcon className="dark:text-white" />,
+    path: "/dashboard/admin",
+  },
   {
     text: "User Management",
-    icon: <PeopleIcon />,
+    icon: <PeopleIcon className="dark:text-white" />,
     children: [
       {
         text: "All Users",
-        icon: <PeopleIcon />,
+        icon: <PeopleIcon className="dark:text-white" />,
         path: "/dashboard/admin/all-users",
       },
     ],
   },
   {
     text: "Types Management",
-    icon: <BiSolidCategory />,
+    icon: <BiSolidCategory className="dark:text-white" />,
     children: [
       {
         text: "All Types",
-        icon: <BiSolidCategory />,
+        icon: <BiSolidCategory className="dark:text-white" />,
         path: "/dashboard/admin/all-types",
       },
       {
         text: "Add Types",
-        icon: <BiSolidCategory />,
+        icon: <BiSolidCategory className="dark:text-white" />,
         path: "/dashboard/admin/create-type",
       },
     ],
   },
   {
     text: "Bike Management",
-    icon: <ElectricBikeIcon />,
+    icon: <ElectricBikeIcon className="dark:text-white" />,
     children: [
       {
         text: "All Bikes",
-        icon: <ElectricBikeIcon />,
+        icon: <ElectricBikeIcon className="dark:text-white" />,
         path: "/dashboard/admin/all-bikes",
       },
       {
         text: "Add Bike",
-        icon: <ElectricBikeIcon />,
+        icon: <ElectricBikeIcon className="dark:text-white" />,
         path: "/dashboard/admin/create-bike",
       },
     ],
   },
   {
     text: "Rental Management",
-    icon: <BiKey />,
+    icon: <BiKey className="dark:text-white" />,
     children: [
       {
         text: "Rental Bikes",
-        icon: <BiKey />,
+        icon: <BiKey className="dark:text-white" />,
         path: "/dashboard/admin/rental-bikes",
       },
     ],
@@ -221,7 +231,7 @@ export const Sidebar: React.FC = () => {
           <Link to={"/"}>
             <ListItem button>
               <ListItemIcon>
-                <HomeIcon />
+                <HomeIcon className="dark:text-white" />
               </ListItemIcon>
               <ListItemText>Home</ListItemText>
             </ListItem>
@@ -229,14 +239,14 @@ export const Sidebar: React.FC = () => {
           <Link to={"/login"}>
             <ListItem button>
               <ListItemIcon>
-                <LoginIcon />
+                <LoginIcon className="dark:text-white" />
               </ListItemIcon>
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
           <ListItem button onClick={() => logoutHandler()}>
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon className="dark:text-white" />
             </ListItemIcon>
             <ListItemText>Logout</ListItemText>
           </ListItem>
@@ -305,7 +315,7 @@ export const Sidebar: React.FC = () => {
           <Link to={"/"}>
             <ListItem button>
               <ListItemIcon>
-                <HomeIcon />
+                <HomeIcon className="dark:text-white" />
               </ListItemIcon>
               <ListItemText>Home</ListItemText>
             </ListItem>
@@ -313,14 +323,14 @@ export const Sidebar: React.FC = () => {
           <Link to={"/login"}>
             <ListItem button>
               <ListItemIcon>
-                <LoginIcon />
+                <LoginIcon className="dark:text-white" />
               </ListItemIcon>
               <ListItemText>Login</ListItemText>
             </ListItem>
           </Link>
           <ListItem button onClick={() => logoutHandler()}>
             <ListItemIcon>
-              <LogoutIcon />
+              <LogoutIcon className="dark:text-white" />
             </ListItemIcon>
             <ListItemText>Logout</ListItemText>
           </ListItem>

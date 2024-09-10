@@ -1,5 +1,8 @@
 import React from "react";
-import { useGetAllUsersQuery } from "../../../redux/features/user/User";
+import {
+  useDeleteUserMutation,
+  useGetAllUsersQuery,
+} from "../../../redux/features/user/User";
 import {
   Button,
   Paper,
@@ -12,9 +15,19 @@ import {
   TableRow,
 } from "@mui/material";
 import { TUser } from "../../../types/users/user.type";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "sonner";
 
 interface Column {
-  id: "image" | "name" | "email" | "phone" | "address" | "role" | "action";
+  id:
+    | "image"
+    | "name"
+    | "email"
+    | "phone"
+    | "address"
+    | "role"
+    | "action"
+    | "delete";
   label: string;
   minWidth?: number;
   sortable?: boolean;
@@ -52,10 +65,17 @@ const columns: readonly Column[] = [
     minWidth: 100,
     align: "left",
   },
+  {
+    id: "delete",
+    label: "Delete",
+    minWidth: 100,
+    align: "left",
+  },
 ];
 
 const AllUser = () => {
   const { data } = useGetAllUsersQuery(undefined);
+  const [deleteUser] = useDeleteUserMutation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   let count = 0;
@@ -73,6 +93,7 @@ const AllUser = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
   const handlePromoteUser = (user: Partial<TUser>) => {
     // Logic to promote or demote user based on their current role
     if (user.role === "admin") {
@@ -83,6 +104,19 @@ const AllUser = () => {
       // Promote the user to 'admin'
       console.log(`Promoting ${user.name} to admin`);
       // API call or state update to change role
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const toastId = toast.loading("Loading...");
+    try {
+      const res = await deleteUser(id).unwrap();
+      console.log(res);
+      if (res?.success) {
+        toast.success(res?.message, { id: toastId, duration: 2000 });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
     }
   };
 
@@ -139,6 +173,14 @@ const AllUser = () => {
                                 {row.role === "admin"
                                   ? "Demote to User"
                                   : "Promote to Admin"}
+                              </Button>
+                            ) : column.id === "delete" ? (
+                              <Button
+                                onClick={() => handleDelete(row._id)}
+                                variant="contained"
+                                className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+                              >
+                                <DeleteIcon />
                               </Button>
                             ) : column.format && typeof value === "string" ? (
                               column.format(value as string)

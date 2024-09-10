@@ -27,7 +27,7 @@ const AllBikes: React.FC = () => {
     setPage(value);
   };
 
-  const brands =[
+  const brands = [
     { id: 1, brand: "Honda" },
     { id: 2, brand: "Yamaha" },
     { id: 3, brand: "Suzuki" },
@@ -42,7 +42,7 @@ const AllBikes: React.FC = () => {
     { id: 12, brand: "Bajaj" },
     { id: 13, brand: "Hero" },
     { id: 14, brand: "TVS" },
-    { id: 15, brand: "MV Agusta" }
+    { id: 15, brand: "MV Agusta" },
   ];
 
   const models =

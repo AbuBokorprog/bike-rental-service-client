@@ -36,62 +36,64 @@ const RentalBikes: React.FC = () => {
         Rental Bikes.
       </h1>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-center mx-auto">
-        {rentals?.map((rental: TRental, index: number) => (
-          <div
-            key={index}
-            className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
-          >
-            <img
-              src={rental?.bikeId?.images[0]}
-              alt={rental?.bikeId?.name}
-              className="w-full h-44 object-cover rounded-md mb-4"
-            />
+      <div className="grid gap-6 md:grid-cols-2 my-2 lg:grid-cols-3 xl:grid-cols-4 items-center mx-auto">
+        {rentals?.length > 0 ? (
+          rentals?.map((rental: TRental, index: number) => (
+            <div
+              key={index}
+              className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
+            >
+              <img
+                src={rental?.bikeId?.images[0]}
+                alt={rental?.bikeId?.name}
+                className="w-full h-40 object-cover rounded-md mb-4"
+              />
 
-            <h2 className="text-xl font-semibold mb-2">
-              {rental?.bikeId?.name}
-            </h2>
-            <p className="text-gray-600 mb-1">
-              <strong>Start Time:</strong>{" "}
-              {new Date(rental?.startTime).toLocaleString()}
-            </p>
-            <div className="h-24">
-              {rental?.returnTime && (
-                <p className="text-gray-600 mb-1">
-                  <strong>Return Time:</strong>{" "}
-                  {new Date(rental?.returnTime).toLocaleString()}
-                </p>
-              )}
-              {rental?.returnTime && (
-                <p className="text-gray-800 font-medium mt-2">
-                  <strong>Total Cost:</strong> ${rental?.totalCost?.toFixed(2)}
-                </p>
-              )}
-              {rental?.returnTime && (
-                <p className="text-gray-800 font-medium mt-2">
-                  <strong>Due Cost:</strong> ${rental?.duePayment?.toFixed(2)}
-                </p>
-              )}
-              {/* Pay Button if Unpaid */}
-              {!rental?.isReturned && rental?.totalCost === 0 && (
-                <Button
-                  onClick={() => calculateHandler(rental?._id)}
-                  variant="contained"
-                >
-                  Calculate
-                </Button>
-              )}
-            </div>
-            {/* payment status badge */}
-            <div className="absolute top-0 left-0">
-              <p
-                className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
-              >
-                {rental?.paymentStatus}
+              <h2 className="text-xl font-semibold mb-2">
+                {rental?.bikeId?.name}
+              </h2>
+              <p className="text-gray-600 mb-1">
+                <strong>Start Time:</strong>{" "}
+                {new Date(rental?.startTime).toLocaleString()}
               </p>
+              <div className="h-32">
+                {rental?.returnTime && (
+                  <p className="text-gray-600 mb-1">
+                    <strong>Return Time:</strong>{" "}
+                    {new Date(rental?.returnTime).toLocaleString()}
+                  </p>
+                )}
+                {rental?.returnTime && (
+                  <p className="text-gray-800 font-medium mt-2">
+                    <strong>Total Cost:</strong> $
+                    {rental?.totalCost?.toFixed(2)}
+                  </p>
+                )}
+                {rental?.returnTime && (
+                  <p className="text-gray-800 font-medium mt-2">
+                    <strong>Due Cost:</strong> ${rental?.duePayment?.toFixed(2)}
+                  </p>
+                )}
+                {/* Pay Button if Unpaid */}
+                {rental?.paymentStatus === "Unpaid" && (
+                  <Button variant="contained">Pay</Button>
+                )}
+              </div>
+              {/* payment status badge */}
+              <div className="absolute top-0 left-0">
+                <p
+                  className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                >
+                  {rental?.paymentStatus}
+                </p>
+              </div>
             </div>
+          ))
+        ) : (
+          <div className="md:col-span-2 lg:col-span-3 xl:col-span-4">
+            <p className="my-5">No rentals!</p>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );

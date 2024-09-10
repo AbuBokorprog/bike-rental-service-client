@@ -13,7 +13,7 @@ import { useGetProfileInfoQuery } from "../../redux/features/user/User";
 const Navbar = () => {
   const dispatch = useDispatch();
   const token = useAppSelector(currentToken);
-  let role = "user";
+  let role;
 
   if (token) {
     const user = JWTDecode(token);

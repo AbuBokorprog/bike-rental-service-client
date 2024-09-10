@@ -73,229 +73,265 @@ const MyRentals: React.FC = () => {
         {/* All rentals */}
         <CustomTabPanel value={value} index={0}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {data?.data?.map((rental: TRental, index: number) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
-              >
-                <img
-                  src={rental?.bikeId?.images[0]}
-                  alt={rental?.bikeId?.name}
-                  className="w-full h-40 object-cover rounded-md mb-4"
-                />
+            {data?.data?.length > 0 ? (
+              data?.data?.map((rental: TRental, index: number) => (
+                <div
+                  key={index}
+                  className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
+                >
+                  <img
+                    src={rental?.bikeId?.images[0]}
+                    alt={rental?.bikeId?.name}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
 
-                <h2 className="text-xl font-semibold mb-2">
-                  {rental?.bikeId?.name}
-                </h2>
-                <p className="text-gray-600 mb-1">
-                  <strong>Start Time:</strong>{" "}
-                  {new Date(rental?.startTime).toLocaleString()}
-                </p>
-                <div className="h-32">
-                  {rental?.returnTime && (
-                    <p className="text-gray-600 mb-1">
-                      <strong>Return Time:</strong>{" "}
-                      {new Date(rental?.returnTime).toLocaleString()}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Total Cost:</strong> $
-                      {rental?.totalCost?.toFixed(2)}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Due Cost:</strong> $
-                      {rental?.duePayment?.toFixed(2)}
-                    </p>
-                  )}
-                  {/* Pay Button if Unpaid */}
-                  {rental?.paymentStatus === "Unpaid" && (
-                    <Button variant="contained">Pay</Button>
-                  )}
-                </div>
-                {/* payment status badge */}
-                <div className="absolute top-0 left-0">
-                  <p
-                    className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
-                  >
-                    {rental?.paymentStatus}
+                  <h2 className="text-xl font-semibold mb-2">
+                    {rental?.bikeId?.name}
+                  </h2>
+                  <p className="text-gray-600 mb-1">
+                    <strong>Start Time:</strong>{" "}
+                    {new Date(rental?.startTime).toLocaleString()}
                   </p>
+                  <div className="h-32">
+                    {rental?.returnTime && (
+                      <p className="text-gray-600 mb-1">
+                        <strong>Return Time:</strong>{" "}
+                        {new Date(rental?.returnTime).toLocaleString()}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Total Cost:</strong> $
+                        {rental?.totalCost?.toFixed(2)}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Due Cost:</strong> $
+                        {rental?.duePayment?.toFixed(2)}
+                      </p>
+                    )}
+                    {/* Pay Button if Unpaid */}
+                    {rental?.paymentStatus === "Unpaid" && (
+                      <Button variant="contained">Pay</Button>
+                    )}
+                  </div>
+                  {/* payment status badge */}
+                  <div className="absolute top-0 left-0">
+                    <p
+                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                    >
+                      {rental?.paymentStatus}
+                    </p>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-3">
+                <p>
+                  No rentals? Don’t worry, the perfect bike is waiting for you!
+                  Explore now and start your journey!
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </CustomTabPanel>
         {/* Paid rentals */}
         <CustomTabPanel value={value} index={1}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {paidRental?.map((rental: TRental, index: number) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
-              >
-                <img
-                  src={rental?.bikeId?.images[0]}
-                  alt={rental?.bikeId?.name}
-                  className="w-full h-40 object-cover rounded-md mb-4"
-                />
+            {paidRental.length > 0 ? (
+              paidRental?.map((rental: TRental, index: number) => (
+                <div
+                  key={index}
+                  className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
+                >
+                  <img
+                    src={rental?.bikeId?.images[0]}
+                    alt={rental?.bikeId?.name}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
 
-                <h2 className="text-xl font-semibold mb-2">
-                  {rental?.bikeId?.name}
-                </h2>
-                <p className="text-gray-600 mb-1">
-                  <strong>Start Time:</strong>{" "}
-                  {new Date(rental?.startTime).toLocaleString()}
-                </p>
-                <div className="h-32">
-                  {rental?.returnTime && (
-                    <p className="text-gray-600 mb-1">
-                      <strong>Return Time:</strong>{" "}
-                      {new Date(rental?.returnTime).toLocaleString()}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Total Cost:</strong> $
-                      {rental?.totalCost?.toFixed(2)}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Due Cost:</strong> $
-                      {rental?.duePayment?.toFixed(2)}
-                    </p>
-                  )}
-                  {/* Pay Button if Unpaid */}
-                  {rental?.paymentStatus === "Unpaid" && (
-                    <Button variant="contained">Pay</Button>
-                  )}
-                </div>
-                {/* payment status badge */}
-                <div className="absolute top-0 left-0">
-                  <p
-                    className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
-                  >
-                    {rental?.paymentStatus}
+                  <h2 className="text-xl font-semibold mb-2">
+                    {rental?.bikeId?.name}
+                  </h2>
+                  <p className="text-gray-600 mb-1">
+                    <strong>Start Time:</strong>{" "}
+                    {new Date(rental?.startTime).toLocaleString()}
                   </p>
+                  <div className="h-32">
+                    {rental?.returnTime && (
+                      <p className="text-gray-600 mb-1">
+                        <strong>Return Time:</strong>{" "}
+                        {new Date(rental?.returnTime).toLocaleString()}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Total Cost:</strong> $
+                        {rental?.totalCost?.toFixed(2)}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Due Cost:</strong> $
+                        {rental?.duePayment?.toFixed(2)}
+                      </p>
+                    )}
+                    {/* Pay Button if Unpaid */}
+                    {rental?.paymentStatus === "Unpaid" && (
+                      <Button variant="contained">Pay</Button>
+                    )}
+                  </div>
+                  {/* payment status badge */}
+                  <div className="absolute top-0 left-0">
+                    <p
+                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                    >
+                      {rental?.paymentStatus}
+                    </p>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-3">
+                <p>
+                  No rentals? Don’t worry, the perfect bike is waiting for you!
+                  Explore now and start your journey!
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </CustomTabPanel>
         {/* unpaid rentals */}
         <CustomTabPanel value={value} index={2}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {unPaidRental?.map((rental: TRental, index: number) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
-              >
-                <img
-                  src={rental?.bikeId?.images[0]}
-                  alt={rental?.bikeId?.name}
-                  className="w-full h-40 object-cover rounded-md mb-4"
-                />
+            {unPaidRental.length > 0 ? (
+              unPaidRental?.map((rental: TRental, index: number) => (
+                <div
+                  key={index}
+                  className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
+                >
+                  <img
+                    src={rental?.bikeId?.images[0]}
+                    alt={rental?.bikeId?.name}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
 
-                <h2 className="text-xl font-semibold mb-2">
-                  {rental?.bikeId?.name}
-                </h2>
-                <p className="text-gray-600 mb-1">
-                  <strong>Start Time:</strong>{" "}
-                  {new Date(rental?.startTime).toLocaleString()}
-                </p>
-                <div className="h-32">
-                  {rental?.returnTime && (
-                    <p className="text-gray-600 mb-1">
-                      <strong>Return Time:</strong>{" "}
-                      {new Date(rental?.returnTime).toLocaleString()}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Total Cost:</strong> $
-                      {rental?.totalCost?.toFixed(2)}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Due Cost:</strong> $
-                      {rental?.duePayment?.toFixed(2)}
-                    </p>
-                  )}
-                  {/* Pay Button if Unpaid */}
-                  {rental?.paymentStatus === "Unpaid" && (
-                    <Button variant="contained">Pay</Button>
-                  )}
-                </div>
-                {/* payment status badge */}
-                <div className="absolute top-0 left-0">
-                  <p
-                    className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
-                  >
-                    {rental?.paymentStatus}
+                  <h2 className="text-xl font-semibold mb-2">
+                    {rental?.bikeId?.name}
+                  </h2>
+                  <p className="text-gray-600 mb-1">
+                    <strong>Start Time:</strong>{" "}
+                    {new Date(rental?.startTime).toLocaleString()}
                   </p>
+                  <div className="h-32">
+                    {rental?.returnTime && (
+                      <p className="text-gray-600 mb-1">
+                        <strong>Return Time:</strong>{" "}
+                        {new Date(rental?.returnTime).toLocaleString()}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Total Cost:</strong> $
+                        {rental?.totalCost?.toFixed(2)}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Due Cost:</strong> $
+                        {rental?.duePayment?.toFixed(2)}
+                      </p>
+                    )}
+                    {/* Pay Button if Unpaid */}
+                    {rental?.paymentStatus === "Unpaid" && (
+                      <Button variant="contained">Pay</Button>
+                    )}
+                  </div>
+                  {/* payment status badge */}
+                  <div className="absolute top-0 left-0">
+                    <p
+                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                    >
+                      {rental?.paymentStatus}
+                    </p>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-3">
+                <p>
+                  No rentals? Don’t worry, the perfect bike is waiting for you!
+                  Explore now and start your journey!
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </CustomTabPanel>
         {/* confirm rental */}
         <CustomTabPanel value={value} index={3}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {confirmRentals?.map((rental: TRental, index: number) => (
-              <div
-                key={index}
-                className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
-              >
-                <img
-                  src={rental?.bikeId?.images[0]}
-                  alt={rental?.bikeId?.name}
-                  className="w-full h-40 object-cover rounded-md mb-4"
-                />
+            {confirmRentals?.length > 0 ? (
+              confirmRentals?.map((rental: TRental, index: number) => (
+                <div
+                  key={index}
+                  className="bg-white shadow-md rounded-lg p-4 border border-gray-200 relative"
+                >
+                  <img
+                    src={rental?.bikeId?.images[0]}
+                    alt={rental?.bikeId?.name}
+                    className="w-full h-40 object-cover rounded-md mb-4"
+                  />
 
-                <h2 className="text-xl font-semibold mb-2">
-                  {rental?.bikeId?.name}
-                </h2>
-                <p className="text-gray-600 mb-1">
-                  <strong>Start Time:</strong>{" "}
-                  {new Date(rental?.startTime).toLocaleString()}
-                </p>
-                <div className="h-32">
-                  {rental?.returnTime && (
-                    <p className="text-gray-600 mb-1">
-                      <strong>Return Time:</strong>{" "}
-                      {new Date(rental?.returnTime).toLocaleString()}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Total Cost:</strong> $
-                      {rental?.totalCost?.toFixed(2)}
-                    </p>
-                  )}
-                  {rental?.returnTime && (
-                    <p className="text-gray-800 font-medium mt-2">
-                      <strong>Due Cost:</strong> $
-                      {rental?.duePayment?.toFixed(2)}
-                    </p>
-                  )}
-                  {/* Pay Button if Unpaid */}
-                  {rental?.paymentStatus === "Unpaid" && (
-                    <Button variant="contained">Pay</Button>
-                  )}
-                </div>
-                {/* payment status badge */}
-                <div className="absolute top-0 left-0">
-                  <p
-                    className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
-                  >
-                    {rental?.paymentStatus}
+                  <h2 className="text-xl font-semibold mb-2">
+                    {rental?.bikeId?.name}
+                  </h2>
+                  <p className="text-gray-600 mb-1">
+                    <strong>Start Time:</strong>{" "}
+                    {new Date(rental?.startTime).toLocaleString()}
                   </p>
+                  <div className="h-32">
+                    {rental?.returnTime && (
+                      <p className="text-gray-600 mb-1">
+                        <strong>Return Time:</strong>{" "}
+                        {new Date(rental?.returnTime).toLocaleString()}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Total Cost:</strong> $
+                        {rental?.totalCost?.toFixed(2)}
+                      </p>
+                    )}
+                    {rental?.returnTime && (
+                      <p className="text-gray-800 font-medium mt-2">
+                        <strong>Due Cost:</strong> $
+                        {rental?.duePayment?.toFixed(2)}
+                      </p>
+                    )}
+                    {/* Pay Button if Unpaid */}
+                    {rental?.paymentStatus === "Unpaid" && (
+                      <Button variant="contained">Pay</Button>
+                    )}
+                  </div>
+                  {/* payment status badge */}
+                  <div className="absolute top-0 left-0">
+                    <p
+                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                    >
+                      {rental?.paymentStatus}
+                    </p>
+                  </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-3">
+                <p>
+                  No rentals? Don’t worry, the perfect bike is waiting for you!
+                  Explore now and start your journey!
+                </p>
               </div>
-            ))}
+            )}
           </div>
         </CustomTabPanel>
       </Box>

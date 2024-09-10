@@ -2,29 +2,15 @@ import React, { useState } from "react";
 import UpdateProfileModal from "../../component/dashboard/UpdateProfileModal";
 import { useGetProfileInfoQuery } from "../../redux/features/user/User";
 
-interface User {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  image: string;
-}
-
-const AdminDashboard = () => {
-
-  const {data} = useGetProfileInfoQuery(undefined)
-  const user = (data?.data[0])
+const AdminDashboard: React.FC = () => {
+  const { data } = useGetProfileInfoQuery(undefined);
+  const user = data?.data[0];
 
   const [openModal, setOpenModal] = useState(false);
 
   // Open and close modal handlers
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
-
-  // Handle user profile update
-  const handleUpdateProfile = (updatedUser: User) => {
-    
-  };
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
@@ -67,7 +53,6 @@ const AdminDashboard = () => {
         open={openModal}
         handleClose={handleCloseModal}
         user={user}
-        
       />
     </div>
   );

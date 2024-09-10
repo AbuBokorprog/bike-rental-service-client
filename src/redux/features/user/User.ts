@@ -4,19 +4,6 @@ import { baseApi } from "../../api/BaseApi";
 
 export const User = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getProfileInfo: builder.query({
-      query: () => "/users/me",
-      providesTags: ["user"],
-    }),
-
-    updateProfileInfo: builder.mutation({
-      query: (data) => ({
-        url: "/users/me",
-        method: "PUT",
-        body: data,
-      }),
-      invalidatesTags: ["user"],
-    }),
     getAllUsers: builder.query({
       query: () => ({
         url: "/users",
@@ -27,6 +14,26 @@ export const User = baseApi.injectEndpoints({
           data: response.data,
         };
       },
+      providesTags: ["user"],
+    }),
+    getProfileInfo: builder.query({
+      query: () => "/users/me",
+      providesTags: ["user"],
+    }),
+    updateProfileInfo: builder.mutation({
+      query: (data) => ({
+        url: "/users/me",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
+    deleteUser: builder.mutation({
+      query: (id) => ({
+        url: `/users/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["user"],
     }),
   }),
 });
@@ -35,4 +42,5 @@ export const {
   useGetAllUsersQuery,
   useGetProfileInfoQuery,
   useUpdateProfileInfoMutation,
+  useDeleteUserMutation,
 } = User;
