@@ -2,6 +2,7 @@ import React from "react";
 import {
   useDeleteUserMutation,
   useGetAllUsersQuery,
+  usePromoteUserMutation,
 } from "../../../redux/features/user/User";
 import {
   Button,
@@ -76,6 +77,7 @@ const columns: readonly Column[] = [
 const AllUser = () => {
   const { data } = useGetAllUsersQuery(undefined);
   const [deleteUser] = useDeleteUserMutation();
+  const [promoteUser] = usePromoteUserMutation();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   let count = 0;
@@ -94,16 +96,27 @@ const AllUser = () => {
     setPage(0);
   };
 
-  const handlePromoteUser = (user: Partial<TUser>) => {
-    // Logic to promote or demote user based on their current role
-    if (user.role === "admin") {
-      // Demote the user to 'user'
-      console.log(`Demoting ${user.name} to user`);
-      // API call or state update to change role
-    } else {
-      // Promote the user to 'admin'
-      console.log(`Promoting ${user.name} to admin`);
-      // API call or state update to change role
+  const handlePromoteUser = async (user: Partial<TUser>) => {
+    const toastId = toast.loading("Promoting...");
+
+    try {
+      const res = await promoteUser(user?._id).unwrap();
+ 
+      if (res?.success) {
+        if (user.role === "user") {
+         
+          toast.success(`Promoting ${user.name} to admin`, {id:toastId, duration:2000});
+         
+        } else if(user.role === 'admin'){
+       
+          toast.success(`Promoting ${user.name} to super-admin`,  {id:toastId, duration:2000});
+      
+        }else{
+          toast.success(`Demoting ${user.name} to user`,  {id:toastId, duration:2000});
+        }
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
     }
   };
 
@@ -111,7 +124,7 @@ const AllUser = () => {
     const toastId = toast.loading("Loading...");
     try {
       const res = await deleteUser(id).unwrap();
-      console.log(res);
+
       if (res?.success) {
         toast.success(res?.message, { id: toastId, duration: 2000 });
       }
@@ -170,9 +183,11 @@ const AllUser = () => {
                                 variant="contained"
                                 className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
                               >
-                                {row.role === "admin"
-                                  ? "Demote to User"
-                                  : "Promote to Admin"}
+                                {row.role === "user"
+                                  ? "Promote to Admin"
+                                  : row.role === "admin"
+                                    ? "Promote to super-admin"
+                                    : "Demote to user"}
                               </Button>
                             ) : column.id === "delete" ? (
                               <Button
