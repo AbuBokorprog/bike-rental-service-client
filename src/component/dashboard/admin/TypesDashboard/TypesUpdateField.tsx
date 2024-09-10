@@ -5,47 +5,50 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material';
+import React, { useEffect } from 'react';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
-import { useGetTypesQuery } from "../../../../redux/features/types/Types.api";
+} from 'react-hook-form';
+import { TType } from '../../../../types/types/types.type';
+import { useUpdateTypesMutation } from '../../../../redux/features/types/Types.api';
+import { toast } from 'sonner';
 
 interface UpdateFieldModalProps {
   open: boolean;
   handleClose: () => void;
-  id: string | undefined
+  id: TType | undefined;
 }
 
 const TypesUpdateField: React.FC<UpdateFieldModalProps> = ({
   open,
   handleClose,
-  id
+  id,
 }) => {
-
-    const {data} = useGetTypesQuery(id)
-
-  const {
-    handleSubmit,
-    control,
-  } = useForm();
+  const { handleSubmit, control, reset } = useForm();
+  const [updateType] = useUpdateTypesMutation();
+  useEffect(() => {
+    if (id && open) {
+      reset({
+        name: id?.name || '',
+        image: id?.image || '',
+      });
+    }
+  }, [id, open, reset]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    // const toastId = toast.loading("Loading...");
-    // try {
-    //   const res = await createTypes(data).unwrap();
-
-    //   if (res?.success) {
-    //     toast.success(res.message, { id: toastId, duration: 2000 });
-    //   }
-    // } catch (error) {
-    //   toast.error("Something went wrong!", { id: toastId, duration: 2000 });
-    // }
-
+    const toastId = toast.loading('Loading...');
+    try {
+      const res = await updateType({ id: id?._id, data: data }).unwrap();
+      if (res?.success) {
+        toast.success(res.message, { id: toastId, duration: 2000 });
+      }
+    } catch (error) {
+      toast.error('Something went wrong!', { id: toastId, duration: 2000 });
+    }
   };
   return (
     <div>
@@ -55,22 +58,21 @@ const TypesUpdateField: React.FC<UpdateFieldModalProps> = ({
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full"
-        //   className="max-w-screen-2xl mx-auto my-5 lg:my-16 bg-secondary-50 p-5 rounded-md border shadow-lg"
+          //   className="max-w-screen-2xl mx-auto my-5 lg:my-16 bg-secondary-50 p-5 rounded-md border shadow-lg"
         >
           <DialogContent>
             <div className="my-2">
               <Controller
                 control={control}
-                rules={{ required: "Name is required" }}
+                rules={{ required: 'Name is required' }}
                 name="name"
-                defaultValue={data?.data?.name}
+                defaultValue={id?.name}
                 render={({ field }) => (
                   <TextField
                     {...field}
                     label="Name"
                     variant="outlined"
                     className="block w-full"
-                   
                   />
                 )}
               />
@@ -78,16 +80,15 @@ const TypesUpdateField: React.FC<UpdateFieldModalProps> = ({
             <div className="my-2">
               <Controller
                 control={control}
-                rules={{ required: "Image is required" }}
+                rules={{ required: 'Image is required' }}
                 name="image"
-                defaultValue={data?.data?.image}
+                defaultValue={id?.image}
                 render={({ field }) => (
                   <TextField
                     {...field}
                     label="Image"
                     variant="outlined"
                     className="block w-full"
-                    
                   />
                 )}
               />
