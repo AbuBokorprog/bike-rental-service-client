@@ -1,5 +1,5 @@
-import React from "react";
-import { useState } from "react";
+import React from 'react';
+import { useState } from 'react';
 import {
   Collapse,
   Divider,
@@ -9,7 +9,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-} from "@mui/material";
+} from '@mui/material';
 // import LoginIcon from "@mui/icons-material/Login";
 // import LogoutIcon from "@mui/icons-material/Logout";
 import {
@@ -20,32 +20,32 @@ import {
   Login as LoginIcon,
   // Settings as SettingsIcon,
   People as PeopleIcon,
-} from "@mui/icons-material";
-import ElectricBikeIcon from "@mui/icons-material/ElectricBike";
-import { AiOutlineClose } from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-import { currentToken } from "../../redux/store";
-import { JWTDecode } from "../../utils/JWTDecode";
-import { logout, TUser } from "../../redux/features/auth/AuthSlice";
-import { BiSolidCategory } from "react-icons/bi";
-import { BiKey } from "react-icons/bi";
-import { toast } from "sonner";
+} from '@mui/icons-material';
+import ElectricBikeIcon from '@mui/icons-material/ElectricBike';
+import { AiOutlineClose } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks/hooks';
+import { currentToken } from '../../redux/store';
+import { JWTDecode } from '../../utils/JWTDecode';
+import { logout, TUser } from '../../redux/features/auth/AuthSlice';
+import { BiSolidCategory } from 'react-icons/bi';
+import { BiKey } from 'react-icons/bi';
+import { toast } from 'sonner';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const userItems = [
   {
-    text: "Dashboard",
+    text: 'Dashboard',
     icon: <DashboardIcon className="dark:text-white" />,
-    path: "/dashboard/user",
+    path: '/dashboard/user',
   },
   {
-    text: "Rental Management",
+    text: 'Rental Management',
     icon: <BiKey className="dark:text-white" />,
     children: [
       {
-        text: "My Rentals",
+        text: 'My Rentals',
         icon: <BiKey className="dark:text-white" />,
-        path: "/dashboard/user/my-rentals",
+        path: '/dashboard/user/my-rentals',
       },
     ],
   },
@@ -53,61 +53,61 @@ const userItems = [
 
 const adminMenuItems = [
   {
-    text: "Dashboard",
+    text: 'Dashboard',
     icon: <DashboardIcon className="dark:text-white" />,
-    path: "/dashboard/admin",
+    path: '/dashboard/admin',
   },
   {
-    text: "User Management",
+    text: 'User Management',
     icon: <PeopleIcon className="dark:text-white" />,
     children: [
       {
-        text: "All Users",
+        text: 'All Users',
         icon: <PeopleIcon className="dark:text-white" />,
-        path: "/dashboard/admin/all-users",
+        path: '/dashboard/admin/all-users',
       },
     ],
   },
   {
-    text: "Types Management",
+    text: 'Types Management',
     icon: <BiSolidCategory className="dark:text-white" />,
     children: [
       {
-        text: "All Types",
+        text: 'All Types',
         icon: <BiSolidCategory className="dark:text-white" />,
-        path: "/dashboard/admin/all-types",
+        path: '/dashboard/admin/all-types',
       },
       {
-        text: "Add Types",
+        text: 'Add Types',
         icon: <BiSolidCategory className="dark:text-white" />,
-        path: "/dashboard/admin/create-type",
+        path: '/dashboard/admin/create-type',
       },
     ],
   },
   {
-    text: "Bike Management",
+    text: 'Bike Management',
     icon: <ElectricBikeIcon className="dark:text-white" />,
     children: [
       {
-        text: "All Bikes",
+        text: 'All Bikes',
         icon: <ElectricBikeIcon className="dark:text-white" />,
-        path: "/dashboard/admin/all-bikes",
+        path: '/dashboard/admin/all-bikes',
       },
       {
-        text: "Add Bike",
+        text: 'Add Bike',
         icon: <ElectricBikeIcon className="dark:text-white" />,
-        path: "/dashboard/admin/create-bike",
+        path: '/dashboard/admin/create-bike',
       },
     ],
   },
   {
-    text: "Rental Management",
+    text: 'Rental Management',
     icon: <BiKey className="dark:text-white" />,
     children: [
       {
-        text: "Rental Bikes",
+        text: 'Rental Bikes',
         icon: <BiKey className="dark:text-white" />,
-        path: "/dashboard/admin/rental-bikes",
+        path: '/dashboard/admin/rental-bikes',
       },
     ],
   },
@@ -116,7 +116,7 @@ const adminMenuItems = [
 export const Sidebar: React.FC = () => {
   const token = useAppSelector(currentToken);
   const [open, setOpen] = useState<boolean>(false);
-  const [parentItem, setParentItems] = useState<string>("");
+  const [parentItem, setParentItems] = useState<string>('');
   const dispatch = useAppDispatch();
   let role;
   let menuItems;
@@ -125,7 +125,7 @@ export const Sidebar: React.FC = () => {
     role = (user as TUser)?.role;
   }
 
-  if (role === "user") {
+  if (role === 'user') {
     menuItems = userItems;
   } else {
     menuItems = adminMenuItems;
@@ -143,7 +143,7 @@ export const Sidebar: React.FC = () => {
   const logoutHandler = () => {
     if (token) {
       dispatch(logout());
-      toast.success("Logout successfully!");
+      toast.success('Logout successfully!');
     }
   };
 
@@ -164,12 +164,12 @@ export const Sidebar: React.FC = () => {
         variant="temporary"
         className="lg:hidden"
         classes={{
-          paper: "w-64 bg-gray-900 text-white",
+          paper: 'w-64 bg-gray-900 text-white',
         }}
       >
         <div className="flex items-center justify-between px-4 py-2">
           <h1 className="text-xl font-bold">
-            {" "}
+            {' '}
             RentMy<span className="text-primary-500">Bike</span>
           </h1>
           <IconButton onClick={toggleSidebar}>
@@ -228,7 +228,7 @@ export const Sidebar: React.FC = () => {
             </div>
           ))}
           <Divider />
-          <Link to={"/"}>
+          <Link to={'/'}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon className="dark:text-white" />
@@ -236,7 +236,7 @@ export const Sidebar: React.FC = () => {
               <ListItemText>Home</ListItemText>
             </ListItem>
           </Link>
-          <Link to={"/login"}>
+          <Link to={'/login'}>
             <ListItem button>
               <ListItemIcon>
                 <LoginIcon className="dark:text-white" />
@@ -254,7 +254,7 @@ export const Sidebar: React.FC = () => {
       </Drawer>
 
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex bg-secondary-100 flex-col w-64 h-screen dark:bg-gray-900 dark:text-white fixed">
+      <div className="hidden lg:flex bg-secondary-100 flex-col w-64 h-screen dark:bg-gray-800 dark:text-white fixed">
         <div className="px-4">
           <h1 className="text-2xl font-bold">
             RentMy<span className="text-primary-500">Bike</span>
@@ -312,7 +312,7 @@ export const Sidebar: React.FC = () => {
             </div>
           ))}
           <Divider />
-          <Link to={"/"}>
+          <Link to={'/'}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon className="dark:text-white" />
@@ -320,7 +320,7 @@ export const Sidebar: React.FC = () => {
               <ListItemText>Home</ListItemText>
             </ListItem>
           </Link>
-          <Link to={"/login"}>
+          <Link to={'/login'}>
             <ListItem button>
               <ListItemIcon>
                 <LoginIcon className="dark:text-white" />
