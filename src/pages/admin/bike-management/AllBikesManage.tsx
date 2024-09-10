@@ -1,5 +1,8 @@
-import React from "react";
-import { useGetAllBikesQuery } from "../../../redux/features/bikes/bikes.api";
+import React, { useState } from 'react';
+import {
+  useDeleteBikeMutation,
+  useGetAllBikesQuery,
+} from '../../../redux/features/bikes/bikes.api';
 import {
   Button,
   Card,
@@ -7,10 +10,50 @@ import {
   CardContent,
   CardMedia,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
+import Swal from 'sweetalert2';
+import { TBike } from '../../../types/bikes/bike.type';
+import BikeUpdateField from '../../../component/dashboard/admin/BikeDashboard/BikeUpdateField';
+import { toast } from 'sonner';
 
 const AllBikesManage: React.FC = () => {
   const { data } = useGetAllBikesQuery(undefined);
+  const [bike, setBike] = useState<TBike | undefined>(undefined);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const [deleteBike] = useDeleteBikeMutation();
+  const handleOpenModal = (data: TBike) => {
+    setBike(data);
+    setOpen(true);
+  };
+
+  const handleOpenClose = () => {
+    setBike(undefined);
+    setOpen(false);
+  };
+
+  const deleteBikeHandle = async (id: string) => {
+    try {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await deleteBike(id).unwrap();
+          if (res?.success) {
+            toast.success(res.message, { duration: 2000 });
+          }
+        }
+      });
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 });
+    }
+  };
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
@@ -32,10 +75,18 @@ const AllBikesManage: React.FC = () => {
               </Typography>
             </CardContent>
             <CardActions className="flex items-center justify-between">
-              <Button size="small" variant="outlined">
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => handleOpenModal(t)}
+              >
                 Update
               </Button>
-              <Button size="small" variant="outlined">
+              <Button
+                size="small"
+                variant="outlined"
+                onClick={() => deleteBikeHandle(t?._id)}
+              >
                 Delete
               </Button>
               <Button size="small" variant="contained">
@@ -44,6 +95,11 @@ const AllBikesManage: React.FC = () => {
             </CardActions>
           </Card>
         ))}
+        <BikeUpdateField
+          handleClose={handleOpenClose}
+          open={open}
+          Bike={bike}
+        />
       </div>
     </div>
   );

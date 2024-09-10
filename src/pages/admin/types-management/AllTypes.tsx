@@ -14,7 +14,7 @@ import {
 import { TType } from '../../../types/types/types.type';
 import TypesUpdateField from '../../../component/dashboard/admin/TypesDashboard/TypesUpdateField';
 import { toast } from 'sonner';
-
+import Swal from 'sweetalert2';
 const AllTypes: React.FC = () => {
   const { data } = useGetAllTypesQuery(undefined);
   const [openModal, setOpenModal] = useState(false);
@@ -32,14 +32,25 @@ const AllTypes: React.FC = () => {
   };
 
   const deleteHandler = async (id: string) => {
-    const toastId = toast.loading('Deleting...');
     try {
-      const res = await deleteType(id).unwrap();
-      if (res?.success) {
-        toast.success(res.message, { id: toastId, duration: 2000 });
-      }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await deleteType(id).unwrap();
+          if (res?.success) {
+            toast.success(res.message, { duration: 2000 });
+          }
+        }
+      });
     } catch (error) {
-      toast.error('Something went wrong', { id: toastId, duration: 2000 });
+      toast.error('Something went wrong', { duration: 2000 });
     }
   };
 

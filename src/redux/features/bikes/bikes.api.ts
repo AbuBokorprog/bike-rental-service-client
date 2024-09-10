@@ -1,6 +1,6 @@
-import { TBike } from "../../../types/bikes/bike.type";
-import { TQueryParams, TReduxResponse } from "../../../types/global.type";
-import { baseApi } from "../../api/BaseApi";
+import { TBike } from '../../../types/bikes/bike.type';
+import { TQueryParams, TReduxResponse } from '../../../types/global.type';
+import { baseApi } from '../../api/BaseApi';
 
 export const Bikes = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -13,14 +13,13 @@ export const Bikes = baseApi.injectEndpoints({
             params.append(item.name, item.value as string);
           });
         }
-
         return {
-          url: "/bikes",
-          method: "GET",
+          url: '/bikes',
+          method: 'GET',
           params: params, // Use params.toString() for proper URL formatting
         };
       },
-      providesTags: ["bike"],
+      providesTags: ['bike'],
       transformResponse: (response: TReduxResponse<TBike[]>) => {
         return {
           data: response?.data?.data,
@@ -33,26 +32,26 @@ export const Bikes = baseApi.injectEndpoints({
     }),
     createBike: builder.mutation({
       query: (data) => ({
-        url: "/bikes",
-        method: "POST",
+        url: '/bikes',
+        method: 'POST',
         body: data,
       }),
-      invalidatesTags: ["bike"],
+      invalidatesTags: ['bike'],
     }),
     updateBike: builder.mutation({
       query: ({ id, data }) => ({
         url: `/bikes/${id}`,
-        method: "PUT",
+        method: 'PUT',
         body: data,
       }),
-      invalidatesTags: ["bike"],
+      invalidatesTags: ['bike'],
     }),
     deleteBike: builder.mutation({
       query: (id) => ({
         url: `/bikes/${id}`,
-        method: "Delete",
+        method: 'Delete',
       }),
-      invalidatesTags: ["bike"],
+      invalidatesTags: ['bike'],
     }),
   }),
 });

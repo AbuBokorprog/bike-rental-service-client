@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 import {
   useDeleteUserMutation,
   useGetAllUsersQuery,
   usePromoteUserMutation,
-} from "../../../redux/features/user/User";
+} from '../../../redux/features/user/User';
 import {
   Button,
   Paper,
@@ -14,63 +14,64 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-} from "@mui/material";
-import { TUser } from "../../../types/users/user.type";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { toast } from "sonner";
+} from '@mui/material';
+import Swal from 'sweetalert2';
+import { TUser } from '../../../types/users/user.type';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { toast } from 'sonner';
 
 interface Column {
   id:
-    | "image"
-    | "name"
-    | "email"
-    | "phone"
-    | "address"
-    | "role"
-    | "action"
-    | "delete";
+    | 'image'
+    | 'name'
+    | 'email'
+    | 'phone'
+    | 'address'
+    | 'role'
+    | 'action'
+    | 'delete';
   label: string;
   minWidth?: number;
   sortable?: boolean;
-  align?: "right" | "left";
+  align?: 'right' | 'left';
   format?: (value: string) => string;
 }
 
 const columns: readonly Column[] = [
-  { id: "image", label: "Image", minWidth: 170 },
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "email", label: "Email", minWidth: 100 },
+  { id: 'image', label: 'Image', minWidth: 170 },
+  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'email', label: 'Email', minWidth: 100 },
   {
-    id: "phone",
-    label: "Phone",
+    id: 'phone',
+    label: 'Phone',
     minWidth: 170,
-    align: "left",
+    align: 'left',
   },
   {
-    id: "address",
-    label: "Address",
+    id: 'address',
+    label: 'Address',
     minWidth: 170,
-    align: "left",
+    align: 'left',
   },
   {
-    id: "role",
-    label: "Role",
+    id: 'role',
+    label: 'Role',
     minWidth: 170,
-    align: "left",
+    align: 'left',
     sortable: true,
     format: (value: string) => value,
   },
   {
-    id: "action",
-    label: "Action",
+    id: 'action',
+    label: 'Action',
     minWidth: 100,
-    align: "left",
+    align: 'left',
   },
   {
-    id: "delete",
-    label: "Delete",
+    id: 'delete',
+    label: 'Delete',
     minWidth: 100,
-    align: "left",
+    align: 'left',
   },
 ];
 
@@ -90,25 +91,25 @@ const AllUser = () => {
   };
 
   const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   const handlePromoteUser = async (user: Partial<TUser>) => {
-    const toastId = toast.loading("Promoting...");
+    const toastId = toast.loading('Promoting...');
 
     try {
       const res = await promoteUser(user?._id).unwrap();
 
       if (res?.success) {
-        if (user.role === "user") {
+        if (user.role === 'user') {
           toast.success(`Promoting ${user.name} to admin`, {
             id: toastId,
             duration: 2000,
           });
-        } else if (user.role === "admin") {
+        } else if (user.role === 'admin') {
           toast.success(`Promoting ${user.name} to super-admin`, {
             id: toastId,
             duration: 2000,
@@ -121,20 +122,30 @@ const AllUser = () => {
         }
       }
     } catch (error) {
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+      toast.error('Something went wrong!', { id: toastId, duration: 2000 });
     }
   };
 
   const handleDelete = async (id: string) => {
-    const toastId = toast.loading("Loading...");
     try {
-      const res = await deleteUser(id).unwrap();
-
-      if (res?.success) {
-        toast.success(res?.message, { id: toastId, duration: 2000 });
-      }
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          const res = await deleteUser(id).unwrap();
+          if (res?.success) {
+            toast.success(res.message, { duration: 2000 });
+          }
+        }
+      });
     } catch (error) {
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+      toast.error('Something went wrong!', { duration: 2000 });
     }
   };
 
@@ -144,7 +155,7 @@ const AllUser = () => {
         All users
       </h1>
       <Paper
-        sx={{ width: "100%", height: "100%", overflow: "hidden" }}
+        sx={{ width: '100%', height: '100%', overflow: 'hidden' }}
         className="my-5 lg:my-16"
       >
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -172,29 +183,29 @@ const AllUser = () => {
                         const value = row[column.id];
                         return (
                           <TableCell key={column.id} align={column.align}>
-                            {column.id === "image" ? (
+                            {column.id === 'image' ? (
                               <img
                                 src={value as string}
                                 alt={row.name}
                                 style={{
                                   width: 50,
                                   height: 50,
-                                  borderRadius: "50%",
+                                  borderRadius: '50%',
                                 }}
                               />
-                            ) : column.id === "action" ? (
+                            ) : column.id === 'action' ? (
                               <Button
                                 onClick={() => handlePromoteUser(row)}
                                 variant="contained"
                                 className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
                               >
-                                {row.role === "user"
-                                  ? "Promote to Admin"
-                                  : row.role === "admin"
-                                    ? "Promote to super-admin"
-                                    : "Demote to user"}
+                                {row.role === 'user'
+                                  ? 'Promote to Admin'
+                                  : row.role === 'admin'
+                                  ? 'Promote to super-admin'
+                                  : 'Demote to user'}
                               </Button>
-                            ) : column.id === "delete" ? (
+                            ) : column.id === 'delete' ? (
                               <Button
                                 onClick={() => handleDelete(row._id)}
                                 variant="contained"
@@ -202,7 +213,7 @@ const AllUser = () => {
                               >
                                 <DeleteIcon />
                               </Button>
-                            ) : column.format && typeof value === "string" ? (
+                            ) : column.format && typeof value === 'string' ? (
                               column.format(value as string)
                             ) : (
                               value

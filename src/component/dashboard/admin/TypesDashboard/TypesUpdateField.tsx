@@ -53,7 +53,7 @@ const TypesUpdateField: React.FC<UpdateFieldModalProps> = ({
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Update</DialogTitle>
+        <DialogTitle>Update Type.</DialogTitle>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -93,9 +93,6 @@ const TypesUpdateField: React.FC<UpdateFieldModalProps> = ({
                 )}
               />
             </div>
-            <Button type="submit" variant="contained" className="mt-6 w-full">
-              Update
-            </Button>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="secondary">
