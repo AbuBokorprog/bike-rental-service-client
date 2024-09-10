@@ -49,7 +49,7 @@ const UpdateProfileModal: React.FC<UpdateProfileModalProps> = ({
       }
     } catch (error) {
       console.log(error as unknown);
-      toast.error(error?.message as string, { id: toastId, duration: 2000 });
+      toast.error(error as string, { id: toastId, duration: 2000 });
     }
 
     handleClose();

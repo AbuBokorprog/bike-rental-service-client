@@ -1,5 +1,3 @@
-import { TReduxResponse } from "../../../types/global.type";
-import { TType } from "../../../types/types/types.type";
 import { baseApi } from "../../api/BaseApi";
 
 export const Types = baseApi.injectEndpoints({
@@ -7,11 +5,10 @@ export const Types = baseApi.injectEndpoints({
     getAllTypes: builder.query({
       query: () => "/types",
       providesTags: ["types"],
-      transformResponse: (response: TReduxResponse<TType[]>) => {
-        return {
-          data: response?.data,
-        };
-      },
+    }),
+    getTypes: builder.query({
+      query: (id) => `/types/${id}`,
+      providesTags: ["types"],
     }),
     createTypes: builder.mutation({
       query: (data) => ({
@@ -36,4 +33,5 @@ export const {
   useCreateTypesMutation,
   useGetAllTypesQuery,
   useUpdateTypesMutation,
+  useGetTypesQuery
 } = Types;

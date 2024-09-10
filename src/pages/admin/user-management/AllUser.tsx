@@ -101,18 +101,23 @@ const AllUser = () => {
 
     try {
       const res = await promoteUser(user?._id).unwrap();
- 
+
       if (res?.success) {
         if (user.role === "user") {
-         
-          toast.success(`Promoting ${user.name} to admin`, {id:toastId, duration:2000});
-         
-        } else if(user.role === 'admin'){
-       
-          toast.success(`Promoting ${user.name} to super-admin`,  {id:toastId, duration:2000});
-      
-        }else{
-          toast.success(`Demoting ${user.name} to user`,  {id:toastId, duration:2000});
+          toast.success(`Promoting ${user.name} to admin`, {
+            id: toastId,
+            duration: 2000,
+          });
+        } else if (user.role === "admin") {
+          toast.success(`Promoting ${user.name} to super-admin`, {
+            id: toastId,
+            duration: 2000,
+          });
+        } else {
+          toast.success(`Demoting ${user.name} to user`, {
+            id: toastId,
+            duration: 2000,
+          });
         }
       }
     } catch (error) {
