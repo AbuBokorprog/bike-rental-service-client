@@ -17,7 +17,7 @@ const Banner: React.FC = () => {
       >
         <SwiperSlide className="relative w-full">
           <img
-            src="./src/assets/images/banner-3.png"
+            src="./images/banner-3.png"
             alt="banner"
             className="rounded-md"
           />
@@ -29,7 +29,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="./src/assets/images/banner-4.png"
+            src="./images/banner-4.png"
             alt="banner"
             className="rounded-md"
           />
@@ -41,7 +41,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="./src/assets/images/banner-5.png"
+            src="./images/banner-5.png"
             alt="banner"
             className="rounded-md"
           />
@@ -53,7 +53,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="./src/assets/images/banner-6.png"
+            src="./images/banner-6.png"
             alt="banner"
             className="rounded-md"
           />
