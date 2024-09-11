@@ -1,6 +1,8 @@
 /* eslint-disable no-useless-escape */
-import React from "react";
-import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import React from 'react';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
+import { toast } from 'sonner';
+import emailjs from '@emailjs/browser';
 
 type FormData = {
   name: string;
@@ -16,10 +18,24 @@ const ContactForm: React.FC = () => {
     reset,
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
-    // Here you can handle the form submission (e.g., send data to a server)
-    reset(); // Reset form fields after submission
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      await emailjs.send(
+        'service_7exo6md',
+        'template_x489mwc',
+        {
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message,
+        },
+        'TPpFzhZxFK7nDe2XM'
+      );
+
+      toast.success('Send your email!');
+      reset();
+    } catch (error) {
+      toast.error('Please try again!');
+    }
   };
 
   return (
@@ -42,9 +58,9 @@ const ContactForm: React.FC = () => {
           <input
             type="text"
             id="name"
-            {...register("name", { required: "Name is required" })}
+            {...register('name', { required: 'Name is required' })}
             className={`w-full mt-1 p-2 border ${
-              errors.name ? "border-red-500" : "border-gray-300"
+              errors.name ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500`}
           />
           {errors.name && (
@@ -63,15 +79,15 @@ const ContactForm: React.FC = () => {
           <input
             type="email"
             id="email"
-            {...register("email", {
-              required: "Email is required",
+            {...register('email', {
+              required: 'Email is required',
               pattern: {
                 value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                message: "Invalid email address",
+                message: 'Invalid email address',
               },
             })}
             className={`w-full mt-1 p-2 border ${
-              errors.email ? "border-red-500" : "border-gray-300"
+              errors.email ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500`}
           />
           {errors.email && (
@@ -90,9 +106,9 @@ const ContactForm: React.FC = () => {
           <textarea
             id="message"
             rows={4}
-            {...register("message", { required: "Message is required" })}
+            {...register('message', { required: 'Message is required' })}
             className={`w-full mt-1 p-2 border ${
-              errors.message ? "border-red-500" : "border-gray-300"
+              errors.message ? 'border-red-500' : 'border-gray-300'
             } rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500`}
           ></textarea>
           {errors.message && (

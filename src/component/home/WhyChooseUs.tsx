@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const WhyChooseUs: React.FC = () => {
   return (
@@ -26,11 +26,7 @@ const WhyChooseUs: React.FC = () => {
           </div>
           <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3 bg-white p-3 rounded-md shadow">
             <div>
-              <img
-                src="/src/assets/images/star.png"
-                alt=""
-                className="w-28 lg:w-36"
-              />
+              <img src="./images/star.png" alt="" className="w-28 lg:w-36" />
             </div>
             <div>
               <h3 className="font-semibold">Best Bikes in Town</h3>
@@ -51,11 +47,7 @@ const WhyChooseUs: React.FC = () => {
         <div>
           <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-1 bg-white p-3 rounded-md shadow">
             <div>
-              <img
-                src="/src/assets/images/clock.png"
-                alt=""
-                className="w-24 lg:w-32"
-              />
+              <img src="./images/clock.png" alt="" className="w-24 lg:w-32" />
             </div>
             <div>
               <h3 className="font-semibold">Longest Opening Hours</h3>
@@ -68,7 +60,7 @@ const WhyChooseUs: React.FC = () => {
           <div className="flex items-center justify-between mx-auto gap-5 lg:flex-row-reverse my-3 bg-white p-3 rounded-md shadow">
             <div>
               <img
-                src="/src/assets/images/protection.png"
+                src="./images/protection.png"
                 alt=""
                 className="w-24 lg:w-32"
               />
