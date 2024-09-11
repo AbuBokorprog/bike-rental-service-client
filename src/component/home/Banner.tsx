@@ -16,8 +16,16 @@ const Banner: React.FC = () => {
         className="mySwiper"
       >
         <SwiperSlide className="relative w-full">
+          <img src="./images/banner.png" alt="banner" className="rounded-md" />
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+            <Button variant="contained" color="primary">
+              Rent Bike
+            </Button>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner.png"
+            src="./images/banner-2.png"
             alt="banner"
             className="rounded-md"
           />
@@ -29,19 +37,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner-2.png"
-            alt="banner"
-            className="rounded-md"
-          />
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
-            <Button variant="contained" color="primary">
-              Rent Bike
-            </Button>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide className="relative w-full">
-          <img
-            src="/src/assets/images/banner-3.png"
+            src="./images/banner-3.png"
             alt="banner"
             className="rounded-md"
           />

@@ -1,14 +1,14 @@
-import React, { useState, useRef, useEffect } from "react";
-import MenuSidebar from "./MenuSidebar";
-import { Link, NavLink } from "react-router-dom";
-import { Avatar, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { logout, TUser } from "../../redux/features/auth/AuthSlice";
-import { toast } from "sonner";
-import { useAppSelector } from "../../redux/hooks/hooks";
-import { currentToken } from "../../redux/store";
-import { JWTDecode } from "../../utils/JWTDecode";
-import { useGetProfileInfoQuery } from "../../redux/features/user/User";
+import React, { useState, useRef, useEffect } from 'react';
+import MenuSidebar from './MenuSidebar';
+import { Link, NavLink } from 'react-router-dom';
+import { Avatar, Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { logout, TUser } from '../../redux/features/auth/AuthSlice';
+import { toast } from 'sonner';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import { currentToken } from '../../redux/store';
+import { JWTDecode } from '../../utils/JWTDecode';
+import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const Navbar = () => {
   if (token) {
     const user = JWTDecode(token);
     role = (user as TUser)?.role as string;
-    if (role === "super-admin") {
-      role = "admin";
+    if (role === 'super-admin') {
+      role = 'admin';
     }
   }
 
@@ -39,21 +39,21 @@ const Navbar = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
   const navItems = [
-    { name: "Home", href: "/", current: true },
-    { name: "Bikes", href: "/bikes", current: false },
-    { name: "About", href: "/about", current: false },
+    { name: 'Home', href: '/', current: true },
+    { name: 'Bikes', href: '/bikes', current: false },
+    { name: 'About', href: '/about', current: false },
   ];
 
   const secondaryItems = [
-    { name: "Dashboard", href: `/dashboard/${role}` },
-    { name: "Login", href: "/login" },
+    { name: 'Dashboard', href: `/dashboard/${role}` },
+    { name: 'Login', href: '/login' },
     // { name: "Dashboard", href: "/dashboard/admin" },
   ];
 
@@ -61,7 +61,7 @@ const Navbar = () => {
   const logoutHandler = () => {
     if (token) {
       dispatch(logout());
-      toast.success("Logout successfully!");
+      toast.success('Logout successfully!');
     }
   };
 
@@ -73,13 +73,9 @@ const Navbar = () => {
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
-              alt="Flowbite Logo"
-            />
+            <img src="./images/logo.png" className="w-16" alt="Flowbite Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              RentMyRide
+              RentMy<span className="text-red-500">Ride</span>
             </span>
           </Link>
 
@@ -122,7 +118,7 @@ const Navbar = () => {
                         <Link
                           to={item.href}
                           className={`${
-                            !token && item.name === "Dashboard" && "hidden"
+                            !token && item.name === 'Dashboard' && 'hidden'
                           } block px-4 py-2 text-sm text-secondary-700 hover:bg-secondary-100 dark:hover:bg-secondary-600 dark:text-secondary-200 dark:hover:text-white`}
                         >
                           {item.name}
@@ -175,10 +171,10 @@ const Navbar = () => {
                     to={item.href}
                     className={({ isActive }) =>
                       isActive
-                        ? "text-primary-700 dark:text-primary-500 block py-2 px-3"
-                        : "text-secondary-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500 block py-2 px-3"
+                        ? 'text-primary-700 dark:text-primary-500 block py-2 px-3'
+                        : 'text-secondary-900 hover:text-primary-700 dark:text-white dark:hover:text-primary-500 block py-2 px-3'
                     }
-                    aria-current={item.current ? "page" : undefined}
+                    aria-current={item.current ? 'page' : undefined}
                   >
                     {item.name}
                   </NavLink>
