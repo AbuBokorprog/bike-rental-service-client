@@ -1,20 +1,20 @@
-import { Box, Button, Modal } from "@mui/material";
-import React from "react";
-import { Controller, useForm } from "react-hook-form";
-import { useAppSelector } from "../../redux/hooks/hooks";
-import { currentToken } from "../../redux/store";
-import { useCreateRentalMutation } from "../../redux/features/rentals/rentals.api";
-import { toast } from "sonner";
-import { useNavigate } from "react-router-dom";
+import { Box, Button, Modal } from '@mui/material';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import { currentToken } from '../../redux/store';
+import { useCreateRentalMutation } from '../../redux/features/rentals/rentals.api';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
-  position: "absolute" as const,
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "70%",
-  bgcolor: "background.paper",
-  border: "2px solid #ffff",
+  position: 'absolute' as const,
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '70%',
+  bgcolor: 'background.paper',
+  border: '2px solid #ffff',
   boxShadow: 24,
   p: 4,
 };
@@ -39,13 +39,12 @@ const BikeProcessModal = ({ id }: { id: string }) => {
     };
     try {
       const res = await createRental(rentalData).unwrap();
-      console.log(res);
-      if (res?.success) {
-        navigate(`/payment/${res?.data[0]?._id}`);
+      if (res?.data.result) {
+        window.location.href = res?.data?.payment_url;
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong!", { duration: 2000 });
+      toast.error('Something went wrong!', { duration: 2000 });
     }
   };
 
@@ -55,19 +54,19 @@ const BikeProcessModal = ({ id }: { id: string }) => {
 
   // Get current date in 'YYYY-MM-DD' format for the date input min attribute
   const getCurrentDate = (): string => {
-    return new Date().toISOString().split("T")[0]; // 'YYYY-MM-DD'
+    return new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
   };
 
   // Get the current time in 'HH:MM' format for the time input min attribute
   const getCurrentTime = (): string => {
     const now = new Date();
-    const hours = now.getHours().toString().padStart(2, "0");
-    const minutes = now.getMinutes().toString().padStart(2, "0");
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
   };
 
   // Watch the selected date to dynamically update the min time
-  const selectedDate = watch("date");
+  const selectedDate = watch('date');
 
   // Combine date and time into the required "YYYY-MM-DDTHH:mm:ssZ" format
   const combineDateAndTime = (date: string, time: string): string => {
@@ -133,7 +132,7 @@ const BikeProcessModal = ({ id }: { id: string }) => {
                       min={
                         selectedDate === getCurrentDate()
                           ? getCurrentTime()
-                          : "00:00"
+                          : '00:00'
                       }
                     />
                   )}

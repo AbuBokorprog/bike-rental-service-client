@@ -1,9 +1,9 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Button } from "@mui/material";
+import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Autoplay, Navigation } from 'swiper/modules';
+import { Button } from '@mui/material';
 
 const Banner: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const Banner: React.FC = () => {
       >
         <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner-3.png"
+            src="./src/assets/images/banner-3.png"
             alt="banner"
             className="rounded-md"
           />
@@ -29,7 +29,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner-4.png"
+            src="./src/assets/images/banner-4.png"
             alt="banner"
             className="rounded-md"
           />
@@ -41,7 +41,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner-5.png"
+            src="./src/assets/images/banner-5.png"
             alt="banner"
             className="rounded-md"
           />
@@ -53,7 +53,7 @@ const Banner: React.FC = () => {
         </SwiperSlide>
         <SwiperSlide className="relative w-full">
           <img
-            src="/src/assets/images/banner-6.png"
+            src="./src/assets/images/banner-6.png"
             alt="banner"
             className="rounded-md"
           />

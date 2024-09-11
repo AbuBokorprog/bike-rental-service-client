@@ -1,7 +1,10 @@
-import React from "react";
-import { useGetUserRentalsQuery } from "../../../redux/features/rentals/rentals.api";
-import { Box, Button, Tab, Tabs } from "@mui/material";
-import { TRental } from "../../../types/rentals/rentals.type";
+import React from 'react';
+import {
+  useGetUserRentalsQuery,
+  useRentalPaymentMutation,
+} from '../../../redux/features/rentals/rentals.api';
+import { Box, Button, Tab, Tabs } from '@mui/material';
+import { TRental } from '../../../types/rentals/rentals.type';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -28,7 +31,7 @@ function CustomTabPanel(props: TabPanelProps) {
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
   };
 }
 
@@ -41,14 +44,25 @@ const MyRentals: React.FC = () => {
   const { data, isError } = useGetUserRentalsQuery(undefined);
 
   const paidRental = data?.data?.filter(
-    (r: TRental) => r?.paymentStatus === "Paid",
+    (r: TRental) => r?.paymentStatus === 'Paid'
   );
   const unPaidRental = data?.data?.filter(
-    (r: TRental) => r?.paymentStatus === "Unpaid",
+    (r: TRental) => r?.paymentStatus === 'Unpaid'
   );
   const confirmRentals = data?.data?.filter(
-    (r: TRental) => r?.isConfirm === true,
+    (r: TRental) => r?.isConfirm === true
   );
+  const [payment] = useRentalPaymentMutation();
+  const paymentHandler = async (id: string) => {
+    try {
+      const res = await payment(id).unwrap();
+      if (res?.success) {
+        window.location.href = res?.data?.payment_url;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
@@ -56,8 +70,8 @@ const MyRentals: React.FC = () => {
         My Rental Bikes.
       </h1>
 
-      <Box sx={{ width: "100%" }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box sx={{ width: '100%' }}>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs
             value={value}
             onChange={handleChange}
@@ -89,13 +103,13 @@ const MyRentals: React.FC = () => {
                     {rental?.bikeId?.name}
                   </h2>
                   <p className="text-gray-600 mb-1">
-                    <strong>Start Time:</strong>{" "}
+                    <strong>Start Time:</strong>{' '}
                     {new Date(rental?.startTime).toLocaleString()}
                   </p>
                   <div className="h-32">
                     {rental?.returnTime && (
                       <p className="text-gray-600 mb-1">
-                        <strong>Return Time:</strong>{" "}
+                        <strong>Return Time:</strong>{' '}
                         {new Date(rental?.returnTime).toLocaleString()}
                       </p>
                     )}
@@ -112,14 +126,23 @@ const MyRentals: React.FC = () => {
                       </p>
                     )}
                     {/* Pay Button if Unpaid */}
-                    {rental?.paymentStatus === "Unpaid" && (
-                      <Button variant="contained">Pay</Button>
+                    {rental?.paymentStatus === 'Unpaid' && (
+                      <Button
+                        variant="contained"
+                        onClick={() => paymentHandler(rental?._id)}
+                      >
+                        Pay
+                      </Button>
                     )}
                   </div>
                   {/* payment status badge */}
                   <div className="absolute top-0 left-0">
                     <p
-                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                      className={`${
+                        rental?.paymentStatus === 'Paid'
+                          ? 'bg-green-500'
+                          : 'bg-red-500'
+                      } px-2 py-1 rounded`}
                     >
                       {rental?.paymentStatus}
                     </p>
@@ -139,7 +162,7 @@ const MyRentals: React.FC = () => {
         {/* Paid rentals */}
         <CustomTabPanel value={value} index={1}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {paidRental.length > 0 ? (
+            {paidRental?.length > 0 ? (
               paidRental?.map((rental: TRental, index: number) => (
                 <div
                   key={index}
@@ -155,13 +178,13 @@ const MyRentals: React.FC = () => {
                     {rental?.bikeId?.name}
                   </h2>
                   <p className="text-gray-600 mb-1">
-                    <strong>Start Time:</strong>{" "}
+                    <strong>Start Time:</strong>{' '}
                     {new Date(rental?.startTime).toLocaleString()}
                   </p>
                   <div className="h-32">
                     {rental?.returnTime && (
                       <p className="text-gray-600 mb-1">
-                        <strong>Return Time:</strong>{" "}
+                        <strong>Return Time:</strong>{' '}
                         {new Date(rental?.returnTime).toLocaleString()}
                       </p>
                     )}
@@ -178,14 +201,23 @@ const MyRentals: React.FC = () => {
                       </p>
                     )}
                     {/* Pay Button if Unpaid */}
-                    {rental?.paymentStatus === "Unpaid" && (
-                      <Button variant="contained">Pay</Button>
+                    {rental?.paymentStatus === 'Unpaid' && (
+                      <Button
+                        variant="contained"
+                        onClick={() => paymentHandler(rental?._id)}
+                      >
+                        Pay
+                      </Button>
                     )}
                   </div>
                   {/* payment status badge */}
                   <div className="absolute top-0 left-0">
                     <p
-                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                      className={`${
+                        rental?.paymentStatus === 'Paid'
+                          ? 'bg-green-500'
+                          : 'bg-red-500'
+                      } px-2 py-1 rounded`}
                     >
                       {rental?.paymentStatus}
                     </p>
@@ -205,7 +237,7 @@ const MyRentals: React.FC = () => {
         {/* unpaid rentals */}
         <CustomTabPanel value={value} index={2}>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 items-center mx-auto">
-            {unPaidRental.length > 0 ? (
+            {unPaidRental?.length > 0 ? (
               unPaidRental?.map((rental: TRental, index: number) => (
                 <div
                   key={index}
@@ -221,13 +253,13 @@ const MyRentals: React.FC = () => {
                     {rental?.bikeId?.name}
                   </h2>
                   <p className="text-gray-600 mb-1">
-                    <strong>Start Time:</strong>{" "}
+                    <strong>Start Time:</strong>{' '}
                     {new Date(rental?.startTime).toLocaleString()}
                   </p>
                   <div className="h-32">
                     {rental?.returnTime && (
                       <p className="text-gray-600 mb-1">
-                        <strong>Return Time:</strong>{" "}
+                        <strong>Return Time:</strong>{' '}
                         {new Date(rental?.returnTime).toLocaleString()}
                       </p>
                     )}
@@ -244,14 +276,23 @@ const MyRentals: React.FC = () => {
                       </p>
                     )}
                     {/* Pay Button if Unpaid */}
-                    {rental?.paymentStatus === "Unpaid" && (
-                      <Button variant="contained">Pay</Button>
+                    {rental?.paymentStatus === 'Unpaid' && (
+                      <Button
+                        variant="contained"
+                        onClick={() => paymentHandler(rental?._id)}
+                      >
+                        Pay
+                      </Button>
                     )}
                   </div>
                   {/* payment status badge */}
                   <div className="absolute top-0 left-0">
                     <p
-                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                      className={`${
+                        rental?.paymentStatus === 'Paid'
+                          ? 'bg-green-500'
+                          : 'bg-red-500'
+                      } px-2 py-1 rounded`}
                     >
                       {rental?.paymentStatus}
                     </p>
@@ -287,13 +328,13 @@ const MyRentals: React.FC = () => {
                     {rental?.bikeId?.name}
                   </h2>
                   <p className="text-gray-600 mb-1">
-                    <strong>Start Time:</strong>{" "}
+                    <strong>Start Time:</strong>{' '}
                     {new Date(rental?.startTime).toLocaleString()}
                   </p>
                   <div className="h-32">
                     {rental?.returnTime && (
                       <p className="text-gray-600 mb-1">
-                        <strong>Return Time:</strong>{" "}
+                        <strong>Return Time:</strong>{' '}
                         {new Date(rental?.returnTime).toLocaleString()}
                       </p>
                     )}
@@ -310,14 +351,23 @@ const MyRentals: React.FC = () => {
                       </p>
                     )}
                     {/* Pay Button if Unpaid */}
-                    {rental?.paymentStatus === "Unpaid" && (
-                      <Button variant="contained">Pay</Button>
+                    {rental?.paymentStatus === 'Unpaid' && (
+                      <Button
+                        variant="contained"
+                        onClick={() => paymentHandler(rental?._id)}
+                      >
+                        Pay
+                      </Button>
                     )}
                   </div>
                   {/* payment status badge */}
                   <div className="absolute top-0 left-0">
                     <p
-                      className={`${rental?.paymentStatus === "Paid" ? "bg-green-500" : "bg-red-500"} px-2 py-1 rounded`}
+                      className={`${
+                        rental?.paymentStatus === 'Paid'
+                          ? 'bg-green-500'
+                          : 'bg-red-500'
+                      } px-2 py-1 rounded`}
                     >
                       {rental?.paymentStatus}
                     </p>
