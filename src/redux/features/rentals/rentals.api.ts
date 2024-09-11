@@ -1,6 +1,6 @@
-import { TReduxResponse } from "../../../types/global.type";
-import { TRental } from "../../../types/rentals/rentals.type";
-import { baseApi } from "../../api/BaseApi";
+import { TReduxResponse } from '../../../types/global.type';
+import { TRental } from '../../../types/rentals/rentals.type';
+import { baseApi } from '../../api/BaseApi';
 
 export const Rentals = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,57 +9,56 @@ export const Rentals = baseApi.injectEndpoints({
         const params = new URLSearchParams();
 
         return {
-          url: "/rentals",
-          method: "GET",
+          url: '/rentals',
+          method: 'GET',
           params: params,
         };
       },
-      providesTags: ["rental"],
+      providesTags: ['rental'],
     }),
     getSingleRental: builder.query({
       query: (id) => ({
         url: `/rentals/${id}`,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["rental"],
+      providesTags: ['rental'],
     }),
     getUserRentals: builder.query({
       query: () => ({
         url: `/rentals/user/my`,
-        method: "GET",
+        method: 'GET',
       }),
-      providesTags: ["rental"],
+      providesTags: ['rental'],
     }),
     createRental: builder.mutation({
       query: (data) => ({
-        url: "/rentals",
-        method: "POST",
+        url: '/rentals',
+        method: 'POST',
         body: data,
       }),
-      invalidatesTags: ["rental"],
+      invalidatesTags: ['rental'],
     }),
     advancePayment: builder.mutation({
       query: ({ data, id }) => ({
         url: `/rentals/${id}`,
-        method: "PATCH",
+        method: 'PATCH',
         body: data,
       }),
-      invalidatesTags: ["rental"],
+      invalidatesTags: ['rental'],
     }),
     returnBike: builder.mutation({
       query: (id) => ({
         url: `/rentals/${id}/return`,
-        method: "PUT",
+        method: 'PUT',
       }),
-      invalidatesTags: ["rental"],
+      invalidatesTags: ['rental'],
     }),
     rentalPayment: builder.mutation({
-      query: ({ data, id }) => ({
-        url: `/rentals/payment/${id}`,
-        method: "PUT",
-        body: data,
+      query: (id) => ({
+        url: `/rentals/${id}/payment`,
+        method: 'PUT',
       }),
-      invalidatesTags: ["rental"],
+      invalidatesTags: ['rental'],
     }),
   }),
 });
