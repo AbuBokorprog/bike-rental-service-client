@@ -1,10 +1,10 @@
-import React from "react";
-import BikesFilter from "../component/bikes/BikesFilter";
+import React from 'react';
+import Compare from './Compare';
 
-const Playground = () => {
+const Playground: React.FC = () => {
   return (
     <div>
-      <BikesFilter />
+      <Compare />
     </div>
   );
 };
