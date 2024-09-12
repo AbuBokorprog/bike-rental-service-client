@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
-import React from "react";
-import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
-import { Link } from "react-router-dom";
-import { TBike } from "../../types/bikes/bike.type";
-import { FaBuffer } from "react-icons/fa6";
-import { SlCalender } from "react-icons/sl";
+import { Button } from '@mui/material';
+import React from 'react';
+import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
+import { Link } from 'react-router-dom';
+import { TBike } from '../../types/bikes/bike.type';
+import { FaBuffer } from 'react-icons/fa6';
+import { SlCalender } from 'react-icons/sl';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BikeComponent: React.FC<{ bikes: TBike[] | undefined }> = ({ bikes }) => {

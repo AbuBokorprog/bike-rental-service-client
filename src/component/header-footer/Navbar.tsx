@@ -10,7 +10,7 @@ import { currentToken } from '../../redux/store';
 import { JWTDecode } from '../../utils/JWTDecode';
 import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const token = useAppSelector(currentToken);
   let role;
@@ -68,7 +68,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className="bg-white border-secondary-200 dark:bg-secondary-900 fixed top-0 right-0 left-0 z-50">
-        <div className="container flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="container flex flex-wrap items-center justify-between mx-auto px-4">
           <Link
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"

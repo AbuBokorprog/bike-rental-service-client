@@ -1,26 +1,26 @@
-import React from "react";
+import React from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-import TwoWheelerIcon from "@mui/icons-material/TwoWheeler";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/navigation";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Button } from "@mui/material";
-import { useGetAllBikesQuery } from "../../redux/features/bikes/bikes.api";
-import { FaBuffer } from "react-icons/fa6";
-import { SlCalender } from "react-icons/sl";
-import { Link } from "react-router-dom";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Autoplay, Navigation } from 'swiper/modules';
+import { Button } from '@mui/material';
+import { useGetAllBikesQuery } from '../../redux/features/bikes/bikes.api';
+import { FaBuffer } from 'react-icons/fa6';
+import { SlCalender } from 'react-icons/sl';
+import { Link } from 'react-router-dom';
 
 const FeaturesBikes: React.FC = () => {
   const { data } = useGetAllBikesQuery([
-    { name: "limit", value: "6" },
-    { name: "sort", value: "createdAt" },
+    { name: 'limit', value: '6' },
+    { name: 'sort', value: 'createdAt' },
   ]);
 
   return (
     <div>
-      <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 uppercase text-center">
+      <h3 className="text-xl lg:text-3xl font-semibold my-10 lg:my-16 uppercase text-center">
         Latest Bikes.
       </h3>
 
