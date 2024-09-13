@@ -52,6 +52,7 @@ const Navbar: React.FC = () => {
   ];
 
   const secondaryItems = [
+    { name: 'Compare', href: '/compare' },
     { name: 'Dashboard', href: `/dashboard/${role}` },
     { name: 'Login', href: '/login' },
     // { name: "Dashboard", href: "/dashboard/admin" },

@@ -9,7 +9,7 @@ import './Banner.css';
 
 const Banner: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
-  console.log(activeIndex);
+
   return (
     <div className="w-full relative mb-32">
       <Swiper

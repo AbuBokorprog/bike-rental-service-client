@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 
 const FeaturesBikes: React.FC = () => {
   const { data } = useGetAllBikesQuery([
-    { name: 'limit', value: '6' },
+    { name: 'limit', value: '10' },
     { name: 'sort', value: 'createdAt' },
   ]);
 

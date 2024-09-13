@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import BikeComponent from '../../component/bikes/BikeComponent';
 import BikesFilter from '../../component/bikes/BikesFilter';
 import { Link, Pagination, Typography } from '@mui/material';
 import CustomBreadcrumbs from '../../component/Breadcrumbs';
 import { useGetAllBikesQuery } from '../../redux/features/bikes/bikes.api';
-
+import { motion, useInView } from 'framer-motion';
 const AllBikes: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [brand, setBrand] = useState<string | undefined>(undefined);
@@ -59,6 +59,11 @@ const AllBikes: React.FC = () => {
       All Bikes
     </Typography>,
   ];
+
+  const ref = useRef(null);
+
+  const inView = useInView(ref, { once: true });
+
   return (
     <div>
       <div className="relative">
@@ -89,9 +94,15 @@ const AllBikes: React.FC = () => {
         />
       </div>
 
-      <div className="my-8 lf:my-16">
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 100 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 0 }}
+        transition={{ duration: 1, ease: 'linear' }}
+        className="my-8 lf:my-16"
+      >
         <BikeComponent bikes={data?.data} />
-      </div>
+      </motion.div>
 
       <div className="flex items-center justify-center">
         <Pagination
