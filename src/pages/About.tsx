@@ -1,11 +1,20 @@
-import React from "react";
-import { Typography, Grid, Card, CardContent, Avatar } from "@mui/material";
-import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
+import React from 'react';
+import { Typography, Grid, Card, CardContent, Avatar } from '@mui/material';
+import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 
 const About: React.FC = () => {
   return (
     <div className="mx-auto">
-      <img src="/src/assets/images/banner-6.png" alt="" />
+      <div className="relative">
+        <img
+          src="./images/banner-3.png"
+          alt=""
+          className="rounded-md lg:h-[50vh] w-full"
+        />
+        <h3 className="absolute top-[10vh] uppercase lg:top-[20vh] inset-x-0 transform left-0 right-0 mx-auto text-white text-2xl font-bold lg:text-6xl text-center">
+          About us
+        </h3>
+      </div>
       <div className="p-8 bg-gray-50">
         {/* Mission Statement Section */}
         <div className="mb-16 text-center">

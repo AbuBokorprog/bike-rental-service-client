@@ -9,14 +9,14 @@ import { SlCalender } from 'react-icons/sl';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const BikeComponent: React.FC<{ bikes: TBike[] | undefined }> = ({ bikes }) => {
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-3 items-center gap-5 lg:gap-10">
+    <div className="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 items-center gap-5 lg:gap-10">
       {bikes?.map((b) => (
         <div key={b?._id} className="p-3 border shadow-md rounded-md bg-white">
           <img src={b?.images[0]} alt="" className="rounded-md h-60 w-full" />
           <div>
-            <h3 className="font-bold text-xl h-10 mt-2">{b?.name}</h3>
+            <h3 className="font-bold text-xl h-14 mt-2">{b?.name}</h3>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden lg:block">
             <div className=" my-4">
               <div className="flex items-center gap-2 mx-auto">
                 <p className=" text-secondary-500">Brand:</p>
@@ -62,9 +62,9 @@ const BikeComponent: React.FC<{ bikes: TBike[] | undefined }> = ({ bikes }) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="lg:flex items-center justify-between mx-auto text-center">
             <div>
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 justify-center">
                 <p className="text-lg font-semibold text-primary-500">
                   {b?.pricePerHour} TK.
                 </p>
