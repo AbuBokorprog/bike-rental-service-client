@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { TUser } from '../../../types/users/user.type';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'sonner';
+import AllUserSkeleton from '../../../component/skeleton/dashboard/AllUserSkeleton';
 
 interface Column {
   id:
@@ -38,8 +39,8 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: 'image', label: 'Image', minWidth: 170 },
-  { id: 'name', label: 'Name', minWidth: 170 },
+  { id: 'image', label: 'Image', minWidth: 100 },
+  { id: 'name', label: 'Name', minWidth: 100 },
   { id: 'email', label: 'Email', minWidth: 100 },
   {
     id: 'phone',
@@ -76,7 +77,7 @@ const columns: readonly Column[] = [
 ];
 
 const AllUser = () => {
-  const { data } = useGetAllUsersQuery(undefined);
+  const { data, isLoading } = useGetAllUsersQuery(undefined);
   const [deleteUser] = useDeleteUserMutation();
   const [promoteUser] = usePromoteUserMutation();
   const [page, setPage] = React.useState(0);
@@ -150,94 +151,109 @@ const AllUser = () => {
   };
 
   return (
-    <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
-      <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
-        All users
-      </h1>
-      <Paper
-        sx={{ width: '100%', height: '100%', overflow: 'hidden' }}
-        className="my-5 lg:my-16"
-      >
-        <TableContainer sx={{ maxHeight: 440 }}>
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data?.data
-                ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row: TUser) => {
-                  return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.id === 'image' ? (
-                              <img
-                                src={value as string}
-                                alt={row.name}
-                                style={{
-                                  width: 50,
-                                  height: 50,
-                                  borderRadius: '50%',
-                                }}
-                              />
-                            ) : column.id === 'action' ? (
-                              <Button
-                                onClick={() => handlePromoteUser(row)}
-                                variant="contained"
-                                className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
-                              >
-                                {row.role === 'user'
-                                  ? 'Promote to Admin'
-                                  : row.role === 'admin'
-                                  ? 'Promote to super-admin'
-                                  : 'Demote to user'}
-                              </Button>
-                            ) : column.id === 'delete' ? (
-                              <Button
-                                onClick={() => handleDelete(row._id)}
-                                variant="contained"
-                                className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
-                              >
-                                <DeleteIcon />
-                              </Button>
-                            ) : column.format && typeof value === 'string' ? (
-                              column.format(value as string)
-                            ) : (
-                              value
-                            )}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={count}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </div>
+    <>
+      {isLoading ? (
+        <AllUserSkeleton />
+      ) : (
+        <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
+          <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
+            All users
+          </h1>
+          <Paper
+            sx={{ width: '100%', height: '100%', overflow: 'hidden' }}
+            className="my-5 lg:my-16"
+          >
+            <TableContainer sx={{ maxHeight: 440 }}>
+              <Table stickyHeader aria-label="sticky table">
+                <TableHead>
+                  <TableRow>
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {data?.data
+                    ?.slice(
+                      page * rowsPerPage,
+                      page * rowsPerPage + rowsPerPage
+                    )
+                    .map((row: TUser) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row._id}
+                        >
+                          {columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <TableCell key={column.id} align={column.align}>
+                                {column.id === 'image' ? (
+                                  <img
+                                    src={value as string}
+                                    alt={row.name}
+                                    style={{
+                                      width: 50,
+                                      height: 50,
+                                      borderRadius: '50%',
+                                    }}
+                                  />
+                                ) : column.id === 'action' ? (
+                                  <Button
+                                    onClick={() => handlePromoteUser(row)}
+                                    variant="contained"
+                                    className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+                                  >
+                                    {row.role === 'user'
+                                      ? 'Promote to Admin'
+                                      : row.role === 'admin'
+                                      ? 'Promote to super-admin'
+                                      : 'Demote to user'}
+                                  </Button>
+                                ) : column.id === 'delete' ? (
+                                  <Button
+                                    onClick={() => handleDelete(row._id)}
+                                    variant="contained"
+                                    className="px-4 py-1 text-white bg-blue-500 rounded-md hover:bg-blue-700"
+                                  >
+                                    <DeleteIcon />
+                                  </Button>
+                                ) : column.format &&
+                                  typeof value === 'string' ? (
+                                  column.format(value as string)
+                                ) : (
+                                  value
+                                )}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[10, 25, 100]}
+              component="div"
+              count={count}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </Paper>
+        </div>
+      )}
+    </>
   );
 };
 

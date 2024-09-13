@@ -3,12 +3,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import React from 'react';
+import { Skeleton } from '@mui/material';
 
-const Testimonials: React.FC = () => {
+const TestimonialSkeleton: React.FC = () => {
   return (
     <div>
       <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">
-        What Clients Say about Us.
+        <Skeleton width={200} className="mx-auto" />
       </h3>
 
       <div>
@@ -39,26 +40,13 @@ const Testimonials: React.FC = () => {
           {[1, 2, 3, 4, 5, 6]?.map((b) => (
             <SwiperSlide key={b}>
               <div className="p-5 border shadow-md rounded-md bg-white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-                quod illum laborum voluptatum ea dignissimos. Dolor illo
-                architecto optio est alias. Quaerat dolor distinctio deleniti!
-                Ex excepturi magni labore incidunt?
+                <p className="bg-secondary-200 animate-pulse h-32"></p>
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1725148800&semt=ais_hybrid"
-                      alt=""
-                      className="w-14 rounded-full"
-                    />
-                    <h3 className="font-semibold text-xl">Abu Bokor</h3>
+                    <div className="w-14 h-14 rounded-full bg-secondary-200 animate-pulse"></div>
+                    <Skeleton width={80} />
                   </div>
-                  <div>
-                    <img
-                      src="/src/assets/images/left.png"
-                      alt=""
-                      className="w-20"
-                    />
-                  </div>
+                  <div className="w-14 bg-secondary-200 animate-pulse h-14 rounded-lg"></div>
                 </div>
               </div>
             </SwiperSlide>
@@ -69,4 +57,4 @@ const Testimonials: React.FC = () => {
   );
 };
 
-export default Testimonials;
+export default TestimonialSkeleton;

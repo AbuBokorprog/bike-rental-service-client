@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Button,
   Card,
@@ -5,8 +6,8 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Skeleton,
 } from '@mui/material';
-import React, { useState } from 'react';
 import {
   useDeleteTypeMutation,
   useGetAllTypesQuery,
@@ -15,12 +16,14 @@ import { TType } from '../../../types/types/types.type';
 import TypesUpdateField from '../../../component/dashboard/admin/TypesDashboard/TypesUpdateField';
 import { toast } from 'sonner';
 import Swal from 'sweetalert2';
+
 const AllTypes: React.FC = () => {
-  const { data } = useGetAllTypesQuery(undefined);
+  const { data, isLoading } = useGetAllTypesQuery(undefined);
   const [openModal, setOpenModal] = useState(false);
   const [id, setId] = useState<TType | undefined>();
 
   const [deleteType] = useDeleteTypeMutation();
+
   // Open and close modal handlers
   const handleOpenModal = (type: TType) => {
     setId(type);
@@ -61,32 +64,56 @@ const AllTypes: React.FC = () => {
       </h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 items-center mx-auto my-5 lg:my-16">
-        {data?.data?.map((t: TType) => (
-          <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
-            <CardMedia sx={{ height: 240 }} image={t?.image} title={t?.name} />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {t?.name}
-              </Typography>
-            </CardContent>
-            <CardActions className="flex items-center justify-between">
-              <button
-                onClick={() => handleOpenModal(t)}
-                className="bg-primary-500 text-white px-4 py-2 rounded-md"
+        {isLoading
+          ? // Skeleton loader
+            Array.from(new Array(8)).map((_, index) => (
+              <Card
+                key={index}
+                sx={{ maxWidth: 345 }}
+                className="flex flex-col items-center"
               >
-                Update
-              </button>
+                <Skeleton variant="rectangular" width={345} height={240} />
+                <CardContent>
+                  <Typography gutterBottom variant="h5">
+                    <Skeleton width={100} />
+                  </Typography>
+                </CardContent>
+                <CardActions className="flex items-center justify-between">
+                  <Skeleton variant="text" width={100} height={40} />
+                  <Skeleton variant="text" width={100} height={40} />
+                </CardActions>
+              </Card>
+            ))
+          : data?.data?.map((t: TType) => (
+              <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image={t?.image}
+                  title={t?.name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {t?.name}
+                  </Typography>
+                </CardContent>
+                <CardActions className="flex items-center justify-between">
+                  <button
+                    onClick={() => handleOpenModal(t)}
+                    className="bg-primary-500 text-white px-4 py-2 rounded-md"
+                  >
+                    Update
+                  </button>
 
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => deleteHandler(t._id)}
-              >
-                Delete
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => deleteHandler(t._id)}
+                  >
+                    Delete
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
         <TypesUpdateField
           handleClose={handleCloseModal}
           open={openModal}

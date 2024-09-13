@@ -22,7 +22,7 @@ const HowToRent: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 items-center justify-between mx-auto">
         <motion.div
           whileHover={{ backgroundColor: '#fb7185' }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center text-center bg-primary-100 w-64 h-64 rounded-full mx-auto relative"
         >
           <img src="/src/assets/images/login.png" alt="" className="w-10" />
@@ -37,7 +37,7 @@ const HowToRent: React.FC = () => {
 
         <motion.div
           whileHover={{ backgroundColor: '#fb7185' }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center text-center bg-primary-100 w-64 h-64 rounded-full mx-auto relative"
         >
           <img src="/src/assets/images/two.png" alt="" className="w-10" />
@@ -53,7 +53,7 @@ const HowToRent: React.FC = () => {
 
         <motion.div
           whileHover={{ backgroundColor: '#fb7185' }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center text-center bg-primary-100 w-64 h-64 rounded-full mx-auto relative"
         >
           <img
@@ -72,7 +72,7 @@ const HowToRent: React.FC = () => {
 
         <motion.div
           whileHover={{ backgroundColor: '#fb7185' }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center text-center bg-primary-100 w-64 h-64 rounded-full mx-auto relative"
         >
           <img

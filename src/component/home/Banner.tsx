@@ -6,10 +6,25 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import { Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import './Banner.css';
+import { Link, useNavigate } from 'react-router-dom';
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
 
 const Banner: React.FC = () => {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
+  const { control, handleSubmit } = useForm();
+
+  const searchHandle: SubmitHandler<FieldValues> = (data) => {
+    if (data?.search) {
+      navigate(`/bikes/search-bikes/${data?.search}`);
+    }
+  };
   return (
     <div className="w-full relative mb-32">
       <Swiper
@@ -63,9 +78,12 @@ const Banner: React.FC = () => {
               animate={activeIndex === 0 ? { y: 0, scale: 1 } : { y: 50 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
@@ -97,9 +115,12 @@ const Banner: React.FC = () => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
@@ -137,9 +158,12 @@ const Banner: React.FC = () => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
@@ -179,9 +203,12 @@ const Banner: React.FC = () => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
@@ -223,9 +250,12 @@ const Banner: React.FC = () => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
@@ -267,19 +297,22 @@ const Banner: React.FC = () => {
               animate={{ y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Button variant="contained" color="primary">
-                Rent Bike
-              </Button>
+              <Link to={'/bikes'}>
+                {' '}
+                <Button variant="contained" color="primary">
+                  Rent Bike
+                </Button>
+              </Link>
             </motion.div>
           </motion.div>
         </SwiperSlide>
       </Swiper>
 
       {/* Search bar */}
-      <div className="bg-white border shadow max-w-screen-xl mx-auto p-5 rounded-md -bottom-20 lg:-bottom-16 absolute z-30 right-0 left-0">
-        <form className="w-full mx-auto">
+      <div className=" border shadow max-w-screen-xl mx-auto p-5 rounded-md -bottom-20 lg:-bottom-16 absolute z-30 right-0 left-0">
+        <form className="w-full mx-auto" onSubmit={handleSubmit(searchHandle)}>
           <label
-            htmlFor="default-search"
+            htmlFor="search"
             className="mb-2 text-sm font-medium text-primary-900 sr-only dark:text-white"
           >
             Search
@@ -302,12 +335,19 @@ const Banner: React.FC = () => {
                 />
               </svg>
             </div>
-            <input
-              type="search"
-              id="default-search"
-              className="block w-full lg:h-20 p-4 ps-10 text-sm text-primary-900 border border-primary-300 rounded-lg bg-primary-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-              placeholder="Search your bike..."
-              required
+            <Controller
+              name="search"
+              control={control}
+              render={({ field }) => (
+                <input
+                  type="search"
+                  {...field}
+                  id="search"
+                  className="block w-full lg:h-20 p-4 ps-10 text-sm text-primary-900 border border-primary-300 rounded-lg bg-primary-50 focus:ring-primary-500 focus:border-primary-500 dark:bg-primary-700 dark:border-primary-600 dark:placeholder-primary-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Search your bike..."
+                  required
+                />
+              )}
             />
             <button
               type="submit"

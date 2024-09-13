@@ -10,6 +10,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Skeleton,
 } from '@mui/material';
 import Swal from 'sweetalert2';
 import { TBike } from '../../../types/bikes/bike.type';
@@ -17,7 +18,7 @@ import BikeUpdateField from '../../../component/dashboard/admin/BikeDashboard/Bi
 import { toast } from 'sonner';
 
 const AllBikesManage: React.FC = () => {
-  const { data } = useGetAllBikesQuery(undefined);
+  const { data, isLoading } = useGetAllBikesQuery(undefined);
   const [bike, setBike] = useState<TBike | undefined>(undefined);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -62,39 +63,55 @@ const AllBikesManage: React.FC = () => {
       </h1>
 
       <div className="grid grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-5 items-center mx-auto my-5 lg:my-16">
-        {data?.data?.map((t) => (
-          <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
-            <CardMedia
-              sx={{ height: 240 }}
-              image={t?.images[0]}
-              title={t?.name}
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {t?.name}
-              </Typography>
-            </CardContent>
-            <CardActions className="flex items-center justify-between">
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => handleOpenModal(t)}
-              >
-                Update
-              </Button>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => deleteBikeHandle(t?._id)}
-              >
-                Delete
-              </Button>
-              <Button size="small" variant="contained">
-                View Details
-              </Button>
-            </CardActions>
-          </Card>
-        ))}
+        {isLoading
+          ? // Skeleton loader
+            Array.from(new Array(8)).map((_, index) => (
+              <Card key={index} sx={{ maxWidth: 345 }} className="p-4">
+                <Skeleton variant="rectangular" width="100%" height={240} />
+                <CardContent>
+                  <Skeleton variant="text" width="60%" height={40} />
+                  <Skeleton variant="text" width="80%" height={30} />
+                </CardContent>
+                <CardActions className="flex items-center justify-between">
+                  <Skeleton variant="rectangular" width={100} height={40} />
+                  <Skeleton variant="rectangular" width={100} height={40} />
+                  <Skeleton variant="rectangular" width={100} height={40} />
+                </CardActions>
+              </Card>
+            ))
+          : data?.data?.map((t: TBike) => (
+              <Card key={t?._id} sx={{ maxWidth: 345 }} className="">
+                <CardMedia
+                  sx={{ height: 240 }}
+                  image={t?.images[0]}
+                  title={t?.name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {t?.name}
+                  </Typography>
+                </CardContent>
+                <CardActions className="flex items-center justify-between">
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => handleOpenModal(t)}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    onClick={() => deleteBikeHandle(t?._id)}
+                  >
+                    Delete
+                  </Button>
+                  <Button size="small" variant="contained">
+                    View Details
+                  </Button>
+                </CardActions>
+              </Card>
+            ))}
         <BikeUpdateField
           handleClose={handleOpenClose}
           open={open}
