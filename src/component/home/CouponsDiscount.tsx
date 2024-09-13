@@ -1,21 +1,26 @@
-import React from "react";
-import { Button } from "@mui/material";
+import React from 'react';
+import { Button } from '@mui/material';
 // import Roulette from "../Roulette";
 
 const coupons = [
   {
-    code: "SUMMER10",
-    discount: "10% OFF",
-    description: "Valid on all mountain bikes.",
-    expires: "Expires: 09/30/2024",
+    code: 'SUMMER10',
+    discount: '10% OFF',
+    description: 'Valid on all mountain bikes.',
+    expires: 'Expires: 09/30/2024',
   },
   {
-    code: "FIRST15",
-    discount: "15% OFF",
-    description: "For first-time renters only.",
-    expires: "Expires: 10/15/2024",
+    code: 'FIRST15',
+    discount: '15% OFF',
+    description: 'For first-time renters only.',
+    expires: 'Expires: 10/15/2024',
   },
-  // Add more coupons as needed
+  {
+    code: 'FIRST25',
+    discount: '25% OFF',
+    description: 'Bangladesh 2.0 offer!',
+    expires: 'Expires: 10/15/2024',
+  },
 ];
 
 const CouponsDiscounts: React.FC = () => {
