@@ -38,17 +38,17 @@ const BikeDetails = () => {
   const [createComparison, { isLoading }] = useCreateComparisonMutation();
   // console.log(user?.data[0]._id);
   const createCompareHandler = async (id: string) => {
+    const toastId = toast.loading('Loading...');
     try {
       const res = await createComparison({
         userId: user?.data[0]._id,
         bikeId: id,
       }).unwrap();
-      console.log(res);
-      if (res.status) {
-        toast.success(res?.message);
+      if (res?.success) {
+        toast.success(res?.message, { id: toastId, duration: 2000 });
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong', { id: toastId, duration: 2000 });
     }
   };
 

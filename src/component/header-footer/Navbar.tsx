@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
             to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <img src="./images/logo.png" className="w-16" alt="Flowbite Logo" />
+            <img src="./images/logo.png" className="w-16" alt="logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               RentMy<span className="text-red-500">Ride</span>
             </span>

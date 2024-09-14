@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect } from 'react';
 import {
   Table,
@@ -8,64 +9,77 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { TBike } from '../types/bikes/bike.type';
+import {
+  useDeleteComparisonMutation,
+  useGetAllComparisonQuery,
+} from '../redux/features/comparison/comparison.api';
+import { TComparison } from '../types/comparison/comparison.type';
+import CompareSkeleton from '../component/skeleton/CompareSkeleton';
+import { toast } from 'sonner';
 
-const Compare = () => {
-  const products = [
-    {
-      name: 'MENS CLASSIC PANJABI',
-      image: '/path/to/classic-panjabi.jpg',
-      price: 3290,
-      model: 'SA-EA60-HMCP-0865',
-      brand: 'Sailor',
-      availability: 'Out of Stock',
-      rating: 0,
-      summary: '',
-    },
-    {
-      name: 'MENS FUSION PANJABI',
-      image: '/path/to/fusion-panjabi.jpg',
-      price: 3190,
-      model: 'TM-EA60-HMFP-0700',
-      brand: 'Sailor',
-      availability: 'Out of Stock',
-      rating: 0,
-      summary: '',
-    },
-    {
-      name: 'MENS FUSION PANJABI',
-      image: '/path/to/fusion-panjabi.jpg',
-      price: 3190,
-      model: 'TM-EA60-HMFP-0700',
-      brand: 'Sailor',
-      availability: 'Out of Stock',
-      rating: 0,
-      summary: '',
-    },
-  ];
+const Compare: React.FC = () => {
+  const { data, isLoading, isError } = useGetAllComparisonQuery(undefined);
 
   useEffect(() => {
-    // scroll top
     window.scrollTo(0, 0);
   }, []);
 
+  const [deleteComparison] = useDeleteComparisonMutation();
+  const handleDelete = async (id: string) => {
+    const toastId = toast.loading('Loading...');
+    try {
+      const res = await deleteComparison(id).unwrap();
+      if (res?.success) {
+        toast.success(res?.message, { id: toastId, duration: 2000 });
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { id: toastId, duration: 2000 });
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div>
+        <Typography
+          variant="h3"
+          className="text-center my-10 lg:my-16 uppercase font-bold"
+        >
+          Compare
+        </Typography>
+        <CompareSkeleton />
+      </div>
+    );
+  }
+
+  if (!data?.data?.length) {
+    return (
+      <Typography variant="h6" className="text-center mt-10 text-red-500">
+        No comparison data available.
+      </Typography>
+    );
+  }
+
   return (
-    <div className="">
-      <h3 className="text-center my-5 lg:my-10 uppercase">Compare</h3>
+    <div>
+      <h3 className="text-center my-10 lg:my-16 uppercase font-bold">
+        Compare
+      </h3>
       <TableContainer component={Paper} className="overflow-x-auto">
         <Table className="min-w-full">
           <TableHead>
             <TableRow>
               <TableCell className="font-bold">Product Details</TableCell>
-              {products.map((product, index) => (
+              {data?.data?.map((comparison: TComparison, index: number) => (
                 <TableCell key={index} className="relative">
-                  {product.name}
+                  {comparison.bikeId.name}
                   <IconButton
                     size="small"
                     className="absolute top-0 right-0"
                     aria-label="close"
+                    onClick={() => handleDelete(comparison?._id)}
                   >
                     <CloseIcon />
                   </IconButton>
@@ -74,7 +88,7 @@ const Compare = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Object.keys(products[0]).map(
+            {Object.keys(data?.data[0]?.bikeId || {}).map(
               (key) =>
                 key !== 'name' && (
                   <TableRow key={key}>
@@ -85,21 +99,21 @@ const Compare = () => {
                     >
                       {key.charAt(0).toUpperCase() + key.slice(1)}
                     </TableCell>
-                    {products.map((product, index) => (
-                      <TableCell key={index}>
-                        {key === 'images' ? (
-                          <img
-                            src={
-                              'https://sailors3bucket1.s3.ap-southeast-1.amazonaws.com/uploads/all/gwhY2kEAR9YGhbUNdB6KSf9wkmh1UK4DArckLdUe.jpg'
-                            }
-                            alt={product?.name}
-                            className="w-24 h-auto"
-                          />
-                        ) : (
-                          product[key]
-                        )}
-                      </TableCell>
-                    ))}
+                    {data?.data?.map(
+                      (comparison: TComparison, index: number) => (
+                        <TableCell key={index}>
+                          {key === 'images' ? (
+                            <img
+                              src={comparison.bikeId.images[0]}
+                              alt={comparison.bikeId.name}
+                              className="w-24 h-auto"
+                            />
+                          ) : (
+                            (comparison.bikeId as any)[key]
+                          )}
+                        </TableCell>
+                      )
+                    )}
                   </TableRow>
                 )
             )}
@@ -111,18 +125,3 @@ const Compare = () => {
 };
 
 export default Compare;
-
-// name (String): Unique identifier for the bike.
-// pricePerHour (Number): Cost factor for rentals, important for price comparison.
-// cc (Number): Engine displacement, crucial for performance comparison.
-// brand (String): Helps in comparing different manufacturers.
-// model (String): Used to differentiate models within a brand.
-// type (ObjectId - reference to 'type'): Type of bike (e.g., mountain, road, track).
-// color (String): Aesthetic comparison.
-// size (String): Important for user preferences based on height or body size.
-// maximumSpeed (String): Useful for performance and speed comparisons.
-// suspensionFrontType and suspensionRearType (String): Crucial for ride quality.
-// brakeFrontType and brakeRearType (String): Important for safety and performance.
-// weight (Number): Affects handling and portability.
-// condition (String): Important for assessing bike quality.
-// ageGroup (String): Defines the target audience (Child or Adult).
