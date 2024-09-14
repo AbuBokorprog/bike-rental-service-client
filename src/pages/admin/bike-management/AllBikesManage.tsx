@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { TBike } from '../../../types/bikes/bike.type';
 import BikeUpdateField from '../../../component/dashboard/admin/BikeDashboard/BikeUpdateField';
 import { toast } from 'sonner';
+import Title from '../../../component/helmet/Title';
 
 const AllBikesManage: React.FC = () => {
   const { data, isLoading } = useGetAllBikesQuery(undefined);
@@ -63,6 +64,10 @@ const AllBikesManage: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
+      <Title
+        title="All bikes - Admin Dashboard"
+        description="This is all bikes admin dashboard panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         All Bikes
       </h1>

@@ -5,6 +5,7 @@ import {
 } from '../../../redux/features/rentals/rentals.api';
 import { Box, Button, Tab, Tabs } from '@mui/material';
 import { TRental } from '../../../types/rentals/rentals.type';
+import Title from '../../../component/helmet/Title';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,6 +71,10 @@ const MyRentals: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
+      <Title
+        title="My rentals - User Dashboard"
+        description="This is use`s rentals panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         My Rental Bikes.
       </h1>

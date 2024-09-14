@@ -18,6 +18,7 @@ import { currentToken } from '../../redux/store';
 import { useCreateComparisonMutation } from '../../redux/features/comparison/comparison.api';
 import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 import { toast } from 'sonner';
+import Title from '../../component/helmet/Title';
 
 const BikeDetails = () => {
   const token = useAppSelector(currentToken);
@@ -55,6 +56,10 @@ const BikeDetails = () => {
 
   return (
     <div>
+      <Title
+        title={`${slug} - RentMyRide`}
+        description={`This is ${slug}'s details page. `}
+      />
       <div className="my-5 lg:my-16"></div>
       <div className="lg:flex items-start justify-between lg:gap-10 mx-auto">
         {/* slider and description */}

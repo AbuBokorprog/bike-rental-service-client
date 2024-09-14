@@ -7,6 +7,7 @@ import {
 import { TMeta } from '../../../types/global.type';
 import { TRental } from '../../../types/rentals/rentals.type';
 import { toast } from 'sonner';
+import Title from '../../../component/helmet/Title';
 
 const RentalBikes: React.FC = () => {
   const { data, isLoading } = useGetAllRentalsQuery(undefined);
@@ -36,6 +37,10 @@ const RentalBikes: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center text-center">
+      <Title
+        title="All rentals - Admin Dashboard"
+        description="This is all rentals admin dashboard panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         Rental Bikes.
       </h1>

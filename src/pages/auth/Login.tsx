@@ -1,20 +1,21 @@
-import { Button, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import { Button, TextField } from '@mui/material';
+import React, { useEffect } from 'react';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { useAuthLoginMutation } from "../../redux/features/auth/AuthApi";
-import { toast } from "sonner";
-import { useAppDispatch } from "../../redux/hooks/hooks";
-import { JWTDecode } from "../../utils/JWTDecode";
-import { login } from "../../redux/features/auth/AuthSlice";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { JwtPayload } from "jwt-decode";
+} from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthLoginMutation } from '../../redux/features/auth/AuthApi';
+import { toast } from 'sonner';
+import { useAppDispatch } from '../../redux/hooks/hooks';
+import { JWTDecode } from '../../utils/JWTDecode';
+import { login } from '../../redux/features/auth/AuthSlice';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { JwtPayload } from 'jwt-decode';
+import Title from '../../component/helmet/Title';
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -26,8 +27,8 @@ const Login: React.FC = () => {
 
   const schema = z
     .object({
-      email: z.string({ required_error: "Email is required!" }),
-      password: z.string({ required_error: "Password is required!" }),
+      email: z.string({ required_error: 'Email is required!' }),
+      password: z.string({ required_error: 'Password is required!' }),
     })
     .required();
 
@@ -39,7 +40,7 @@ const Login: React.FC = () => {
   } = useForm({ resolver: zodResolver(schema) });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading('Loading...');
 
     try {
       const res = await userLogin(data).unwrap();
@@ -50,7 +51,7 @@ const Login: React.FC = () => {
         dispatch(login({ user: user, token: res?.data?.token }));
 
         toast.success(res.message, { id: toastId, duration: 2000 });
-        if (user?.role === "super-admin") {
+        if (user?.role === 'super-admin') {
           navigate(`/dashboard/admin`);
         } else {
           navigate(`/dashboard/${user?.role}`);
@@ -58,13 +59,17 @@ const Login: React.FC = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+      toast.error('Something went wrong!', { id: toastId, duration: 2000 });
     }
     reset();
   };
 
   return (
     <div className="my-24">
+      <Title
+        title={`Login - RentMyRide`}
+        description={`This is login details page. `}
+      />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-screen-md mx-auto bg-secondary-50 p-5 rounded-md border shadow-lg"
@@ -120,9 +125,9 @@ const Login: React.FC = () => {
         </div>
         <div className="my-3">
           <p>
-            Don’t have an account yet?{" "}
+            Don’t have an account yet?{' '}
             <Link
-              to={"/registration"}
+              to={'/registration'}
               className="text-primary-500 hover:underline"
             >
               Register

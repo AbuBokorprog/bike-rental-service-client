@@ -19,7 +19,9 @@ import {
 import { TComparison } from '../types/comparison/comparison.type';
 import CompareSkeleton from '../component/skeleton/CompareSkeleton';
 import { toast } from 'sonner';
+import Title from '../component/helmet/Title';
 
+// *Compare page.
 const Compare: React.FC = () => {
   const { data, isLoading, isError } = useGetAllComparisonQuery(undefined);
 
@@ -64,6 +66,10 @@ const Compare: React.FC = () => {
 
   return (
     <div>
+      <Title
+        title="Compare - RentMyRide"
+        description="This is Bikes compare page."
+      />
       <h3 className="text-center my-10 lg:my-16 uppercase font-bold">
         Compare
       </h3>

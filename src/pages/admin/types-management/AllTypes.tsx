@@ -16,6 +16,7 @@ import { TType } from '../../../types/types/types.type';
 import TypesUpdateField from '../../../component/dashboard/admin/TypesDashboard/TypesUpdateField';
 import { toast } from 'sonner';
 import Swal from 'sweetalert2';
+import Title from '../../../component/helmet/Title';
 
 const AllTypes: React.FC = () => {
   const { data, isLoading } = useGetAllTypesQuery(undefined);
@@ -63,6 +64,10 @@ const AllTypes: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
+      <Title
+        title="All types - Admin Dashboard"
+        description="This is all types admin dashboard panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         All Types.
       </h1>

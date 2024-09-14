@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Title from '../../component/helmet/Title';
 
 const RentalTerms = () => {
   useEffect(() => {
@@ -6,8 +7,11 @@ const RentalTerms = () => {
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
+      <Title
+        title="Rental Terms - RentMyRide"
+        description="This is rental terms page."
+      />
       <h1 className="text-3xl font-bold mb-6">Rental Terms and Conditions</h1>
-
       <p className="mb-4">
         By renting a bike from RentMyRide, you agree to the following terms and
         conditions. Please read them carefully to ensure a smooth and enjoyable

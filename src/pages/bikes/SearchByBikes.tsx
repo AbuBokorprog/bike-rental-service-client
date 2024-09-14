@@ -4,6 +4,7 @@ import BikeComponent from '../../component/bikes/BikeComponent';
 import { useGetAllBikesQuery } from '../../redux/features/bikes/bikes.api';
 import CustomBreadcrumbs from '../../component/Breadcrumbs';
 import { Link, Typography } from '@mui/material';
+import Title from '../../component/helmet/Title';
 
 const SearchByBikes: React.FC = () => {
   const { slug } = useParams();
@@ -27,6 +28,10 @@ const SearchByBikes: React.FC = () => {
 
   return (
     <div>
+      <Title
+        title={`${slug} - RentMyRide`}
+        description={`This is search by ${slug} page. `}
+      />
       <div className="my-5">
         <CustomBreadcrumbs breadcrumbs={breadcrumbs} />
       </div>

@@ -1,5 +1,17 @@
 # RentmyRide
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Project Description](#project-description)
+- [Features](#features)
+- [Technology Stack](#technology-stack)
+- [Installation Guideline](#installation-guideline)
+- [Usage](#usage)
+- [Authentication](#authentication)
+- [Contributing](#contributing)
+- [Licensing](#license)
+
 ## Introduction
 
 RentmyRide is a user-friendly, fully functional frontend for a Bike Rental Booking System. This system integrates with a backend, providing users with a seamless experience in bike rentals, user authentication, booking management, and advanced features for both users and admins.
@@ -163,3 +175,11 @@ Ensure you have the following installed:
 - **Super Admin**:
   - Email: suparadmin@gmail.com
   - Password: superadmin@
+
+## Contributing
+
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Ensure that your code address to the existing style and that you have added tests for any new functionality.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.

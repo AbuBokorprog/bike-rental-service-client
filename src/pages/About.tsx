@@ -1,13 +1,19 @@
 import React, { useEffect } from 'react';
 import { Typography, Grid, Card, CardContent, Avatar } from '@mui/material';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
+import Title from '../component/helmet/Title';
 
+// *This about us page.
 const About: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   return (
     <div className="mx-auto">
+      <Title
+        title="About us - RentMyRide"
+        description="This is About us page."
+      />
       <div className="relative">
         <img
           src="./images/banner-3.png"

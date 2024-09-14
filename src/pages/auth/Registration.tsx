@@ -1,34 +1,35 @@
-import { Button, TextField } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { Button, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { useAuthRegisterMutation } from "../../redux/features/auth/AuthApi";
-import { toast } from "sonner";
-import { JWTDecode } from "../../utils/JWTDecode";
-import { useDispatch } from "react-redux";
-import { login } from "../../redux/features/auth/AuthSlice";
+} from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useAuthRegisterMutation } from '../../redux/features/auth/AuthApi';
+import { toast } from 'sonner';
+import { JWTDecode } from '../../utils/JWTDecode';
+import { useDispatch } from 'react-redux';
+import { login } from '../../redux/features/auth/AuthSlice';
+import Title from '../../component/helmet/Title';
 
 const Registration: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const schema = z.object({
-    name: z.string({ required_error: "The name is required!" }),
-    email: z.string({ required_error: "The email is required!" }),
-    password: z.string({ required_error: "The password is required!" }),
+    name: z.string({ required_error: 'The name is required!' }),
+    email: z.string({ required_error: 'The email is required!' }),
+    password: z.string({ required_error: 'The password is required!' }),
     confirmPassword: z.string({
-      required_error: "The confirm have to matched with password!",
+      required_error: 'The confirm have to matched with password!',
     }),
-    phone: z.string({ required_error: "The phone is required!" }),
-    address: z.string({ required_error: "The address is required!" }),
+    phone: z.string({ required_error: 'The phone is required!' }),
+    address: z.string({ required_error: 'The address is required!' }),
     image: z.string({
-      required_error: "Please paste your profile picture url!",
+      required_error: 'Please paste your profile picture url!',
     }),
   });
 
@@ -48,7 +49,7 @@ const Registration: React.FC = () => {
   const [userRegister] = useAuthRegisterMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading('Loading...');
 
     const values = {
       name: data.name,
@@ -67,11 +68,11 @@ const Registration: React.FC = () => {
         dispatch(login({ user: user, token: res?.data?.token }));
 
         toast.success(res.message, { id: toastId, duration: 2000 });
-        navigate("/");
+        navigate('/');
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong!");
+      toast.error('Something went wrong!');
     }
 
     reset();
@@ -79,6 +80,10 @@ const Registration: React.FC = () => {
 
   return (
     <div className="my-5 lg:my-16">
+      <Title
+        title={`Registration - RentMyRide`}
+        description={`This is registration details page. `}
+      />
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-screen-md mx-auto bg-secondary-50 p-5 rounded-md border shadow-lg"
@@ -226,8 +231,8 @@ const Registration: React.FC = () => {
         </div>
         <div className="my-3">
           <p>
-            Are you already registered?{" "}
-            <Link to={"/login"} className="text-primary-500 hover:underline">
+            Are you already registered?{' '}
+            <Link to={'/login'} className="text-primary-500 hover:underline">
               Login
             </Link>
           </p>

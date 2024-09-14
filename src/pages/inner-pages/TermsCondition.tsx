@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Title from '../../component/helmet/Title';
 
 const TermsCondition: React.FC = () => {
   useEffect(() => {
@@ -6,6 +7,10 @@ const TermsCondition: React.FC = () => {
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
+      <Title
+        title="Terms & Condition - RentMyRide"
+        description="This is terms & condition page."
+      />
       <h1 className="text-3xl font-bold mb-6">Terms and Conditions</h1>
       <p className="mb-4">
         Welcome to RentMyRide! By using our services, you agree to the following

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import UpdateProfileModal from '../../component/dashboard/UpdateProfileModal';
 import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 import UserProfile from '../../component/skeleton/dashboard/UserProfile';
+import Title from '../../component/helmet/Title';
 
 const UserDashboard: React.FC = () => {
   const { data, isLoading } = useGetProfileInfoQuery(undefined);
@@ -19,6 +20,10 @@ const UserDashboard: React.FC = () => {
 
   return (
     <>
+      <Title
+        title="User Dashboard "
+        description="This is User dashboard panel."
+      />
       {isLoading ? (
         <UserProfile />
       ) : (

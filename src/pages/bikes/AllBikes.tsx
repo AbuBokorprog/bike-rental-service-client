@@ -5,6 +5,7 @@ import { Link, Pagination, Typography } from '@mui/material';
 import CustomBreadcrumbs from '../../component/Breadcrumbs';
 import { useGetAllBikesQuery } from '../../redux/features/bikes/bikes.api';
 import { motion, useInView } from 'framer-motion';
+import Title from '../../component/helmet/Title';
 const AllBikes: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [brand, setBrand] = useState<string | undefined>(undefined);
@@ -68,6 +69,10 @@ const AllBikes: React.FC = () => {
 
   return (
     <div>
+      <Title
+        title="All bikes - RentMyRide"
+        description="This is all bikes page."
+      />
       <div className="relative">
         <img
           src="./images/banner-2.png"

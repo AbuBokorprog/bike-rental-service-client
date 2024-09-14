@@ -20,6 +20,7 @@ import { TUser } from '../../../types/users/user.type';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toast } from 'sonner';
 import AllUserSkeleton from '../../../component/skeleton/dashboard/AllUserSkeleton';
+import Title from '../../../component/helmet/Title';
 
 interface Column {
   id:
@@ -156,6 +157,10 @@ const AllUser = () => {
 
   return (
     <>
+      <Title
+        title="All users - Admin Dashboard"
+        description="This is all users admin dashboard panel."
+      />
       {isLoading ? (
         <AllUserSkeleton />
       ) : (

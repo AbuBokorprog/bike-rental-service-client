@@ -10,6 +10,7 @@ import {
 import { z } from 'zod';
 import { useCreateTypesMutation } from '../../../redux/features/types/Types.api';
 import { toast } from 'sonner';
+import Title from '../../../component/helmet/Title';
 
 const CreateTypes: React.FC = () => {
   const schema = z.object({
@@ -47,6 +48,10 @@ const CreateTypes: React.FC = () => {
   };
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
+      <Title
+        title="Create types - Admin Dashboard"
+        description="This is create type admin dashboard panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         Create Type
       </h1>

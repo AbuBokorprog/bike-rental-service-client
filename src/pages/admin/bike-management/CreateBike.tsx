@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   InputLabel,
@@ -14,11 +13,11 @@ import {
   SubmitHandler,
   useForm,
 } from 'react-hook-form';
-import { z } from 'zod';
 import { useCreateBikeMutation } from '../../../redux/features/bikes/bikes.api';
 import { useGetAllTypesQuery } from '../../../redux/features/types/Types.api';
 import { toast } from 'sonner';
 import { TType } from '../../../types/types/types.type';
+import Title from '../../../component/helmet/Title';
 
 const CreateBike: React.FC = () => {
   const [suspension, setSuspension] = React.useState('');
@@ -40,59 +39,6 @@ const CreateBike: React.FC = () => {
 
   //get all bike types
   const { data } = useGetAllTypesQuery(undefined);
-
-  // const schema = z.object({
-  //   name: z.string({ required_error: "This is required field" }),
-  //   description: z.string({ required_error: "This is required field" }),
-  //   pricePerHour: z.string({ required_error: "This is required field" }),
-  //   cc: z.number({ required_error: "This is required field" }),
-  //   brand: z.string({ required_error: "This is required field" }),
-  //   model: z.string({ required_error: "This is required field" }),
-  //   type: z.enum(["mountain", "road", "hybrid", "electric"]),
-  //   size: z.string({ required_error: "This is required field" }),
-  //   engine: z.string({ required_error: "This is required field" }),
-  //   carburetionType: z.string({ required_error: "This is required field" }),
-  //   engineType: z.string({ required_error: "This is required field" }),
-  //   emissionControl: z.string({ required_error: "This is required field" }),
-  //   boreStroke: z.string({ required_error: "This is required field" }),
-  //   compressionRatio: z.string({ required_error: "This is required field" }),
-  //   identification: z.string({ required_error: "This is required field" }),
-  //   introductionYear: z.string({ required_error: "This is required field" }),
-  //   registrationYear: z.string({ required_error: "This is required field" }),
-  //   maximumSpeed: z.string({ required_error: "This is required field" }),
-  //   suspensionFrontType: z.string({ required_error: "This is required field" }),
-  //   suspensionFrontSize: z.string({ required_error: "This is required field" }),
-  //   frontTravel: z.string({ required_error: "This is required field" }),
-  //   suspensionRearType: z.string({ required_error: "This is required field" }),
-  //   rearTravel: z.string({ required_error: "This is required field" }),
-  //   brakeFrontType: z.string({ required_error: "This is required field" }),
-  //   brakeFrontDiameter: z.string({ required_error: "This is required field" }),
-  //   brakeRearType: z.string({ required_error: "This is required field" }),
-  //   brakeRearDiameter: z.string({ required_error: "This is required field" }),
-  //   transmissionType: z.string({ required_error: "This is required field" }),
-  //   clutchType: z.string({ required_error: "This is required field" }),
-  //   numberOfSpeeds: z.number({ required_error: "This is required field" }),
-  //   primaryDrive: z.string({ required_error: "This is required field" }),
-  //   tractionControl: z.string({ required_error: "This is required field" }),
-  //   frame: z.string({ required_error: "This is required field" }),
-  //   length: z.string({ required_error: "This is required field" }),
-  //   width: z.string({ required_error: "This is required field" }),
-  //   wheelbase: z.string({ required_error: "This is required field" }),
-  //   dryWeight: z.string({ required_error: "This is required field" }),
-  //   wetWeight: z.string({ required_error: "This is required field" }),
-  //   packagingWeight: z.string({ required_error: "This is required field" }),
-  //   packagingDimensions: z.string({ required_error: "This is required field" }),
-  //   gearCount: z.number({ required_error: "This is required field" }),
-  //   brakeType: z.string({ required_error: "This is required field" }),
-  //   suspension: z.enum(["front", "rear", "full", "none"]),
-  //   weight: z.number({ required_error: "This is required field" }),
-  //   material: z.string({ required_error: "This is required field" }),
-  //   accessoriesIncluded: z.array(z.string()),
-  //   condition: z.string({ required_error: "This is required field" }),
-  //   ageGroup: z.string({ required_error: "This is required field" }).array(),
-  //   color: z.string({ required_error: "This is required field" }),
-  //   images: z.string({ required_error: "This is required field" }).array(),
-  // });
 
   const {
     handleSubmit,
@@ -129,6 +75,10 @@ const CreateBike: React.FC = () => {
 
   return (
     <div className="flex-1 p-8 ml-0 lg:ml-64 mx-auto justify-center items-center">
+      <Title
+        title="Create bike - Admin Dashboard"
+        description="This is create bike admin dashboard panel."
+      />
       <h1 className="text-xl lg:text-3xl font-semibold uppercase text-center">
         Create Bike
       </h1>

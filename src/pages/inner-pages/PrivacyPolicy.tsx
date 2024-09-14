@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Title from '../../component/helmet/Title';
 
 const PrivacyPolicy: React.FC = () => {
   useEffect(() => {
@@ -6,6 +7,10 @@ const PrivacyPolicy: React.FC = () => {
   }, []);
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
+      <Title
+        title="Privacy policy - RentMyRide"
+        description="This is privacy policy page."
+      />
       <h1 className="text-3xl font-bold mb-6">Privacy Policy</h1>
       <p className="mb-4">
         At RentMyRide, we value your privacy and are committed to protecting
