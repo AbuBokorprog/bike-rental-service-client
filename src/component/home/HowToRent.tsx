@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+
+// How to rent
 const HowToRent: React.FC = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });

@@ -8,6 +8,7 @@ import { SlCalender } from 'react-icons/sl';
 import BikeSkeleton from '../skeleton/BikeSkeleton';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+// *This is bike component
 const BikeComponent: React.FC<{
   bikes: TBike[] | undefined;
   isLoading: boolean;

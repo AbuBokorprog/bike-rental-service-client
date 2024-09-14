@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from 'react';
 import {
   Button,
   Dialog,
@@ -6,16 +6,17 @@ import {
   DialogContent,
   DialogTitle,
   TextField,
-} from "@mui/material";
-import { useUpdateProfileInfoMutation } from "../../redux/features/user/User";
-import { toast } from "sonner";
+} from '@mui/material';
+import { useUpdateProfileInfoMutation } from '../../redux/features/user/User';
+import { toast } from 'sonner';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
+} from 'react-hook-form';
 
+// user interface
 interface User {
   name: string;
   email: string;
@@ -23,24 +24,26 @@ interface User {
   address: string;
   image: string;
 }
-
+// interface of react props.
 interface UpdateProfileModalProps {
   open: boolean;
   handleClose: () => void;
   user: User;
 }
 
+// update profile modal.
 const UpdateProfileModal: React.FC<UpdateProfileModalProps> = ({
   open,
   handleClose,
   user,
 }) => {
+  // react hook form
   const { handleSubmit, control } = useForm();
-
+  // update profile mutation.
   const [updateInfo] = useUpdateProfileInfoMutation();
   // Update profile on form submission
   const handleFormSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading('Loading...');
 
     try {
       const res = await updateInfo(data).unwrap();
@@ -63,7 +66,7 @@ const UpdateProfileModal: React.FC<UpdateProfileModalProps> = ({
           <Controller
             control={control}
             name="name"
-            defaultValue={user?.name} // Initial value for react-hook-form
+            defaultValue={user?.name}
             render={({ field }) => (
               <TextField
                 fullWidth

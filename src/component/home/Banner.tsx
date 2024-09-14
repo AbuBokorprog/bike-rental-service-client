@@ -14,6 +14,7 @@ import {
   useForm,
 } from 'react-hook-form';
 
+// Banner
 const Banner: React.FC = () => {
   const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState<number>(0);

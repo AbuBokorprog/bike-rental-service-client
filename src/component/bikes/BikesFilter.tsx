@@ -5,9 +5,9 @@ import {
   MenuItem,
   Select,
   SelectChangeEvent,
-} from "@mui/material";
-import React, { useState } from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+} from '@mui/material';
+import React, { useState } from 'react';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 
 type TBrands = {
   brand: string;
@@ -17,11 +17,6 @@ type TBrands = {
 type TModels = {
   model: string;
   id: string;
-};
-
-type TFilters = {
-  name: string;
-  value: string | number | boolean | undefined;
 };
 
 type TProps = {
@@ -36,7 +31,7 @@ type TProps = {
   setModel: React.Dispatch<React.SetStateAction<string | undefined>>;
   setAvailable: React.Dispatch<React.SetStateAction<string | undefined>>;
 };
-
+// Bike filters
 const BikesFilter: React.FC<TProps> = ({
   brands,
   models,
@@ -51,18 +46,19 @@ const BikesFilter: React.FC<TProps> = ({
 }) => {
   const { control } = useForm();
 
+  // set brand
   const brandHandleChange = (event: SelectChangeEvent) => {
     setBrand(event.target.value as string);
   };
-
+  // set age
   const ageHandleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
-
+  // set model
   const modelHandleChange = (event: SelectChangeEvent) => {
     setModel(event.target.value as string);
   };
-
+  // set availability
   const availableHandleChange = (event: SelectChangeEvent) => {
     setAvailable(event.target.value as string);
   };
@@ -145,8 +141,8 @@ const BikesFilter: React.FC<TProps> = ({
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={"Adult"}>Adult</MenuItem>
-                  <MenuItem value={"Child"}>Child</MenuItem>
+                  <MenuItem value={'Adult'}>Adult</MenuItem>
+                  <MenuItem value={'Child'}>Child</MenuItem>
                 </Select>
               </FormControl>
             )}
@@ -169,18 +165,13 @@ const BikesFilter: React.FC<TProps> = ({
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  <MenuItem value={"true"}>Available</MenuItem>
-                  <MenuItem value={"false"}>Not Available</MenuItem>
+                  <MenuItem value={'true'}>Available</MenuItem>
+                  <MenuItem value={'false'}>Not Available</MenuItem>
                 </Select>
               </FormControl>
             )}
           />
         </div>
-        {/* <div>
-          <Button variant="contained" color="primary">
-            Filter
-          </Button>
-        </div> */}
       </form>
     </div>
   );

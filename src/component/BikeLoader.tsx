@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+// Bike loader
 const BikeLoader: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);

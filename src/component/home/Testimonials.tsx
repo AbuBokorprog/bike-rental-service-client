@@ -5,6 +5,7 @@ import { Navigation } from 'swiper/modules';
 import React, { useEffect, useState } from 'react';
 import { TTestimonial } from '../../types/home/testimonials.type';
 
+// Testimonial
 const Testimonials: React.FC = () => {
   const [testimonials, setTestimonials] = useState<TTestimonial[]>();
 

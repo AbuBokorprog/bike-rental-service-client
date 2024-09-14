@@ -29,13 +29,16 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   DefinitionType
 > = async (args, api, extraOptions): Promise<any> => {
   const result = await baseQuery(args, api, extraOptions);
+  const token = (api.getState() as RootState).auth.token;
 
-  if (result?.error?.status === 401) {
-    api.dispatch(logout());
-  }
+  if (token) {
+    if (result?.error?.status === 401) {
+      api.dispatch(logout());
+    }
 
-  if (result?.error?.status) {
-    toast.error(result?.error?.data?.message);
+    if (result?.error?.status) {
+      toast.error(result?.error?.data?.message);
+    }
   }
 
   return result;

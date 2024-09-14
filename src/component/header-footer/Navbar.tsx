@@ -10,9 +10,12 @@ import { currentToken } from '../../redux/store';
 import { JWTDecode } from '../../utils/JWTDecode';
 import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 
+// Navbar
 const Navbar: React.FC = () => {
+  // dispatch & token
   const dispatch = useDispatch();
   const token = useAppSelector(currentToken);
+
   let role;
 
   if (token) {
@@ -23,12 +26,14 @@ const Navbar: React.FC = () => {
     }
   }
 
+  //
   const { data } = useGetProfileInfoQuery({ undefined });
 
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // handling if click outside of sidebar, sidebar will be close.
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {
       if (
@@ -45,17 +50,18 @@ const Navbar: React.FC = () => {
     };
   }, []);
 
+  // Nav items
   const navItems = [
     { name: 'Home', href: '/', current: true },
     { name: 'Bikes', href: '/bikes', current: false },
     { name: 'About', href: '/about', current: false },
   ];
 
+  // secondary items.
   const secondaryItems = [
     { name: 'Compare', href: '/compare' },
     { name: 'Dashboard', href: `/dashboard/${role}` },
     { name: 'Login', href: '/login' },
-    // { name: "Dashboard", href: "/dashboard/admin" },
   ];
 
   // logout handler

@@ -2,6 +2,7 @@ import { useInView } from 'framer-motion';
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
 
+// Why choose us
 const WhyChooseUs: React.FC = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true });

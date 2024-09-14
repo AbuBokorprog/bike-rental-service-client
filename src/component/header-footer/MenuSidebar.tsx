@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import CancelIcon from "@mui/icons-material/Cancel";
-import { Button } from "@mui/material";
+import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import CancelIcon from '@mui/icons-material/Cancel';
+import { Button } from '@mui/material';
 
 //* Menu side bar component use for small device users
 const MenuSidebar = ({
@@ -25,12 +25,12 @@ const MenuSidebar = ({
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     }
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, handleClickOutside]);
 
@@ -38,12 +38,12 @@ const MenuSidebar = ({
   const container = {
     open: {
       x: 0,
-      transition: { type: "Tween", staggerChildren: 0.3, stiffness: 100 },
+      transition: { type: 'Tween', staggerChildren: 0.3, stiffness: 100 },
     },
     closed: {
       x: -300,
       transition: {
-        type: "Tween",
+        type: 'Tween',
         stiffness: 100,
         staggerChildren: 0.1,
         staggerDirection: -1,
@@ -55,23 +55,21 @@ const MenuSidebar = ({
     open: {
       opacity: 1,
       x: 0,
-      transition: { type: "Tween", stiffness: 100 },
+      transition: { type: 'Tween', stiffness: 100 },
     },
     closed: {
       opacity: 0,
       x: -20,
-      transition: { type: "Tween", stiffness: 100 },
+      transition: { type: 'Tween', stiffness: 100 },
     },
   };
-
-  // const { data } = useGetCategoriesQuery();
 
   return (
     <div>
       {/* Menu sidebar component contents */}
       <motion.div
         initial="closed"
-        animate={isOpen ? "open" : "closed"}
+        animate={isOpen ? 'open' : 'closed'}
         variants={container}
         className={`lg:hidden fixed top-0 left-0 w-64 h-screen z-50 `}
         ref={sidebarRef}
@@ -104,7 +102,7 @@ const MenuSidebar = ({
 
             <motion.li variants={item}>
               <Link
-                to={"/about-us"}
+                to={'/about-us'}
                 className="block border py-2 px-3 text-secondary-900 rounded hover:bg-secondary-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 "
               >
                 About
@@ -112,7 +110,7 @@ const MenuSidebar = ({
             </motion.li>
             <motion.li>
               <Link
-                to={"/login"}
+                to={'/login'}
                 className="block border py-2 px-3 text-secondary-900 rounded hover:bg-secondary-100 md:hover:bg-transparent md:hover:text-primary-700 md:p-0 "
               >
                 Login

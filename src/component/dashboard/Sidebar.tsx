@@ -10,15 +10,12 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-// import LoginIcon from "@mui/icons-material/Login";
-// import LogoutIcon from "@mui/icons-material/Logout";
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
   Dashboard as DashboardIcon,
   Logout as LogoutIcon,
   Login as LoginIcon,
-  // Settings as SettingsIcon,
   People as PeopleIcon,
 } from '@mui/icons-material';
 import ElectricBikeIcon from '@mui/icons-material/ElectricBike';
@@ -32,6 +29,8 @@ import { BiSolidCategory } from 'react-icons/bi';
 import { BiKey } from 'react-icons/bi';
 import { toast } from 'sonner';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// user menu items
 const userItems = [
   {
     text: 'Dashboard',
@@ -51,6 +50,7 @@ const userItems = [
   },
 ];
 
+// admin menu items
 const adminMenuItems = [
   {
     text: 'Dashboard',
@@ -113,13 +113,21 @@ const adminMenuItems = [
   },
 ];
 
+// Sidebar
 export const Sidebar: React.FC = () => {
+  // current token
   const token = useAppSelector(currentToken);
+  // sidebar toggle for small devices.
   const [open, setOpen] = useState<boolean>(false);
+  // children menu items handling.
   const [parentItem, setParentItems] = useState<string>('');
+
+  // dispatch
   const dispatch = useAppDispatch();
+
   let role;
   let menuItems;
+
   if (token) {
     const user = JWTDecode(token);
     role = (user as TUser)?.role;
@@ -131,10 +139,12 @@ export const Sidebar: React.FC = () => {
     menuItems = adminMenuItems;
   }
 
+  // toggle sidebar for small devices.
   const toggleSidebar = () => {
     setOpen(!open);
   };
 
+  // toggle children
   const toggleSubMenu = (text: string) => {
     setParentItems(text);
   };
@@ -156,7 +166,7 @@ export const Sidebar: React.FC = () => {
         </IconButton>
       </div>
 
-      {/* Drawer/Sidebar */}
+      {/*Sidebar for small devices*/}
       <Drawer
         anchor="left"
         open={open}

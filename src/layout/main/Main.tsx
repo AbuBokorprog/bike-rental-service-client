@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../../component/header-footer/Navbar';
 import Footer from '../../component/header-footer/Footer';
 import BikeLoader from '../../component/BikeLoader';
-
+// Main dashboard
 const Main: React.FC = () => {
   const [loading, setLoading] = useState(true);
 

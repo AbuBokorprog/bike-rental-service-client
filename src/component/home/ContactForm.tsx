@@ -10,6 +10,7 @@ type FormData = {
   message: string;
 };
 
+// Contact form
 const ContactForm: React.FC = () => {
   const {
     register,
@@ -18,6 +19,7 @@ const ContactForm: React.FC = () => {
     reset,
   } = useForm<FormData>();
 
+  // form onSubmit
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       await emailjs.send(

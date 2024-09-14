@@ -1,8 +1,9 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import { Sidebar } from "../../component/dashboard/Sidebar";
+import React from 'react';
+import { Outlet } from 'react-router-dom';
+import { Sidebar } from '../../component/dashboard/Sidebar';
 
-const Dashboard = () => {
+// Dashboard layout
+const Dashboard: React.FC = () => {
   return (
     <div>
       <Sidebar />

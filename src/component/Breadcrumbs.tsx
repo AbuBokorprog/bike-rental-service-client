@@ -1,11 +1,11 @@
-import { Breadcrumbs, Stack } from "@mui/material";
-import React, { ReactNode } from "react";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Breadcrumbs, Stack } from '@mui/material';
+import React, { ReactNode } from 'react';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 type TBreadcrumbs = {
   breadcrumbs: ReactNode[];
 };
-
+// Breadcrumbs
 const CustomBreadcrumbs: React.FC<TBreadcrumbs> = ({ breadcrumbs }) => {
   return (
     <Stack spacing={2}>

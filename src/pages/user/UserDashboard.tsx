@@ -4,6 +4,7 @@ import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 import UserProfile from '../../component/skeleton/dashboard/UserProfile';
 import Title from '../../component/helmet/Title';
 
+// User dashboard
 const UserDashboard: React.FC = () => {
   const { data, isLoading } = useGetProfileInfoQuery(undefined);
   const user = data?.data[0];

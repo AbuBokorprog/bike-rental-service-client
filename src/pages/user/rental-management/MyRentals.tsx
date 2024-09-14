@@ -36,6 +36,7 @@ function a11yProps(index: number) {
   };
 }
 
+// My rentals
 const MyRentals: React.FC = () => {
   const [value, setValue] = React.useState(0);
 

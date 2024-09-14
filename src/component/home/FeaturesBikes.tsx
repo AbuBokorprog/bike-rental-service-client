@@ -1,8 +1,6 @@
 import React from 'react';
-// Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
-// Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
@@ -13,6 +11,7 @@ import { SlCalender } from 'react-icons/sl';
 import { Link } from 'react-router-dom';
 import FeaturesSkeleton from '../skeleton/FeatureSkeleton';
 
+// Features of bikes
 const FeaturesBikes: React.FC = () => {
   const { data, isLoading } = useGetAllBikesQuery([
     { name: 'limit', value: '10' },

@@ -5,7 +5,6 @@ import { useAppSelector } from '../../redux/hooks/hooks';
 import { currentToken } from '../../redux/store';
 import { useCreateRentalMutation } from '../../redux/features/rentals/rentals.api';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute' as const,
@@ -24,30 +23,42 @@ interface FormData {
   time: string;
 }
 
+// This is bike processing modal
 const BikeProcessModal = ({ id }: { id: string }) => {
+  // token
   const token = useAppSelector(currentToken);
-  const navigate = useNavigate();
+
+  // create rental mutation
   const [createRental] = useCreateRentalMutation();
+  // react hook
   const { handleSubmit, control, watch } = useForm<FormData>();
 
+  // onSubmit handler
   const onSubmit = async (data: FormData) => {
+    // combine the date and time
     const startTime = combineDateAndTime(data.date, data.time);
+    // bike id
     const bikeId = id;
+    // startTime and bike id
     const rentalData = {
       startTime,
       bikeId,
     };
+
+    // try catch of create rental
     try {
       const res = await createRental(rentalData).unwrap();
-      if (res?.data.result) {
+      //
+      if (res?.data?.result) {
         window.location.href = res?.data?.payment_url;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toast.error('Something went wrong!', { duration: 2000 });
     }
   };
 
+  // modal is open and closing handle
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -71,7 +82,7 @@ const BikeProcessModal = ({ id }: { id: string }) => {
   // Combine date and time into the required "YYYY-MM-DDTHH:mm:ssZ" format
   const combineDateAndTime = (date: string, time: string): string => {
     const combined = new Date(`${date}T${time}:00Z`);
-    return combined.toISOString(); // Converts to "YYYY-MM-DDTHH:mm:ssZ"
+    return combined.toISOString();
   };
 
   return (
