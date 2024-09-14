@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Card,
@@ -23,6 +23,10 @@ const AllTypes: React.FC = () => {
   const [id, setId] = useState<TType | undefined>();
 
   const [deleteType] = useDeleteTypeMutation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   // Open and close modal handlers
   const handleOpenModal = (type: TType) => {

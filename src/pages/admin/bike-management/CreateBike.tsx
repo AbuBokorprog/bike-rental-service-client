@@ -1,4 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Button,
   InputLabel,
@@ -6,33 +6,33 @@ import {
   Select,
   SelectChangeEvent,
   TextField,
-} from "@mui/material";
-import React from "react";
+} from '@mui/material';
+import React, { useEffect } from 'react';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
-import { z } from "zod";
-import { useCreateBikeMutation } from "../../../redux/features/bikes/bikes.api";
-import { useGetAllTypesQuery } from "../../../redux/features/types/Types.api";
-import { toast } from "sonner";
-import { TType } from "../../../types/types/types.type";
+} from 'react-hook-form';
+import { z } from 'zod';
+import { useCreateBikeMutation } from '../../../redux/features/bikes/bikes.api';
+import { useGetAllTypesQuery } from '../../../redux/features/types/Types.api';
+import { toast } from 'sonner';
+import { TType } from '../../../types/types/types.type';
 
 const CreateBike: React.FC = () => {
-  const [suspension, setSuspension] = React.useState("");
+  const [suspension, setSuspension] = React.useState('');
 
   const handleSuspensionChange = (event: SelectChangeEvent) => {
     setSuspension(event.target.value as string);
   };
 
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = React.useState('');
 
   const handleAgeChange = (event: SelectChangeEvent) => {
     setAge(event.target.value as string);
   };
-  const [type, setType] = React.useState("");
+  const [type, setType] = React.useState('');
 
   const handleTypeChange = (event: SelectChangeEvent) => {
     setType(event.target.value as string);
@@ -102,9 +102,13 @@ const CreateBike: React.FC = () => {
   } = useForm();
 
   const [createBike] = useCreateBikeMutation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Loading...");
-    data.images = data.images.split(",");
+    const toastId = toast.loading('Loading...');
+    data.images = data.images.split(',');
     data.type = type;
     data.ageGroup = age;
     data.suspension = suspension;
@@ -117,7 +121,7 @@ const CreateBike: React.FC = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+      toast.error('Something went wrong!', { id: toastId, duration: 2000 });
     }
 
     reset();
@@ -137,7 +141,7 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Name is required" }}
+            rules={{ required: 'Name is required' }}
             name="name"
             render={({ field }) => (
               <TextField
@@ -155,7 +159,7 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Description is required!" }}
+            rules={{ required: 'Description is required!' }}
             name="description"
             render={({ field }) => (
               <TextField
@@ -191,7 +195,7 @@ const CreateBike: React.FC = () => {
                 error={!!errors.type}
                 // helperText={errors.ageGroup ? "Age Group is required" : ""}
               >
-                <MenuItem defaultValue={""}>Select Age</MenuItem>
+                <MenuItem defaultValue={''}>Select Age</MenuItem>
                 {data?.data?.map((t: TType) => (
                   <MenuItem key={t?._id} value={t?._id}>
                     {t?.name}
@@ -206,7 +210,7 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Price per hour is required" }}
+            rules={{ required: 'Price per hour is required' }}
             name="pricePerHour"
             render={({ field }) => (
               <TextField
@@ -244,7 +248,7 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Brand is required" }}
+            rules={{ required: 'Brand is required' }}
             name="brand"
             render={({ field }) => (
               <TextField
@@ -262,7 +266,7 @@ const CreateBike: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Model is required" }}
+            rules={{ required: 'Model is required' }}
             name="model"
             render={({ field }) => (
               <TextField
@@ -884,7 +888,7 @@ const CreateBike: React.FC = () => {
                 error={!!errors.ageGroup}
                 // helperText={errors.ageGroup ? "Age Group is required" : ""}
               >
-                <MenuItem defaultValue={""}>Select Age</MenuItem>
+                <MenuItem defaultValue={''}>Select Age</MenuItem>
                 <MenuItem value="Child">Child</MenuItem>
                 <MenuItem value="Adult">Adult</MenuItem>
               </Select>

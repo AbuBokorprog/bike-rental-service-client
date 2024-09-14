@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import UpdateProfileModal from '../../component/dashboard/UpdateProfileModal';
 import { useGetProfileInfoQuery } from '../../redux/features/user/User';
 import UserProfile from '../../component/skeleton/dashboard/UserProfile';
@@ -12,6 +12,10 @@ const AdminDashboard: React.FC = () => {
   // Open and close modal handlers
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

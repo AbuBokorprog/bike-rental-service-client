@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import BikeComponent from '../../component/bikes/BikeComponent';
 import BikesFilter from '../../component/bikes/BikesFilter';
 import { Link, Pagination, Typography } from '@mui/material';
@@ -11,8 +11,10 @@ const AllBikes: React.FC = () => {
   const [model, setModel] = useState<string | undefined>(undefined);
   const [age, setAge] = useState<string | undefined>(undefined);
   const [available, setAvailable] = useState<string | undefined>(undefined);
-
-  const { data } = useGetAllBikesQuery([
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  const { data, isLoading } = useGetAllBikesQuery([
     brand
       ? { name: 'brand', value: brand }
       : model
@@ -101,7 +103,7 @@ const AllBikes: React.FC = () => {
         transition={{ duration: 1, ease: 'linear' }}
         className="my-8 lf:my-16"
       >
-        <BikeComponent bikes={data?.data} />
+        <BikeComponent bikes={data?.data} isLoading={isLoading} />
       </motion.div>
 
       <div className="flex items-center justify-center">

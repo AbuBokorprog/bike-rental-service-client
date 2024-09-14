@@ -20,7 +20,6 @@ import MyRentals from '../pages/user/rental-management/MyRentals';
 import ProtectedRoute from '../providers/ProtectedRoute';
 import CreateTypes from '../pages/admin/types-management/CreateTypes';
 import AllTypes from '../pages/admin/types-management/AllTypes';
-import Payment from '../pages/Payment';
 import SearchByBikes from '../pages/bikes/SearchByBikes';
 import Compare from '../pages/Compare';
 import PrivacyPolicy from '../pages/inner-pages/PrivacyPolicy';
@@ -53,14 +52,6 @@ export const router = createBrowserRouter([
       {
         path: '/bikes/search-bikes/:slug',
         element: <SearchByBikes />,
-      },
-      {
-        path: '/payment/:id',
-        element: (
-          <ProtectedRoute role={['user', 'admin', 'super-admin']}>
-            <Payment />
-          </ProtectedRoute>
-        ),
       },
       {
         path: '/compare',

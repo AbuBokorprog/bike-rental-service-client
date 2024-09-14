@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useDeleteUserMutation,
   useGetAllUsersQuery,
@@ -86,6 +86,10 @@ const AllUser = () => {
   if (data?.data) {
     count = Number(data?.data?.length?.toFixed());
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);

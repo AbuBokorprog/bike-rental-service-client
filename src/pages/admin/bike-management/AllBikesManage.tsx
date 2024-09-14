@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   useDeleteBikeMutation,
   useGetAllBikesQuery,
@@ -23,6 +23,11 @@ const AllBikesManage: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
 
   const [deleteBike] = useDeleteBikeMutation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleOpenModal = (data: TBike) => {
     setBike(data);
     setOpen(true);

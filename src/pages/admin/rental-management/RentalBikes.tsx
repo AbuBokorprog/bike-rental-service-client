@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Skeleton } from '@mui/material';
 import {
   useGetAllRentalsQuery,
@@ -13,6 +13,10 @@ const RentalBikes: React.FC = () => {
 
   const meta = data?.meta as TMeta;
   const rentals = data?.data?.result as TRental[];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [returnBike] = useReturnBikeMutation();
   const calculateHandler = async (id: string) => {

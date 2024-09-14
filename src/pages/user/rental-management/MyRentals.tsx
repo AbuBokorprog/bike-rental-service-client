@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useGetUserRentalsQuery,
   useRentalPaymentMutation,
@@ -42,6 +42,10 @@ const MyRentals: React.FC = () => {
     setValue(newValue);
   };
   const { data, isError } = useGetUserRentalsQuery(undefined);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const paidRental = data?.data?.filter(
     (r: TRental) => r?.paymentStatus === 'Paid'

@@ -23,6 +23,7 @@ const BikeDetails = () => {
   const token = useAppSelector(currentToken);
   const { data: user } = useGetProfileInfoQuery({ undefined });
   const { slug } = useParams();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

@@ -1,15 +1,15 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, TextField } from "@mui/material";
-import React from "react";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, TextField } from '@mui/material';
+import React, { useEffect } from 'react';
 import {
   Controller,
   FieldValues,
   SubmitHandler,
   useForm,
-} from "react-hook-form";
-import { z } from "zod";
-import { useCreateTypesMutation } from "../../../redux/features/types/Types.api";
-import { toast } from "sonner";
+} from 'react-hook-form';
+import { z } from 'zod';
+import { useCreateTypesMutation } from '../../../redux/features/types/Types.api';
+import { toast } from 'sonner';
 
 const CreateTypes: React.FC = () => {
   const schema = z.object({
@@ -23,12 +23,16 @@ const CreateTypes: React.FC = () => {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", image: "" },
+    defaultValues: { name: '', image: '' },
   });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const [createTypes] = useCreateTypesMutation();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const toastId = toast.loading("Loading...");
+    const toastId = toast.loading('Loading...');
     try {
       const res = await createTypes(data).unwrap();
 
@@ -36,7 +40,7 @@ const CreateTypes: React.FC = () => {
         toast.success(res.message, { id: toastId, duration: 2000 });
       }
     } catch (error) {
-      toast.error("Something went wrong!", { id: toastId, duration: 2000 });
+      toast.error('Something went wrong!', { id: toastId, duration: 2000 });
     }
 
     reset();
@@ -54,7 +58,7 @@ const CreateTypes: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Name is required" }}
+            rules={{ required: 'Name is required' }}
             name="name"
             render={({ field }) => (
               <TextField
@@ -63,7 +67,7 @@ const CreateTypes: React.FC = () => {
                 variant="outlined"
                 className="block w-full"
                 error={!!errors.name}
-                helperText={errors.name ? "Name are required" : ""}
+                helperText={errors.name ? 'Name are required' : ''}
               />
             )}
           />
@@ -71,7 +75,7 @@ const CreateTypes: React.FC = () => {
         <div className="my-2">
           <Controller
             control={control}
-            rules={{ required: "Image is required" }}
+            rules={{ required: 'Image is required' }}
             name="image"
             render={({ field }) => (
               <TextField
@@ -80,7 +84,7 @@ const CreateTypes: React.FC = () => {
                 variant="outlined"
                 className="block w-full"
                 error={!!errors.image}
-                helperText={errors.image ? "Image are required" : ""}
+                helperText={errors.image ? 'Image are required' : ''}
               />
             )}
           />

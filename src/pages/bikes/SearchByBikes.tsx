@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import BikeComponent from '../../component/bikes/BikeComponent';
 import { useGetAllBikesQuery } from '../../redux/features/bikes/bikes.api';
@@ -11,7 +11,10 @@ const SearchByBikes: React.FC = () => {
   const { data, isLoading } = useGetAllBikesQuery([
     { name: 'searchTerm', value: slug },
   ]);
-  console.log(data?.data);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const breadcrumbs = [
     <Link underline="hover" key="1" color="primary" href="/">
