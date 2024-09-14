@@ -1,22 +1,27 @@
-import React, { useEffect } from "react";
-import BikeComponent from "../../component/bikes/BikeComponent";
-import ImageGallery from "react-image-gallery";
-import "react-image-gallery/styles/css/image-gallery.css";
+import React, { useEffect } from 'react';
+import BikeComponent from '../../component/bikes/BikeComponent';
+import ImageGallery from 'react-image-gallery';
+import { MdCompare } from 'react-icons/md';
+import 'react-image-gallery/styles/css/image-gallery.css';
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Button,
-} from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import BikeProcessModal from "../../component/bikes/BikeProcessModal";
-import { Link, useParams } from "react-router-dom";
-import { useGetSingleBikeQuery } from "../../redux/features/bikes/bikes.api";
-import { useAppSelector } from "../../redux/hooks/hooks";
-import { currentToken } from "../../redux/store";
+} from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import BikeProcessModal from '../../component/bikes/BikeProcessModal';
+import { Link, useParams } from 'react-router-dom';
+import { useGetSingleBikeQuery } from '../../redux/features/bikes/bikes.api';
+import { useAppSelector } from '../../redux/hooks/hooks';
+import { currentToken } from '../../redux/store';
+import { useCreateComparisonMutation } from '../../redux/features/comparison/comparison.api';
+import { useGetProfileInfoQuery } from '../../redux/features/user/User';
+import { toast } from 'sonner';
 
 const BikeDetails = () => {
   const token = useAppSelector(currentToken);
+  const { data: user } = useGetProfileInfoQuery({ undefined });
   const { slug } = useParams();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -29,6 +34,23 @@ const BikeDetails = () => {
       original: image,
       thumbnail: image,
     })) || [];
+
+  const [createComparison, { isLoading }] = useCreateComparisonMutation();
+  // console.log(user?.data[0]._id);
+  const createCompareHandler = async (id: string) => {
+    try {
+      const res = await createComparison({
+        userId: user?.data[0]._id,
+        bikeId: id,
+      }).unwrap();
+      console.log(res);
+      if (res.status) {
+        toast.success(res?.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -50,19 +72,36 @@ const BikeDetails = () => {
               <p>
                 <span className="text-2xl font-bold">
                   {data?.data?.pricePerHour} TK
-                </span>{" "}
+                </span>{' '}
                 <span>/Hour</span>
               </p>
             </div>
             <div className="mt-4">
               {token ? (
-                <BikeProcessModal id={data?.data?._id} />
-              ) : (
-                <Link to={"/login"}>
-                  <Button variant="contained" className="w-full">
-                    Book Now
+                <div className="flex items-center justify-between gap-4 mx-auto">
+                  <Button
+                    variant="outlined"
+                    onClick={() => createCompareHandler(data?.data?._id)}
+                  >
+                    <MdCompare className="w-6 h-6" />
                   </Button>
-                </Link>
+                  <div className="w-full">
+                    <BikeProcessModal id={data?.data?._id} />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center gap-4 mx-auto">
+                  <Link to={'/login'}>
+                    <Button variant="outlined">
+                      <MdCompare className="w-6 h-6" />
+                    </Button>
+                  </Link>
+                  <Link to={'/login'}>
+                    <Button variant="contained" className="w-full">
+                      Book Now
+                    </Button>
+                  </Link>
+                </div>
               )}
             </div>
           </div>
