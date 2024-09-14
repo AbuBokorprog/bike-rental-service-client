@@ -8,7 +8,6 @@ import {
   fetchBaseQuery,
 } from '@reduxjs/toolkit/query/react';
 import { RootState } from '../store';
-import { login, logout } from '../features/auth/AuthSlice';
 import { toast } from 'sonner';
 
 const baseQuery = fetchBaseQuery({
@@ -32,10 +31,6 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   const token = (api.getState() as RootState).auth.token;
 
   if (token) {
-    if (result?.error?.status === 401) {
-      api.dispatch(logout());
-    }
-
     if (result?.error?.status) {
       toast.error(result?.error?.data?.message);
     }

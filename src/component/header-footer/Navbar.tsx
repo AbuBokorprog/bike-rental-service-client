@@ -17,17 +17,17 @@ const Navbar: React.FC = () => {
   const token = useAppSelector(currentToken);
 
   let role;
-
+  let user;
   if (token) {
-    const user = JWTDecode(token);
+    user = JWTDecode(token);
     role = (user as TUser)?.role as string;
+
     if (role === 'super-admin') {
       role = 'admin';
     }
   }
 
-  //
-  const { data } = useGetProfileInfoQuery({ undefined });
+  const { data } = useGetProfileInfoQuery({});
 
   const [isOpenDashboard, setIsOpenDashboard] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
