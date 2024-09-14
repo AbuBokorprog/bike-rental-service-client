@@ -2,9 +2,20 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { TTestimonial } from '../../types/home/testimonials.type';
 
 const Testimonials: React.FC = () => {
+  const [testimonials, setTestimonials] = useState<TTestimonial[]>();
+
+  useEffect(() => {
+    fetch('/testimonial.json')
+      .then((res) => res.json())
+      .then((data) => {
+        setTestimonials(data);
+      });
+  }, []);
+
   return (
     <div>
       <h3 className="text-xl lg:text-3xl font-semibold my-5 lg:my-16 text-center uppercase">
@@ -36,21 +47,14 @@ const Testimonials: React.FC = () => {
           modules={[Navigation]}
           className="mySwiper"
         >
-          {[1, 2, 3, 4, 5, 6]?.map((b) => (
-            <SwiperSlide key={b}>
+          {testimonials?.map((b: TTestimonial) => (
+            <SwiperSlide key={b.id}>
               <div className="p-5 border shadow-md rounded-md bg-white">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
-                quod illum laborum voluptatum ea dignissimos. Dolor illo
-                architecto optio est alias. Quaerat dolor distinctio deleniti!
-                Ex excepturi magni labore incidunt?
+                {b?.review}
                 <div className="mt-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1725148800&semt=ais_hybrid"
-                      alt=""
-                      className="w-14 rounded-full"
-                    />
-                    <h3 className="font-semibold text-xl">Abu Bokor</h3>
+                    <img src={b?.image} className="w-14 h-14 rounded-full" />
+                    <h3 className="font-semibold text-xl">{b?.name}</h3>
                   </div>
                   <div>
                     <img

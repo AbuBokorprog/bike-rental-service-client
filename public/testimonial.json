@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "review": "RentMyRide made my bike rental experience seamless and enjoyable. The bikes are in excellent condition, and the customer service is top-notch.",
+    "image": "https://img.freepik.com/free-photo/portrait-man-laughing_23-2148859448.jpg?size=338&ext=jpg&ga=GA1.1.1413502914.1725148800&semt=ais_hybrid"
+  },
+  {
+    "id": "2",
+    "name": "Jane Smith",
+    "review": "I rented a bike for my weekend trip, and it was perfect! Great rates, easy process, and the bike was well-maintained. Highly recommend RentMyRide!",
+    "image": "https://img.freepik.com/free-photo/happy-business-man-standing-smiling-against-red-wall_155003-9367.jpg"
+  },
+  {
+    "id": "3",
+    "name": "Michael Johnson",
+    "review": "Fantastic service and an excellent selection of bikes. I had an amazing time riding through the city, thanks to RentMyRide. Will definitely use their service again!",
+    "image": "https://img.freepik.com/free-photo/worldface-pakistani-guy-white-background_53876-146312.jpg"
+  },
+  {
+    "id": "4",
+    "name": "Emily Davis",
+    "review": "Renting a bike has never been easier! The website is user-friendly, and the customer support team was very helpful in answering all my queries.",
+    "image": "https://img.freepik.com/premium-photo/indian-man-wearing-striped-shirt-showing-thumbs-up-pink-background_862994-604623.jpg"
+  },
+  {
+    "id": "5",
+    "name": "David Lee",
+    "review": "The bike was in great shape, and the rental process was smooth. RentMyRide has become my go-to option for bike rentals!",
+    "image": "https://img.freepik.com/premium-photo/indian-man-wearing-striped-shirt-showing-thumbs-up-pink-background_862994-605891.jpg"
+  }
+]
