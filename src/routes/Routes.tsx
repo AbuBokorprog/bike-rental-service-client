@@ -23,6 +23,10 @@ import AllTypes from '../pages/admin/types-management/AllTypes';
 import Payment from '../pages/Payment';
 import SearchByBikes from '../pages/bikes/SearchByBikes';
 import Compare from '../pages/Compare';
+import PrivacyPolicy from '../pages/inner-pages/PrivacyPolicy';
+import TermsCondition from '../pages/inner-pages/TermsCondition';
+import FAQ from '../pages/inner-pages/FAQ';
+import RentalTerms from '../pages/inner-pages/RentalsTerms';
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +81,22 @@ export const router = createBrowserRouter([
       {
         path: '/registration',
         element: <Registration />,
+      },
+      {
+        path: '/privacy-policy',
+        element: <PrivacyPolicy />,
+      },
+      {
+        path: '/terms-condition',
+        element: <TermsCondition />,
+      },
+      {
+        path: '/rental-terms',
+        element: <RentalTerms />,
+      },
+      {
+        path: '/faq',
+        element: <FAQ />,
       },
       {
         path: '/playground',
