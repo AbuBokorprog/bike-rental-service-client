@@ -45,12 +45,6 @@ const Compare: React.FC = () => {
   if (isLoading) {
     return (
       <div>
-        <Typography
-          variant="h3"
-          className="text-center my-10 lg:my-16 uppercase font-bold"
-        >
-          Compare
-        </Typography>
         <CompareSkeleton />
       </div>
     );
@@ -70,7 +64,7 @@ const Compare: React.FC = () => {
         title="Compare - RentMyRide"
         description="This is Bikes compare page."
       />
-      <h3 className="text-center my-10 lg:my-16 uppercase font-bold">
+      <h3 className="text-center my-5 lg:my-10 uppercase font-bold text-xl lg:text-3xl">
         Compare
       </h3>
       <TableContainer component={Paper} className="overflow-x-auto">
